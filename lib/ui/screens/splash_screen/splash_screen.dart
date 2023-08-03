@@ -1,98 +1,80 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:indian_race_fantasy/ui/screens/login_screen/login_screen.dart';
+import 'package:get/get.dart';
+import 'package:indian_race_fantasy/router.dart';
+import 'package:indian_race_fantasy/ui/screens/splash_screen/splash_controller.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+import '../../../Model/Button/techraven_button.dart';
+import '../../../constants/color_constants.dart';
 
-  @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen>
-    with TickerProviderStateMixin {
-  late bool loading;
-  late double progressValue;
-
-  @override
-  void initState() {
-    super.initState();
-    loading = true;
-    progressValue = 0.0;
-
-    // Start the timer after initState
-    Future.delayed(Duration(seconds: 6), () {
-      // Navigate to LoginScreen after the delay
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => LoginScreen()),
-      );
-    });
-
-    updateProgress();
-  }
+class SplashScreen extends StatelessWidget {
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: loading
-            ? Stack(
-              children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-                SizedBox(
-                    width: 200,
-                    child: Image.asset("assets/images/horse1.gif")),
-                // const SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                  child: LinearProgressIndicator(
-                    value: progressValue,
-                    semanticsLabel: 'Linear progress indicator',
+        child: GetX<SplashController>(
+          builder: (controller) {
+            if (controller.isLoading.value) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Spacer(),
+                  const SizedBox(height: 40,),
+                  SizedBox(
+                    width: 300,
+                    child: Image.asset("assets/images/horse1.gif"),
                   ),
-                ),
-                const SizedBox(height: 20),
-                Text("Loading...${(progressValue * 100).round()}%"),
-                const SizedBox(height: 150),
-            ],
-          ),
-                Positioned(
-                  bottom: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("All rights reserved INDIA RACE FANTASY 2022"),
-                        Text("Powered by "),
-                      ],
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                    child: LinearProgressIndicator(
+                      value: controller.progressValue.value,
+                      semanticsLabel: 'Linear progress indicator',
                     ),
                   ),
-                ),
-
-              ],
-            )
-            : SizedBox(),
+                  const SizedBox(height: 20),
+                  Text("Loading...${(controller.progressValue.value * 100).round()}%"),
+                  const Spacer(),
+                   Column(
+                    children: [
+                      const Text("All rights reserved INDIA RACE FANTASY 2022",style: TextStyle(fontSize: 14.0),),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Center(
+                        child: RichText(
+                            text: TextSpan(
+                          children: [
+                            const TextSpan(
+                              text: 'Powered by   ',
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                color: kBlackColor,
+                              ),
+                            ),
+                            
+                            WidgetSpan(
+                              child: TechravenButton(),
+                            ),
+                          ],
+                        )),
+                      ),
+                      // Text("Powered by "),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+                ],
+              );
+            } else {
+              // Delayed navigation to the LoginScreen and pop the SplashScreen from the stack
+              Future.delayed(Duration.zero, () {
+                Get.offAll(() => RoutePaths.loginScreen); // Use Get.offAll to remove all previous routes from the stack
+              });
+              return const SizedBox();
+            }
+          },
+        ),
       ),
     );
-  }
-
-  void updateProgress() {
-    const totalDuration = const Duration(seconds: 5);
-    const updateInterval = const Duration(milliseconds: 50);
-    int totalSteps = (totalDuration.inMilliseconds / updateInterval.inMilliseconds).round();
-    double increment = 1.0 / totalSteps;
-
-    Timer.periodic(updateInterval, (Timer t) {
-      setState(() {
-        progressValue += increment;
-        if (progressValue >= 1.0) {
-          loading = false;
-          t.cancel();
-          return;
-        }
-      });
-    });
   }
 }

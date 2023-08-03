@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:indian_race_fantasy/constants/color_constants.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton({super.key, required this.onPressed,required this.title});
@@ -13,7 +14,7 @@ class CustomButton extends StatelessWidget {
       width: 200,
       height: 50,
       decoration: BoxDecoration(
-        color: Color(0xffEABE41),
+        color: primaryColor,
         borderRadius: BorderRadius.circular(10.0),
         boxShadow: [
           BoxShadow(
