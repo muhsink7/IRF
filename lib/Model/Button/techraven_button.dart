@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:indian_race_fantasy/constants/image_constants.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class TechravenButton extends StatelessWidget {
@@ -22,7 +21,6 @@ class TechravenButton extends StatelessWidget {
           width: 100,
           child: Image.asset(
             Images.techraven,
-            color: Colors.transparent, // Make the image transparent
           ),
         ),
         Positioned.fill(
