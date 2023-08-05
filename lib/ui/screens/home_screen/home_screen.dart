@@ -1,78 +1,182 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:indian_race_fantasy/Model/reusable_card/reusable_card.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
+import 'package:indian_race_fantasy/ui/widgets/bottom_nav.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<HomeController>(
-        builder: (controller) {
-          if (controller.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-          return Column(
-            children: [
-              Container(
-                width: double.infinity,
-                height: 90,
-                decoration: BoxDecoration(
-                  color: primaryColor,
-                  boxShadow: [
-                     BoxShadow(
-                      color: kBlackColor.withOpacity(0.3), // Shadow color with opacity
-                      spreadRadius: 2, // Spread radius
-                      blurRadius: 4, // Blur radius
-                      offset: Offset(0, 2), // Offset in the vertical direction
-                    ),
-                  ]
-
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    IconButton(onPressed: (){}, icon: Icon(Icons.account_circle,size: 50,)),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 20.0),
-                      child: Container(
-                        width: 200,
-                        height: 40.0,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          color: kWhiteColor,
-                        ),
-                    
+      body: SafeArea(
+        child: GetBuilder<HomeController>(
+          builder: (controller) {
+            if (controller.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            return Column(
+              children: [
+                // Positioned content for the top section
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: kBlackColor.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: 5,
-                  itemBuilder: (ctx,index){
-                    return GestureDetector(
-                      onTap: (){},
-                      child: ReusableCard(),
-                    );
-
-                  }
+                    ],
                   ),
-              )
-            ],
-          );
-        }
-      )
+                  child: Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Stack(
+                      children: [
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  "Username",
+                                  style: TextStyle(
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: secondaryColor,
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      for (int i = 0; i < 5; i++)
+                                        const Icon(
+                                          Icons.star,
+                                          color: secondaryColor,
+                                          size: 20.0,
+                                        ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const Divider(
+                              thickness: 2.0,
+                              color: secondaryColor,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.currency_rupee,
+                                          size: 18.0, color: secondaryColor),
+                                      Text(
+                                        "99999 ",
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: secondaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Container(
+                                  child: const Row(
+                                    children: [
+                                      Icon(Icons.monetization_on,
+                                          size: 18.0, color: secondaryColor),
+                                      Text(
+                                        "99999 ",
+                                        style: TextStyle(
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                          color: secondaryColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Center(
+                          child: Container(
+                            height: 150.0,
+                            width: 150.0,
+                            decoration: BoxDecoration(
+                              color: secondaryColor,
+                              border: Border.all(
+                                color: secondaryColor,
+                                width: 2.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kBlackColor.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 4,
+                                  offset: const Offset(0, 0),
+                                ),
+                              ],
+                              shape: BoxShape.circle,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(
+                                  8.0), // Adjust the padding as needed
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/logo_gold.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Container(
+                    width: 350.0,
+                    height: 80,
+                    color: kGreyColor,
+                  ),
+                ),
+                // Your ListView.builder goes here
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: 5,
+                    itemBuilder: (ctx, index) {
+                      return GestureDetector(
+                        onTap: () {},
+                        child: const ReusableCard(),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+      bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
 }
