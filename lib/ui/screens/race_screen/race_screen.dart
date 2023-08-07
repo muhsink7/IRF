@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:indian_race_fantasy/ui/screens/race_screen/race_controller.dart';
 
-class RaceScreen extends StatelessWidget {
+class RaceScreen extends GetWidget<RaceController> {
   const RaceScreen({super.key});
 
   @override

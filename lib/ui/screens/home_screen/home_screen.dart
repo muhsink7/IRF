@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:indian_race_fantasy/Model/banner/image_banner.dart';
 import 'package:indian_race_fantasy/Model/reusable_card/reusable_card.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
 import 'package:indian_race_fantasy/ui/widgets/bottom_nav.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends GetWidget<HomeController> {
   const HomeScreen({Key? key});
 
   @override
@@ -25,7 +25,7 @@ class HomeScreen extends StatelessWidget {
                 // Positioned content for the top section
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 100,
+                  height: 125,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     boxShadow: [
@@ -69,9 +69,21 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            const Divider(
-                              thickness: 2.0,
-                              color: secondaryColor,
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: secondaryColor.withOpacity(0.1), // Shadow color and opacity
+                                    spreadRadius: 0.3, // Spread radius
+                                    blurRadius: 4, // Blur radius
+                                    offset: Offset(0,0), // Offset in the vertical direction
+                                  ),
+                                ],
+                              ),
+                              child: const Divider(
+                                thickness: 3.0,
+                                color: secondaryColor,
+                              ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -114,26 +126,26 @@ class HomeScreen extends StatelessWidget {
                         ),
                         Center(
                           child: Container(
-                            height: 150.0,
-                            width: 150.0,
+                            height: 100.0,
+                            width: 100.0,
                             decoration: BoxDecoration(
                               color: secondaryColor,
                               border: Border.all(
                                 color: secondaryColor,
-                                width: 2.0,
+                                width: 5.0,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: kBlackColor.withOpacity(0.3),
-                                  spreadRadius: 2,
+                                  color: kBlackColor.withOpacity(0.5),
+                                  spreadRadius: 3,
                                   blurRadius: 4,
                                   offset: const Offset(0, 0),
                                 ),
                               ],
                               shape: BoxShape.circle,
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(
+                            child: const Padding(
+                              padding: EdgeInsets.all(
                                   8.0), // Adjust the padding as needed
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
@@ -153,11 +165,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    width: 350.0,
-                    height: 80,
-                    color: kGreyColor,
-                  ),
+                  child: ImageBanner(imageList: controller.imageList)
                 ),
                 // Your ListView.builder goes here
                 Expanded(

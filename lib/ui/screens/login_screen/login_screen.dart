@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:indian_race_fantasy/Model/Button/custom_button.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 import '../../../Model/Button/techraven_button.dart';
-import '../../../router.dart';
 import 'login_controller.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends GetWidget<LoginController> {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
