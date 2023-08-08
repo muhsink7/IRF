@@ -28,8 +28,12 @@ class ScreenMainPage extends StatelessWidget {
             return _pages[index];
           },
         ),
+        child: ValueListenableBuilder(valueListenable: indexChangeNotifier, builder: (context, int index,_) {
+          return _pages[index];   
+        },),
       ),
       bottomNavigationBar: BottomNavigationWidget(),
     );
   }
+}
 }

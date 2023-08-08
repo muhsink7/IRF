@@ -8,6 +8,8 @@ import 'package:pinput/pinput.dart';
 import 'otp_controller.dart';
 
 class OtpScreen extends GetWidget<OtpController> {
+
+class OtpScreen extends StatelessWidget {
   final OtpController _otpController = Get.put(OtpController());
 
   @override

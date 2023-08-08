@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indian_race_fantasy/Model/banner/image_banner.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:indian_race_fantasy/Model/reusable_card/reusable_card.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
 import 'package:indian_race_fantasy/ui/widgets/bottom_nav.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key});
 
   @override
@@ -26,6 +29,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   height: 125,
+                  height: 100,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     boxShadow: [
@@ -84,6 +88,9 @@ class HomeScreen extends GetWidget<HomeController> {
                                 thickness: 3.0,
                                 color: secondaryColor,
                               ),
+                            const Divider(
+                              thickness: 2.0,
+                              color: secondaryColor,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,6 +135,8 @@ class HomeScreen extends GetWidget<HomeController> {
                           child: Container(
                             height: 100.0,
                             width: 100.0,
+                            height: 150.0,
+                            width: 150.0,
                             decoration: BoxDecoration(
                               color: secondaryColor,
                               border: Border.all(
@@ -138,14 +147,23 @@ class HomeScreen extends GetWidget<HomeController> {
                                 BoxShadow(
                                   color: kBlackColor.withOpacity(0.5),
                                   spreadRadius: 3,
+                                width: 2.0,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: kBlackColor.withOpacity(0.3),
+                                  spreadRadius: 2,
                                   blurRadius: 4,
                                   offset: const Offset(0, 0),
                                 ),
                               ],
                               shape: BoxShape.circle,
                             ),
+
                             child: const Padding(
                               padding: EdgeInsets.all(
+                            child: Padding(
+                              padding: const EdgeInsets.all(
                                   8.0), // Adjust the padding as needed
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
@@ -166,6 +184,11 @@ class HomeScreen extends GetWidget<HomeController> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: ImageBanner(imageList: controller.imageList)
+                  child: Container(
+                    width: 350.0,
+                    height: 80,
+                    color: kGreyColor,
+                  ),
                 ),
                 // Your ListView.builder goes here
                 Expanded(
@@ -187,4 +210,6 @@ class HomeScreen extends GetWidget<HomeController> {
       bottomNavigationBar: const BottomNavigationWidget(),
     );
   }
+}
+
 }

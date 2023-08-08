@@ -32,6 +32,8 @@ bool isLoading = false;
     update();
   }
 
+  
+bool isLoading = false;
 
 void toggleLoading() {
     isLoading = !isLoading;
