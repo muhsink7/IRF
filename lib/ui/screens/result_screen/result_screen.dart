@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:indian_race_fantasy/ui/screens/result_screen/result_controller.dart';
+
+class ResultScreen extends GetWidget<ResultController> {
 
 class ResultScreen extends StatelessWidget {
   const ResultScreen({super.key});
@@ -7,4 +11,6 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Placeholder();
   }
+}
+
 }
