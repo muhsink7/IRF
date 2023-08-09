@@ -23,7 +23,7 @@ class LoginController extends GetxController {
     // You can perform any validation or logic related to the mobile number here.
     // For example, you can check if the mobile number is valid before navigating to OTPScreen.
     print("before navigating otp page");
-      Get.toNamed(RoutePaths.otpScreen);
+      Get.toNamed(RoutePaths.mainScreen);
       print("after navigating otp page");
 
   }

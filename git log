@@ -1,0 +1,49 @@
+[33mcommit 2d20b51e97cef5ffe28363fac43e11a10645f0e9[m[33m ([m[1;36mHEAD -> [m[1;32mrecover-commit-branch[m[33m, [m[1;32m6-menu-page-implementation[m[33m)[m
+Author: muhsink7 <muhasink444@gmail.com>
+Date:   Tue Aug 8 17:28:17 2023 +0530
+
+    Revert "1 implement getx statemanagement (#5)"
+    
+    This reverts commit 0305d13c21911a676e6b4ef9a2e7448f373db146.
+
+[33mcommit 0305d13c21911a676e6b4ef9a2e7448f373db146[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;31morigin/6-menu-page-implementation[m[33m)[m
+Author: Abdul Muhsin <muhasink444@gmail.com>
+Date:   Tue Aug 8 11:07:25 2023 +0530
+
+    1 implement getx statemanagement (#5)
+    
+    * closes #1
+    
+    * Getx Implemented closes #1
+    
+    * Changed app bar
+    
+    * second commit
+
+[33mcommit f1330eefd25bb1e304daf87aed1b688a8b6060a4[m
+Author: Abdul Muhsin <muhasink444@gmail.com>
+Date:   Sat Aug 5 19:51:36 2023 +0530
+
+    Merge (#4)
+    
+    * closes #1
+    
+    * Getx Implemented closes #1
+    
+    * Changed app bar
+
+[33mcommit 806efda4f258fdcaed78eb914fa811a5634a92c4[m
+Author: Abdul Muhsin <muhasink444@gmail.com>
+Date:   Thu Aug 3 17:42:12 2023 +0530
+
+    1 implement getx statemanagement (#2)
+    
+    * closes #1
+    
+    * Getx Implemented closes #1
+
+[33mcommit 4629f061ced948df4e75971c48a7031625ecf952[m[33m ([m[1;32mmain[m[33m)[m
+Author: muhsink7 <muhasink444@gmail.com>
+Date:   Wed Aug 2 17:24:02 2023 +0530
+
+    first commit
