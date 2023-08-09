@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:indian_race_fantasy/ui/screens/cashier_screen/cashier_controller.dart';
 
 class CashierScreen extends GetWidget<CashierController> {
-
-class CashierScreen extends StatelessWidget {
   const CashierScreen({super.key});
 
   @override

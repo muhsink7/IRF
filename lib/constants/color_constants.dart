@@ -7,4 +7,3 @@ const Color kBlackColor = Colors.black;
 const Color kGreyColor = Colors.grey;
 const Color kBlueGreyColor = Colors.blueGrey;
 const Color kBlue900GreyColor =Color.fromRGBO(38, 50, 56, 1);
-

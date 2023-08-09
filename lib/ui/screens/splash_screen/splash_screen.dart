@@ -7,8 +7,6 @@ import '../../../Model/Button/techraven_button.dart';
 import '../../../constants/color_constants.dart';
 
 class SplashScreen extends GetWidget<SplashController> {
-
-class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override

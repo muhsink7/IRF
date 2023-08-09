@@ -6,10 +6,6 @@ import '../../../Model/Button/techraven_button.dart';
 import 'login_controller.dart';
 
 class LoginScreen extends GetWidget<LoginController> {
-import '../../../router.dart';
-import 'login_controller.dart';
-
-class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override

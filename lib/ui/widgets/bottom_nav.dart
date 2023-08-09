@@ -1,77 +1,81 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart'; // Import GetX
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 
-ValueNotifier<int> indexChangeNotifier =ValueNotifier(0);
+RxInt indexChangeNotifier = 0.obs; // Use RxInt from GetX
 
 class BottomNavigationWidget extends StatelessWidget {
-  const BottomNavigationWidget({super.key});
+  const BottomNavigationWidget({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(valueListenable: indexChangeNotifier, builder: (context, int newIndex, _) {
+    return Obx(() {
       return BottomNavigationBar(
-      currentIndex: newIndex,
-      onTap: (index){
-        indexChangeNotifier.value = index;
-      },
-      elevation: 0,
-      type: BottomNavigationBarType.fixed,
-      backgroundColor: secondaryColor,
-      selectedItemColor: kWhiteColor,
-      unselectedItemColor: kGreyColor,
-      selectedIconTheme: const IconThemeData(color: Colors.white),
-      unselectedIconTheme: const IconThemeData(color: Colors.grey),
-      items:  [
-        BottomNavigationBarItem(icon: Container(
+        currentIndex: indexChangeNotifier.value, // Use the value from the RxInt
+        onTap: (index) {
+          indexChangeNotifier.value = index; // Update the value using RxInt
+        },
+        elevation: 0,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: secondaryColor,
+        selectedItemColor: kWhiteColor,
+        unselectedItemColor: kGreyColor,
+        selectedIconTheme: const IconThemeData(color: Colors.white),
+        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        items: [
+          BottomNavigationBarItem(
+            icon: Container(
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/race.svg',
-                 color: newIndex == 0 ? kWhiteColor : kGreyColor,
-
+                color: indexChangeNotifier.value == 0 ? kWhiteColor : kGreyColor,
               ),
             ),
-        label: 'Race',
-        ),
-         BottomNavigationBarItem(icon: Container(
+            label: 'Race',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/result.svg',
-                color: newIndex == 1 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 1 ? kWhiteColor : kGreyColor,
               ),
             ),
-        label: 'Results',
-        ),
-         BottomNavigationBarItem(icon: Container(
+            label: 'Results',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/home.svg',
-                color: newIndex == 2 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 2 ? kWhiteColor : kGreyColor,
               ),
             ),
-        label: 'Home',
-        ),
-         BottomNavigationBarItem(icon: Container(
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/rupee.svg',
-                color: newIndex == 3 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 3 ? kWhiteColor : kGreyColor,
               ),
             ),
-        label: 'Cashier',
-        ),
-         BottomNavigationBarItem(icon: Container(
+            label: 'Cashier',
+          ),
+          BottomNavigationBarItem(
+            icon: Container(
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/Menu.svg',
-                color: newIndex == 4 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 4 ? kWhiteColor : kGreyColor,
               ),
             ),
-        label: 'Menu',
-        ),
-      ]
+            label: 'Menu',
+          ),
+        ],
       );
-      
-    },);
+    });
   }
 }
