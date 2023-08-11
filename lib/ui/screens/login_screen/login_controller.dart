@@ -19,6 +19,7 @@ class LoginController extends GetxController {
   }
 
   // Method to handle login button press
+
   void onLoginButtonPressed() async {
     try {
       // Verify the phone number using Firebase Authentication
@@ -29,6 +30,14 @@ class LoginController extends GetxController {
         codeSent: (String verificationId, int? resendToken) {},
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
+
+  void onLoginButtonPressed() {
+    // You can perform any validation or logic related to the mobile number here.
+    // For example, you can check if the mobile number is valid before navigating to OTPScreen.
+    print("before navigating otp page");
+      Get.toNamed(RoutePaths.mainScreen);
+      print("after navigating otp page");
+
 
       // Navigate to the OTP screen
       Get.toNamed(RoutePaths.mainScreen);
