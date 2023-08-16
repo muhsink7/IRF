@@ -1,10 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart'; // Import Get package
+import 'package:indian_race_fantasy/Authentication/authentication_repository.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 import 'package:indian_race_fantasy/router.dart';
 import 'package:indian_race_fantasy/ui/screens/splash_screen/splash_binding.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,)
+  .then((value) => Get.lazyPut(() => AuthenticationRepository()));
   runApp( MyApp());
 }
 

@@ -33,6 +33,8 @@ class RoutePaths {
   static const String cashierScreen = '/cashier';
   static const String mainScreen = '/main';
   static const String kycDetailsScreen = '/kyc';
+  static const String authentication = '/authentication';
+
 
 
 
@@ -99,6 +101,7 @@ class AppPages {
       binding: KYCBinding(),
       page: () =>  KYCDetailsScreen(),
     ),
+
 
   ];
 }

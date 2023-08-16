@@ -1,30 +1,36 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:indian_race_fantasy/router.dart';
+import 'package:indian_race_fantasy/Authentication/authentication_repository.dart';
+
+import '../../../router.dart';
 
 class OtpController extends GetxController {
-  var otpCode = ''.obs;
 
-  void onOtpChanged(String value) {
-    otpCode.value = value;
+  static OtpController get instance => Get.find();
+
+  late TextEditingController otpTextController;
+
+  @override
+  void onInit() {
+    otpTextController = TextEditingController();
+    super.onInit();
+  }
+
+  var otp = '';
+
+  void setOtp(String value) {
+    otp = value;
   }
 
   void verifyOtp() async {
-    try {
-      // Create a PhoneAuthCredential with the OTP code
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-        verificationId: 'YOUR_VERIFICATION_ID', // Replace with the actual verification ID
-        smsCode: otpCode.value,
-      );
-
-      // Sign in the user with the PhoneAuthCredential
-      UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-      // Navigate to the home screen
-      Get.toNamed(RoutePaths.homeScreen);
-    } catch (error) {
-      print(error);
+    if (otp.isNotEmpty) { // Check if otp is not empty
+      var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
+      isVerified ? Get.offAndToNamed(RoutePaths.homeScreen) : Get.back();
+    } else {
+      // Handle the case where otp is empty
+      // You might want to show an error message or take appropriate action
+      print("OTP is empty");
     }
   }
 
@@ -32,3 +38,4 @@ class OtpController extends GetxController {
     // Add your logic to resend the OTP here
   }
 }
+

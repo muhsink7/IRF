@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "760280015085",
+    "project_id": "sample-irf",
+    "storage_bucket": "sample-irf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:760280015085:android:67344a26946bd712fc2ce4",
+        "android_client_info": {
+          "package_name": "com.example.indian_race_fantasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "760280015085-jjkgcbnf7qjm0ohemj5mod02trlfjmld.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAebSzrweaeCbgLBQdJzICprEmlwpx2PQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "760280015085-jjkgcbnf7qjm0ohemj5mod02trlfjmld.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
