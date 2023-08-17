@@ -31,11 +31,13 @@ class OtpController extends GetxController {
       // Handle the case where otp is empty
       // You might want to show an error message or take appropriate action
       print("OTP is empty");
-    }
+
+   
   }
 
   void resendOtp() {
     // Add your logic to resend the OTP here
   }
 }
+
 
