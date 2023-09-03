@@ -1,31 +1,40 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import '../../../api/api.dart';
 import '../../../router.dart';
 
 class LoginController extends GetxController {
-// RxString to hold the mobile number input
-  RxString mobileNumber = ''.obs;
+  static LoginController get instance => Get.find();
+  final Api api = Get.find(); // Create an instance of the new API class
 
-  @override
-  void onInit() {
-    // TODO: implement onInit
-    super.onInit();
-    
+  final countryCodeController = TextEditingController(text: "+91");
+  final phoneNumber = TextEditingController();
+  String phoneNo = '';
+
+  void phoneNumberWithCode() {
+    phoneNo = '${countryCodeController.text.trim()}${phoneNumber.text.trim()}';
+    print(phoneNo);
+    update();
+  }
+  void onCountryCodeChanged(String value) {
+    phoneNumberWithCode();
+    update();
   }
 
-  // Method to update the mobile number input
-  void updateMobileNumber(String value) {
-    mobileNumber.value = value;
+  void onPhoneNumberChanged(String value) {
+    phoneNumberWithCode();
+    update();
   }
 
-  // Method to handle login button press
-  void onLoginButtonPressed() {
-    // You can perform any validation or logic related to the mobile number here.
-    // For example, you can check if the mobile number is valid before navigating to OTPScreen.
-    print("before navigating otp page");
-      Get.toNamed(RoutePaths.mainScreen);
-      print("after navigating otp page");
-
+  Future<void> phoneAuthentication(String phoneNo) async {
+    try {
+      await api.phoneAuthentication(phoneNo);
+      Get.toNamed(RoutePaths.otpScreen, arguments: phoneNo);
+    } catch (e) {
+      print('Error sending OTP: $e');
+      Get.snackbar("Error", "Failed to send OTP");
+    }
   }
-
 }

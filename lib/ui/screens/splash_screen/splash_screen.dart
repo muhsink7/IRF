@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:indian_race_fantasy/router.dart';
 import 'package:indian_race_fantasy/ui/screens/splash_screen/splash_controller.dart';
-
+import '../../../Authentication/auth_checker.dart';
 import '../../../Model/Button/techraven_button.dart';
 import '../../../constants/color_constants.dart';
 
@@ -35,7 +34,7 @@ class SplashScreen extends GetWidget<SplashController> {
                   const SizedBox(height: 20),
                   Text("Loading...${(controller.progressValue.value * 100).round()}%"),
                   const Spacer(),
-                   Column(
+                  Column(
                     children: [
                       const Text("All rights reserved INDIA RACE FANTASY 2022",style: TextStyle(fontSize: 14.0),),
                       const SizedBox(
@@ -44,20 +43,20 @@ class SplashScreen extends GetWidget<SplashController> {
                       Center(
                         child: RichText(
                             text: TextSpan(
-                          children: [
-                            const TextSpan(
-                              text: 'Powered by   ',
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                color: kBlackColor,
-                              ),
-                            ),
-                            
-                            WidgetSpan(
-                              child: TechravenButton(),
-                            ),
-                          ],
-                        )),
+                              children: [
+                                const TextSpan(
+                                  text: 'Powered by   ',
+                                  style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: kBlackColor,
+                                  ),
+                                ),
+
+                                WidgetSpan(
+                                  child: TechravenButton(),
+                                ),
+                              ],
+                            )),
                       ),
                       // Text("Powered by "),
                     ],
@@ -68,7 +67,7 @@ class SplashScreen extends GetWidget<SplashController> {
             } else {
               // Delayed navigation to the LoginScreen and pop the SplashScreen from the stack
               Future.delayed(Duration.zero, () {
-                Get.offAll(() => RoutePaths.loginScreen); // Use Get.offAll to remove all previous routes from the stack
+                Get.offAll(()=>AuthChecker()); // Use Get.offAll to remove all previous routes from the stack
               });
               return const SizedBox();
             }

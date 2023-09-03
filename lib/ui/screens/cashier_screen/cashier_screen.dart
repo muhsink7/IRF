@@ -7,6 +7,10 @@ class CashierScreen extends GetWidget<CashierController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(child: Text("Cashier page is yet to come",style: TextStyle(
+        fontSize: 20.0,
+      ),)),
+    );
   }
 }

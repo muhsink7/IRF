@@ -9,7 +9,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(onPressed: onPressed,
+    return InkWell(onTap: onPressed,
     child:Container(
       width: 200,
       height: 50,

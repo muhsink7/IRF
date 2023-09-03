@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart'; // Import GetX
-import 'package:indian_race_fantasy/constants/color_constants.dart';
+import '../../constants/color_constants.dart';
 
-RxInt indexChangeNotifier = 0.obs; // Use RxInt from GetX
 
 class BottomNavigationWidget extends StatelessWidget {
-  const BottomNavigationWidget({Key? key});
+  BottomNavigationWidget({super.key,required this.indexChangeNotifier });
+  final RxInt indexChangeNotifier; // Use RxInt from GetX
+
 
   @override
   Widget build(BuildContext context) {
+
     return Obx(() {
       return BottomNavigationBar(
         currentIndex: indexChangeNotifier.value, // Use the value from the RxInt

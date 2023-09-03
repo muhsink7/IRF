@@ -7,6 +7,10 @@ class RaceScreen extends GetWidget<RaceController> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(child: Text("Race page is yet to come",style: TextStyle(
+        fontSize: 20.0,
+      ),)),
+    );
   }
 }

@@ -5,6 +5,10 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      body: Center(child: Text("Result page is yet to come",style: TextStyle(
+        fontSize: 20.0,
+      ),)),
+    );
   }
 }
