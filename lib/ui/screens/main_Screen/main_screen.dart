@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indian_race_fantasy/ui/screens/main_Screen/main_controller.dart';
 import '../../widgets/bottom_nav.dart';
 import '../cashier_screen/cashier_controller.dart';
 import '../cashier_screen/cashier_screen.dart';
@@ -14,6 +15,8 @@ import '../result_screen/result_screen.dart';
 class MainScreen extends StatelessWidget {
   MainScreen({Key? key});
 
+  final  MainController mainController = Get.put(MainController());
+
 
   final _pages = [
     RaceScreen(),
@@ -23,7 +26,6 @@ class MainScreen extends StatelessWidget {
     MenuCardScreen(),
   ];
 
-  RxInt indexChangeNotifier = 2.obs; // Use RxInt from GetX
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +40,16 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
           child: Obx(() {
-            final index = indexChangeNotifier.value;
+            final index = mainController.indexChangeNotifier.value;
+            ever(mainController.indexChangeNotifier, (_) {
+              // Trigger the refreshUserDetails method when the index changes
+              mainController.refreshUserDetails();
+            });
             print('Index Value: $index');
             return _pages[index];
           }),
         ),
-        bottomNavigationBar: BottomNavigationWidget(indexChangeNotifier: indexChangeNotifier)
+        bottomNavigationBar: BottomNavigationWidget(indexChangeNotifier: mainController.indexChangeNotifier)
 
     );
   }
