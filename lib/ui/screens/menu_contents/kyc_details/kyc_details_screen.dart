@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:indian_race_fantasy/constants/pancard_format/pancard_input_format.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_contents/kyc_details/kyc_controller.dart';
 import '../../../../Model/Button/custom_button.dart';
 import '../../../../constants/color_constants.dart';
@@ -19,7 +21,6 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: GetBuilder<KYCController>(builder: (controller) {
-
               return Column(children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +65,18 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                         ),
                       ),
                     ),
+                    if (controller.userNameError != null &&
+                        controller.userNameError!.isNotEmpty)
+                      // Display the error message if not empty
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          controller.userNameError!,
+                          style: TextStyle(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -83,7 +96,7 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                 cursorColor: Colors.white,
                                 style: const TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
-                                    labelText:'First name',
+                                    labelText: 'First name',
                                     labelStyle: TextStyle(color: Colors.white),
                                     hintText: 'First name',
                                     border: InputBorder.none,
@@ -119,6 +132,31 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                         )
                       ],
                     ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //   children: [
+                    //     if (controller.firstNameError!.isNotEmpty) // Display the error message if not empty
+                    //       Padding(
+                    //         padding: const EdgeInsets.all(8.0),
+                    //         child: Text(
+                    //           controller.firstNameError!,
+                    //           style: TextStyle(
+                    //             color: Colors.red,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     if (controller.lastNameError!.isNotEmpty) // Display the error message if not empty
+                    //       Padding(
+                    //         padding: const EdgeInsets.all(8.0),
+                    //         child: Text(
+                    //           controller.lastNameError!,
+                    //           style: TextStyle(
+                    //             color: Colors.red,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //   ],
+                    // ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -199,131 +237,155 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                             decoration: BoxDecoration(
                                 color: secondaryColor,
                                 borderRadius: BorderRadius.circular(12)),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextField(
-                                      onTap: () {
-                                        controller.showYearOption();
-                                      },
-                                      controller: controller.yearController,
-                                      enabled: !controller.isKYCSubmitted,
-                                      cursorColor: Colors.white,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      decoration: const InputDecoration(
-                                          hintText: 'Year',
-                                          border: InputBorder.none,
-                                          hintStyle:
-                                              TextStyle(color: Colors.white)),
-                                      readOnly: true,
-                                    ),
-                                  ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: TextField(
+                                controller: controller.dateOfBirthController,
+                                readOnly: true,
+                                onTap: () => controller.selectDate(context),
+                                style: const TextStyle(color: Colors.white),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: ' Date of Birth',
+                                  hintStyle: TextStyle(color: Colors.white),
+                                  suffixIcon: Icon(Icons.calendar_today,color: Colors.white,),
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    controller.showYearOption();
-                                  },
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 40,
-                        ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: secondaryColor,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextField(
-                                      onTap: () {
-                                        controller.showMonthOption();
-                                      },
-                                      controller: controller.monthController,
-                                      enabled: !controller.isKYCSubmitted,
-                                      cursorColor: Colors.white,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                      decoration: const InputDecoration(
-                                          hintText: 'Month',
-                                          border: InputBorder.none,
-                                          hintStyle:
-                                              TextStyle(color: Colors.white)),
-                                      readOnly: true,
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    controller.showMonthOption();
-                                  },
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 40,
-                        ),
-                        Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                color: secondaryColor),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: TextField(
-                                      onTap: () {
-                                        controller.showDayOption();
-                                      },
-                                      controller: controller.dayController,
-                                      enabled: !controller.isKYCSubmitted,
-                                      cursorColor: Colors.white,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                      decoration: const InputDecoration(
-                                          hintText: 'Day',
-                                          border: InputBorder.none,
-                                          hintStyle:
-                                              TextStyle(color: Colors.white)),
-                                      readOnly: true,
-                                    ),
-                                  ),
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    controller.showDayOption();
-                                  },
-                                  child: Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Colors.white,
-                                  ),
-                                )
-                              ],
+
+                              ),
                             ),
                           ),
                         )
+
+                        // Expanded(
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         color: secondaryColor,
+                        //         borderRadius: BorderRadius.circular(12)),
+                        //     child: Row(
+                        //       children: [
+                        //         Expanded(
+                        //           child: Padding(
+                        //             padding: const EdgeInsets.all(8.0),
+                        //             child: TextField(
+                        //               onTap: () {
+                        //                 controller.showYearOption();
+                        //               },
+                        //               controller: controller.yearController,
+                        //               enabled: !controller.isKYCSubmitted,
+                        //               cursorColor: Colors.white,
+                        //               style:
+                        //                   const TextStyle(color: Colors.white),
+                        //               decoration: const InputDecoration(
+                        //                   hintText: 'Year',
+                        //                   border: InputBorder.none,
+                        //                   hintStyle:
+                        //                       TextStyle(color: Colors.white)),
+                        //               readOnly: true,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         InkWell(
+                        //           onTap: () {
+                        //             controller.showYearOption();
+                        //           },
+                        //           child: Icon(
+                        //             Icons.arrow_drop_down,
+                        //             color: Colors.white,
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   width: 40,
+                        // ),
+                        // Expanded(
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         color: secondaryColor,
+                        //         borderRadius: BorderRadius.circular(12)),
+                        //     child: Row(
+                        //       children: [
+                        //         Expanded(
+                        //           child: Padding(
+                        //             padding: const EdgeInsets.all(8.0),
+                        //             child: TextField(
+                        //               onTap: () {
+                        //                 controller.showMonthOption();
+                        //               },
+                        //               controller: controller.monthController,
+                        //               enabled: !controller.isKYCSubmitted,
+                        //               cursorColor: Colors.white,
+                        //               style:
+                        //                   const TextStyle(color: Colors.white),
+                        //               decoration: const InputDecoration(
+                        //                   hintText: 'Month',
+                        //                   border: InputBorder.none,
+                        //                   hintStyle:
+                        //                       TextStyle(color: Colors.white)),
+                        //               readOnly: true,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         InkWell(
+                        //           onTap: () {
+                        //             controller.showMonthOption();
+                        //           },
+                        //           child: Icon(
+                        //             Icons.arrow_drop_down,
+                        //             color: Colors.white,
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // const SizedBox(
+                        //   width: 40,
+                        // ),
+                        // Expanded(
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(12),
+                        //         color: secondaryColor),
+                        //     child: Row(
+                        //       children: [
+                        //         Expanded(
+                        //           child: Padding(
+                        //             padding: const EdgeInsets.all(8.0),
+                        //             child: TextField(
+                        //               onTap: () {
+                        //                 controller.showDayOption();
+                        //               },
+                        //               controller: controller.dayController,
+                        //               enabled: !controller.isKYCSubmitted,
+                        //               cursorColor: Colors.white,
+                        //               style: const TextStyle(
+                        //                 color: Colors.white,
+                        //               ),
+                        //               decoration: const InputDecoration(
+                        //                   hintText: 'Day',
+                        //                   border: InputBorder.none,
+                        //                   hintStyle:
+                        //                       TextStyle(color: Colors.white)),
+                        //               readOnly: true,
+                        //             ),
+                        //           ),
+                        //         ),
+                        //         InkWell(
+                        //           onTap: () {
+                        //             controller.showDayOption();
+                        //           },
+                        //           child: Icon(
+                        //             Icons.arrow_drop_down,
+                        //             color: Colors.white,
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                     const SizedBox(
@@ -345,10 +407,20 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                   child: TextField(
                                     controller: controller.pancardNumController,
                                     enabled: !controller.isKYCSubmitted,
+                                    keyboardType: TextInputType.text,
+                                    textCapitalization:
+                                        TextCapitalization.characters,
+                                    textInputAction: TextInputAction
+                                        .none, // This will prevent the keyboard from changing to lowercase
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp(r'^[A-Z0-9]+$')),
+                                      // This formatter ensures that the input is converted to uppercase
+                                    ],
                                     cursorColor: Colors.white,
                                     style: const TextStyle(color: Colors.white),
                                     decoration: InputDecoration(
-                                      labelText:'PAN number',
+                                      labelText: 'PAN number',
                                       labelStyle:
                                           TextStyle(color: Colors.white),
                                       hintText: 'PAN number',
@@ -426,6 +498,7 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                           children: [
                             Expanded(
                               child: TextField(
+                                keyboardType: TextInputType.number,
                                 controller: controller.aadharNumController,
                                 enabled: !controller.isKYCSubmitted,
                                 cursorColor: Colors.white,
@@ -578,7 +651,8 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                   onPressed: () async {
                     var userid = await otpController.userId;
                     var phnno = await otpController.phoneNumber;
-                    controller.kycUpdate(GetStorage().read("userId"), GetStorage().read("phoneNumber"));
+                    controller.kycUpdate(GetStorage().read("userId"),
+                        GetStorage().read("phoneNumber"));
                     controller.getUserDetails(GetStorage().read("userId"));
                     // if (otpController.isVerified) {
                     //   String userId = otpController.userId;

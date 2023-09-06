@@ -101,7 +101,7 @@ class LoginScreen extends GetWidget<LoginController> {
                         onPressed: (){
                           if(_formKey.currentState!.validate()){
                             print('${controller.countryCodeController.text.trim()}${controller.phoneNumber.text.trim()}');
-                            LoginController.instance.phoneAuthentication('${controller.countryCodeController.text.trim()}${controller.phoneNumber.text.trim()}');
+                            LoginController.instance.phoneAuthentication('${controller.phoneNumber.text.trim()}');
                           }
                         }, // Call the onLoginButtonPressed method on button press
                         title: "Login",

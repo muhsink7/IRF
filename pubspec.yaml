@@ -24,6 +24,8 @@ dependencies:
   get_storage: ^2.1.1
   firebase_core:
   firebase_auth:
+  intl:
+  dob_input_field:
 
 dev_dependencies:
   flutter_test:

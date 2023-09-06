@@ -3,9 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:indian_race_fantasy/api/api.dart';
 import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
-import '../../../authentication/authentication_repository.dart';
 import '../../../model/model_api/kyc_update.dart';
-import '../../../router.dart';
 import '../menu_contents/kyc_details/kyc_controller.dart';
 
 class OtpController extends GetxController {
@@ -38,19 +36,10 @@ class OtpController extends GetxController {
     otp = value;
   }
 
-  // Future<void> verifyOtp() async {
-  //   if (otp.isNotEmpty) {
-  //     // Pass otp and phoneNumber to the API method
-  //     await api.verifyOtp(otp, Get.arguments);
-  //   } else {
-  //     print("OTP is empty");
-  //   }
-  // }
-
-  void verifyOtp() async {
-    if (otp.isNotEmpty) { // Check if otp is not empty
-      var isVerified = await AuthenticationRepository.instance.verifyOTP(otp);
-      isVerified ? Get.offAndToNamed(RoutePaths.mainScreen) : Get.back();
+  Future<void> verifyOtp() async {
+    if (otp.isNotEmpty) {
+      // Pass otp and phoneNumber to the API method
+      await api.verifyOtp(otp, Get.arguments);
     } else {
       print("OTP is empty");
     }

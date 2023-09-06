@@ -12,8 +12,8 @@ import 'ui/screens/splash_screen/splash_binding.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,)
-      .then((value) => Get.lazyPut(() => AuthenticationRepository()));
+  // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,)
+  //     .then((value) => Get.lazyPut(() => AuthenticationRepository()));
   runApp(MyApp());
 }
 

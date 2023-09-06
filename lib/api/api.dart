@@ -21,7 +21,7 @@ class Api {
       };
       var request = http.Request(
         'POST',
-        Uri.parse('http://15.206.68.154:5000/users/sendOTP'),
+        Uri.parse('http://15.206.68.154:5000/users/send-otp'),
       );
       request.body = json.encode({
         "phoneNumber": phoneNo,
@@ -33,6 +33,7 @@ class Api {
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
         // You can return any relevant data here if needed.
+        Get.toNamed(RoutePaths.otpScreen, arguments: phoneNo);
       } else {
         print(response.reasonPhrase);
         throw Exception('Failed to send OTP');
@@ -45,7 +46,7 @@ class Api {
   Future<void> verifyOtp(String otp, String phoneNumber) async {
     if (otp.isNotEmpty) {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request('POST', Uri.parse('http://15.206.68.154:5000/users/verifyOTP'));
+      var request = http.Request('POST', Uri.parse('http://15.206.68.154:5000/users/verify-otp'));
       request.body = json.encode({
         "phoneNumber": phoneNumber,
         "otp": otp,
@@ -84,7 +85,7 @@ class Api {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'PUT', Uri.parse('http://15.206.68.154:5000/users/update/${kycData.userId}'));
-    request.body = json.encode(kycData.toJson());
+    request.body = json.encode(kycData.toKycUpdateJson());
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
