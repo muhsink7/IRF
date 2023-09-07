@@ -83,7 +83,7 @@ class Api {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'PUT', Uri.parse('http://15.206.68.154:5000/users/update/${kycData.userId}'));
-    request.body = json.encode(kycData.toJson());
+    request.body = json.encode(kycData.toKycUpdateJson());
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
