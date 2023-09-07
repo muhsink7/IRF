@@ -2,11 +2,9 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
 import '../model/model_api/kyc_update.dart';
 import '../model/model_api/user_details.dart';
 import '../router.dart';
-import '../ui/screens/menu_contents/kyc_details/kyc_controller.dart';
 
 class Api {
   static final String baseUrl = 'http://15.206.68.154:5000'; // Your API base URL
@@ -21,7 +19,7 @@ class Api {
       };
       var request = http.Request(
         'POST',
-        Uri.parse('http://15.206.68.154:5000/users/sendOTP'),
+        Uri.parse('http://15.206.68.154:5000/users/send-otp'),
       );
       request.body = json.encode({
         "phoneNumber": phoneNo,
@@ -33,6 +31,7 @@ class Api {
       if (response.statusCode == 200) {
         print(await response.stream.bytesToString());
         // You can return any relevant data here if needed.
+        Get.toNamed(RoutePaths.otpScreen, arguments: phoneNo);
       } else {
         print(response.reasonPhrase);
         throw Exception('Failed to send OTP');
@@ -45,7 +44,7 @@ class Api {
   Future<void> verifyOtp(String otp, String phoneNumber) async {
     if (otp.isNotEmpty) {
       var headers = {'Content-Type': 'application/json'};
-      var request = http.Request('POST', Uri.parse('http://15.206.68.154:5000/users/verifyOTP'));
+      var request = http.Request('POST', Uri.parse('http://15.206.68.154:5000/users/verify-otp'));
       request.body = json.encode({
         "phoneNumber": phoneNumber,
         "otp": otp,
@@ -96,7 +95,7 @@ class Api {
     }
   }
 
-   Future<UserDetails> getUserDetails(String userId) async {
+  Future<UserDetails> getUserDetails(String userId) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('GET', Uri.parse('http://15.206.68.154:5000/users/getUserDetails?userId=$userId'));
     request.body = json.encode({});

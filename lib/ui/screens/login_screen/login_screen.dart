@@ -12,7 +12,6 @@ class LoginScreen extends GetWidget<LoginController> {
   Widget build(BuildContext context) {
     // Get instance of the LoginController
     // final LoginController _authRepository = Get.put(AuthenticationRepository());
-    final controller = Get.put(LoginController());
     final _formKey =GlobalKey<FormState>();
 
     return SafeArea(
@@ -101,14 +100,14 @@ class LoginScreen extends GetWidget<LoginController> {
                         onPressed: (){
                           if(_formKey.currentState!.validate()){
                             print('${controller.countryCodeController.text.trim()}${controller.phoneNumber.text.trim()}');
-                            LoginController.instance.phoneAuthentication('${controller.countryCodeController.text.trim()}${controller.phoneNumber.text.trim()}');
+                            LoginController.instance.phoneAuthentication('${controller.phoneNumber.text.trim()}');
                           }
                         }, // Call the onLoginButtonPressed method on button press
                         title: "Login",
                       ),
-                     SizedBox(
-                       height: Get.height*.2,
-                     ),
+                      SizedBox(
+                        height: Get.height*.2,
+                      ),
                       Column(
                         children: [
                           const Text("All rights reserved INDIA RACE FANTASY 2022",style: TextStyle(fontSize: 14.0),),

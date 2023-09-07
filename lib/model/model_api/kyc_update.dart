@@ -89,4 +89,19 @@ class KycUpdate {
     data['upiId'] = this.upiId;
     return data;
   }
+
+  Map<String, dynamic> toKycUpdateJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['userId'] = this.userId;
+    data['firstName'] = this.firstName;
+    data['lastName'] = this.lastName;
+    data['email'] = this.email;
+    data['dateOfBirth'] = this.dateOfBirth;
+    data['gender'] = this.gender;
+    data['kycAadharCardNumber'] = this.kycAadharCardNumber;
+    data['userName'] = this.userName;
+    data['kycPancardNumber'] = this.kycPancardNumber;
+    data['bankName'] = this.bankName;
+    return data;
+  }
 }
