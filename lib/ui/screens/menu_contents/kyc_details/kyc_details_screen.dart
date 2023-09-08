@@ -13,6 +13,9 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -20,6 +23,8 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: GetBuilder<KYCController>(builder: (controller) {
+              String aadharNumber = controller.aadharNumController.text;
+              bool isAadharNumberValid = aadharNumber.length == 12;
               return Column(children: [
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -295,7 +300,9 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                       hintText: 'PAN number',
                                       border: InputBorder.none,
                                       hintStyle: TextStyle(color: Colors.white),
+                                      counterText: '',
                                     ),
+                                    maxLength: 10,
                                   ),
                                 ),
                               ),
@@ -377,7 +384,13 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                                     labelStyle: TextStyle(color: Colors.white),
                                     hintText: 'Aadhar number',
                                     border: InputBorder.none,
-                                    hintStyle: TextStyle(color: Colors.white)),
+                                    hintStyle: TextStyle(color: Colors.white),
+                                  counterText: '',
+                                  // errorText: controller.isAadharFormatError // Update errorText based on the flag
+                                  //     ? 'Aadhar number must be 12 characters'
+                                  //     : null,
+                                ),
+                                maxLength: 12,
                               ),
                             ),
                           ],
@@ -486,8 +499,17 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 20),
-                        Row(
+                        Text("Documents isn't verified.",
+                        style: TextStyle(
+                          color: Colors.redAccent,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        ),
+                        const SizedBox(height: 30),
+
+                        /*Row(
                           children: [
                             // Text(
                             //   'Approved',
@@ -604,7 +626,7 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 30),*/
                       ],
                     )
                   ],

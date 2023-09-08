@@ -14,6 +14,7 @@ class KYCController extends GetxController {
   bool isKYCSubmitted = false;
   Api api = Get.find();
 
+
   List<KycUpdate> kycUpdateData = [];
   var userDetails = UserDetails().obs;
 
@@ -35,6 +36,9 @@ class KYCController extends GetxController {
   TextEditingController upiIdController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   DateTime? selectedDate;
+
+  bool isAadharFormatError = false;
+
 
   final DateTime lastDate = DateTime.now().subtract(const Duration(days: 365 * 18));
 
@@ -309,6 +313,7 @@ class KYCController extends GetxController {
     // Check if any error message is set
 
     if (!isValidPanCard(pancardNumController.text)) {
+
       Get.snackbar(
         'Error',
         'Invalid PAN card number format',
@@ -319,6 +324,7 @@ class KYCController extends GetxController {
       return;
     }
     if (!isValidAadhar(aadharNumController.text)) {
+      isAadharFormatError = true;
       Get.snackbar(
         'Error',
         'Invalid Aadhar card number format',
