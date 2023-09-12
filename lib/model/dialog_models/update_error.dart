@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-class KycUpdateError extends StatelessWidget {
+class UpdateError extends StatelessWidget {
   final VoidCallback onOkPressed;
+  final String title;
 
-  KycUpdateError({required this.onOkPressed});
+  UpdateError({required this.onOkPressed, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class KycUpdateError extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
 
-            Text('Your KYC Details is not updated, Please fill all the Details in the form and try again.',
+            Text(title,
               style: TextStyle(
                 color: Colors.red,
                 fontSize: 20.0,

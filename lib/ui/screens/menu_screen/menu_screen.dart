@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:indian_race_fantasy/ui/screens/menu_contents/kyc_details/kyc_controller.dart';
 import '../../../Model/menu_card/menu_card.dart';
 import '../../../api/api.dart';
 import '../../../router.dart';
@@ -73,20 +72,8 @@ class MenuCardScreen extends GetWidget<MenuCardController> {
                               padding: const EdgeInsets.all(8.0),
                               child: MenuCard(
                                 cardImage: Image.asset('assets/images/logo_gold.png'),
-                                cardTitle: "My \n Profile", onTap: () {
-                                Get.dialog(
-                                  AlertDialog(
-                                    title: const Text('My Profile'),
-                                    content: const Text('This Feature is yet to come.'),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Get.back(); // Close the dialog
-                                        },
-                                        child: const Text('Close'),
-                                      ),
-                                    ],
-                                  ),);
+                                cardTitle: "Bank \n Detailss", onTap: () {
+                                Get.toNamed(RoutePaths.bankDetailScreen);
                               },)),
                           Padding(
                               padding: const EdgeInsets.all(8.0),

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:indian_race_fantasy/model/dialog_models/kyc_update_error.dart';
+import 'package:indian_race_fantasy/model/dialog_models/update_error.dart';
 import 'package:indian_race_fantasy/model/model_api/kyc_update.dart';
 import 'package:indian_race_fantasy/router.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_contents/kyc_details/image_list_screen.dart';
 import '../../../../api/api.dart';
-import '../../../../model/dialog_models/kyc_update_dialog.dart';
+import '../../../../model/dialog_models/update_success.dart';
 import '../../../../model/model_api/user_details.dart';
 
 class KYCController extends GetxController {
@@ -37,7 +37,7 @@ class KYCController extends GetxController {
   TextEditingController dateOfBirthController = TextEditingController();
   DateTime? selectedDate;
 
-  bool isAadharFormatError = false;
+  final bool isAadharFormatError = false;
 
 
   final DateTime lastDate = DateTime.now().subtract(const Duration(days: 365 * 18));
@@ -230,13 +230,13 @@ class KYCController extends GetxController {
 
   void showKycUpdateDialog() {
     Get.dialog(
-      KycUpdateDialog(
+      UpdateSuccess(
         onOkPressed: () {
           // Implement the refresh KYC logic here
           // This function will be called when the "OK" button is pressed
           isKYCSubmitted = true;
           Get.toNamed(RoutePaths.kycDetailsScreen);
-        },
+        }, title: 'Your KYC Details is updated',
       ),
     );
   }
@@ -253,6 +253,7 @@ class KYCController extends GetxController {
     }
 
     bool isValidEmail(String emailCheck) {
+      print("checkingemaillllllllllllllllllllllllllll");
       return RegExp(
           r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
           .hasMatch(emailCheck);
@@ -324,7 +325,6 @@ class KYCController extends GetxController {
       return;
     }
     if (!isValidAadhar(aadharNumController.text)) {
-      isAadharFormatError = true;
       Get.snackbar(
         'Error',
         'Invalid Aadhar card number format',
@@ -336,6 +336,8 @@ class KYCController extends GetxController {
     }
 
     if (!isValidEmail(emailController.text)) {
+      print("whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+
       Get.snackbar(
         'Error',
         'Invalid Email format',
@@ -396,9 +398,9 @@ class KYCController extends GetxController {
       // Show the KYC update dialog
       showKycUpdateDialog();
     } catch (e) {
-      KycUpdateError(onOkPressed: () {
+      UpdateError(onOkPressed: () {
         Get.back();
-      });
+      }, title: 'Your KYC Details is not updated, Please fill all the Details in the form and try again.',);
       print('Error updating KYC: $e');
     }
   }

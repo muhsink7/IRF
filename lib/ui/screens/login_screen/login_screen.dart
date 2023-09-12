@@ -12,6 +12,7 @@ class LoginScreen extends GetWidget<LoginController> {
   Widget build(BuildContext context) {
     // Get instance of the LoginController
     // final LoginController _authRepository = Get.put(AuthenticationRepository());
+    final controller = Get.put(LoginController());
     final _formKey =GlobalKey<FormState>();
 
     return SafeArea(
@@ -66,6 +67,7 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                   hintText: '+91',
                                 ),
+                                readOnly: true,
                               ),
                             ),
                             const SizedBox(

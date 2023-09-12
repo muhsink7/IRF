@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:indian_race_fantasy/Model/Button/custom_button.dart';
 
-class KycUpdateDialog extends StatelessWidget {
+class UpdateSuccess extends StatelessWidget {
   final VoidCallback onOkPressed;
+  final String title;
 
-  KycUpdateDialog({required this.onOkPressed});
+  UpdateSuccess({required this.onOkPressed, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class KycUpdateDialog extends StatelessWidget {
                 ),
               ),
             ),
-            Text('Your KYC Details is updated',
+            Text(title,
             style: TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.bold,
