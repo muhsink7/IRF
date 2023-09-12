@@ -76,8 +76,8 @@ class BankDetailScreen extends GetWidget<BankDetailController> {
                         padding: const EdgeInsets.all(8.0),
                         child: TextField(
                           controller: controller.accountNumberController,
-                          keyboardType: TextInputType.number,
                           enabled: !controller.isKYCSubmitted,
+                          keyboardType: TextInputType.number,
                           cursorColor: Colors.white,
                           style: const TextStyle(color: Colors.white),
                           decoration: InputDecoration(

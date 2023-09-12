@@ -373,19 +373,19 @@ class KYCController extends GetxController {
 
 
     KycUpdate kycData = KycUpdate(
-      accountNumber: accountNumberController.text,
-      bankName: bankNameController.text,
+      // accountNumber: accountNumberController.text,
+      // bankName: bankNameController.text,
       email: emailController.text,
       firstName: firstNameController.text,
       lastName: lastNameController.text,
-      ifscCode: ifscCodeController.text,
+      // ifscCode: ifscCodeController.text,
       kycPancardNumber: pancardNumController.text,
       kycAadharCardNumber: aadharNumController.text,
       userName: userNameController.text,
       gender: genderController.text,
       dateOfBirth: dateOfBirthController.text,
       userId: userId,
-      upiId: upiIdController.text,
+      // upiId: upiIdController.text,
     );
 
     try {
@@ -411,7 +411,7 @@ class KYCController extends GetxController {
       var userDetailsData = await api.getUserDetails(userId);
       userDetails.value = userDetailsData;
       userNameController.text = userDetailsData.userName ?? "";
-      bankNameController.text = userDetailsData.bankName ?? "";
+      // bankNameController.text = userDetailsData.bankName ?? "";
       firstNameController.text = userDetailsData.firstName ?? "";
       lastNameController.text = userDetailsData.lastName ?? "";
       emailController.text = userDetailsData.email ?? "";
@@ -419,9 +419,9 @@ class KYCController extends GetxController {
       pancardNumController.text = userDetailsData.kycPancardNumber ?? "";
       aadharNumController.text = userDetailsData.kycAadharCardNumber ?? "";
       dateOfBirthController.text = userDetailsData.dateOfBirth ?? "";
-      accountNumberController.text = userDetailsData.accountNumber ?? "";
-      ifscCodeController.text = userDetailsData.ifscCode ?? "";
-      upiIdController.text = userDetailsData.upiId ?? "";
+      // accountNumberController.text = userDetailsData.accountNumber ?? "";
+      // ifscCodeController.text = userDetailsData.ifscCode ?? "";
+      // upiIdController.text = userDetailsData.upiId ?? "";
 
       // Add more fields to update as needed
       print("Fetched user's username: ${userDetails.value.userName}");
@@ -445,10 +445,10 @@ class KYCController extends GetxController {
       pancardNumController.text = userDetailsData.kycPancardNumber ?? "";
       aadharNumController.text = userDetailsData.kycAadharCardNumber ?? "";
       dateOfBirthController.text = userDetailsData.dateOfBirth ?? "";
-      accountNumberController.text = userDetailsData.accountNumber ?? "";
-      ifscCodeController.text = userDetailsData.ifscCode ?? "";
-      upiIdController.text = userDetailsData.upiId ?? "";
-      bankNameController.text = userDetailsData.bankName ?? "";
+      // accountNumberController.text = userDetailsData.accountNumber ?? "";
+      // ifscCodeController.text = userDetailsData.ifscCode ?? "";
+      // upiIdController.text = userDetailsData.upiId ?? "";
+      // bankNameController.text = userDetailsData.bankName ?? "";
 
 
       print("Fetched user's username: ${userDetails.value.userName}");

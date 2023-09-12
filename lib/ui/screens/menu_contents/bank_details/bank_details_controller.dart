@@ -128,7 +128,7 @@ class BankDetailController extends GetxController{
       userId: userId,
       upiId: upiIdController.text,
     );
-
+    
     try {
       await api.updateKyc(kycData);
       print('++++++++++++++++$kycData+++++++++++++');
@@ -151,6 +151,7 @@ class BankDetailController extends GetxController{
     try {
       var userDetailsData = await api.getUserDetails(userId);
       userDetails.value = userDetailsData;
+      print(userDetailsData);
       bankNameController.text = userDetailsData.bankName ?? "";
       pancardNumController.text = userDetailsData.kycPancardNumber ?? "";
       accountNumberController.text = userDetailsData.accountNumber ?? "";
