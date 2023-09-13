@@ -50,7 +50,7 @@ class BankDetailController extends GetxController{
           // Implement the refresh KYC logic here
           // This function will be called when the "OK" button is pressed
           isKYCSubmitted = true;
-          Get.toNamed(RoutePaths.bankDetailScreen);
+          Get.offAndToNamed(RoutePaths.menuScreen);
         }, title: 'Your Bank Details Updated.',
       ),
     );

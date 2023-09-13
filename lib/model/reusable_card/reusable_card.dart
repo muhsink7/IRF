@@ -2,39 +2,46 @@ import 'package:flutter/material.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 
 class ReusableCard extends StatelessWidget {
-  const ReusableCard({super.key});
+  const ReusableCard({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical:10.0,horizontal: 20.0),
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: screenWidth * 0.04),
       child: Card(
         color: secondaryColor,
         child: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(screenWidth * 0.02),
           child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text("BANGALURU TROPHY",
-                  style: TextStyle(
-                    color: primaryColor,
-                    fontSize: 20.0,
-                  ),
+                  Text(
+                    "BANGALURU TROPHY",
+                    style: TextStyle(
+                      color: primaryColor,
+                      fontSize: screenWidth * 0.05, // Adjust font size based on screen width
+                    ),
                   ),
                   Row(
                     children: [
-                      const Text("Details",style: TextStyle(
-                    color: kWhiteColor
-                  ),),
+                      Text(
+                        "Details",
+                        style: TextStyle(
+                          color: kWhiteColor,
+                          fontSize: screenWidth * 0.035, // Adjust font size based on screen width
+                        ),
+                      ),
                       IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.info_outline_rounded,
-                            color: kWhiteColor,
-                            
-                          )),
+                        onPressed: () {},
+                        icon: Icon(
+                          Icons.info_outline_rounded,
+                          color: kWhiteColor,
+                        ),
+                      ),
                     ],
                   )
                 ],
@@ -47,34 +54,55 @@ class ReusableCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.emoji_events,color: kWhiteColor,),
-                      Text("price : 50000",style: TextStyle(
-                    color: kWhiteColor
-                  ),),
+                      Icon(
+                        Icons.emoji_events,
+                        color: kWhiteColor,
+                        size: screenWidth * 0.07, // Adjust icon size based on screen width
+                      ),
+                      Text(
+                        "price : 50000",
+                        style: TextStyle(
+                          color: kWhiteColor,
+                          fontSize: screenWidth * 0.035, // Adjust font size based on screen width
+                        ),
+                      ),
                     ],
                   ),
-                  SizedBox(width: 5.0,),
-                  const Row(children: [
-                    Icon(Icons.money,color: kWhiteColor,),
-                    Text("Entry fee : 500",style: TextStyle(
-                    color: kWhiteColor
-                  ),),
-                  ]),
+                  SizedBox(width: screenWidth * 0.01),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.money,
+                        color: kWhiteColor,
+                        size: screenWidth * 0.07, // Adjust icon size based on screen width
+                      ),
+                      Text(
+                        "Entry fee : 500",
+                        style: TextStyle(
+                          color: kWhiteColor,
+                          fontSize: screenWidth * 0.035, // Adjust font size based on screen width
+                        ),
+                      ),
+                    ],
+                  ),
                   MaterialButton(
                     onPressed: () {},
                     child: Container(
-                      width: 62,
-                      height: 30,
+                      width: screenWidth * 0.17, // Adjust button width based on screen width
+                      height: screenWidth * 0.07, // Adjust button height based on screen width
                       decoration: BoxDecoration(
-                          color: primaryColor,
-                          borderRadius: BorderRadius.circular(10.0),
-                          ),
-                      child: const Center(
+                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(screenWidth * 0.03), // Adjust border radius based on screen width
+                      ),
+                      child: Center(
                         child: Text(
                           "Register",
-                          style: TextStyle(color: kWhiteColor, fontSize: 14.0),
+                          style: TextStyle(
+                            color: kWhiteColor,
+                            fontSize: screenWidth * 0.035, // Adjust font size based on screen width
+                          ),
                         ),
                       ),
                     ),

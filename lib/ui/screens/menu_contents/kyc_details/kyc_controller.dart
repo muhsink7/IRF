@@ -235,7 +235,7 @@ class KYCController extends GetxController {
           // Implement the refresh KYC logic here
           // This function will be called when the "OK" button is pressed
           isKYCSubmitted = true;
-          Get.toNamed(RoutePaths.kycDetailsScreen);
+          Get.offAndToNamed(RoutePaths.menuScreen);
         }, title: 'Your KYC Details is updated',
       ),
     );

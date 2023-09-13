@@ -26,7 +26,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 // Positioned content for the top section
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: 125,
+                  height: Get.height*0.12,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     boxShadow: [
@@ -48,7 +48,7 @@ class HomeScreen extends GetWidget<HomeController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                 Text( '${controller.userDetails.userName}',
+                                 Text( '${controller.userDetails.userName?? "Username"}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -93,7 +93,7 @@ class HomeScreen extends GetWidget<HomeController> {
                                     children: [
                                       Icon(Icons.currency_rupee,
                                           size: 18.0, color: secondaryColor),
-                                      Text( '${controller.userDetails.balanceAmount}',
+                                      Text( '${controller.userDetails.balanceAmount ??"0"}',
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,

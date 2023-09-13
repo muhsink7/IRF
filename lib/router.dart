@@ -9,6 +9,9 @@ import 'package:indian_race_fantasy/ui/screens/menu_contents/bank_details/bank_d
 import 'package:indian_race_fantasy/ui/screens/menu_contents/bank_details/bank_details_screen.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_contents/kyc_details/kyc_binding.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_contents/kyc_details/kyc_details_screen.dart';
+import 'package:indian_race_fantasy/ui/screens/menu_contents/profile_screen/profile_binding.dart';
+import 'package:indian_race_fantasy/ui/screens/menu_contents/profile_screen/profile_controller.dart';
+import 'package:indian_race_fantasy/ui/screens/menu_contents/profile_screen/profile_screen.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_screen/menu_binding.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_screen/menu_screen.dart';
 import 'package:indian_race_fantasy/ui/screens/otp_screen/otp_binding.dart';
@@ -36,6 +39,8 @@ class RoutePaths {
   static const String mainScreen = '/main';
   static const String kycDetailsScreen = '/kyc';
   static const String bankDetailScreen = '/bank';
+  static const String profileScreen = '/profile';
+
 
 
 
@@ -108,6 +113,12 @@ class AppPages {
       name: RoutePaths.bankDetailScreen,
       binding: BankDetailBinding(),
       page: () =>  BankDetailScreen(),
+    ),
+
+    GetPage(
+      name: RoutePaths.profileScreen,
+      binding: ProfileBinding(),
+      page: () =>  ProfileScreen(),
     ),
 
   ];

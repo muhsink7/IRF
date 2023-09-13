@@ -91,7 +91,19 @@ class LoginScreen extends GetWidget<LoginController> {
                                   ),
                                   labelText: 'Mobile Number',
                                   hintText: 'Enter Mobile Number',
+                                  counterText: '',
                                 ),
+                                maxLength: 10,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Mobile Number is required';
+                                  } else if (value.length < 10) {
+                                    return 'Mobile Number must be at least 10 digits';
+                                  } else if (value.length > 10) {
+                                    return 'Mobile Number cannot be more than 10 digits';
+                                  }
+                                  return null; // Return null for no error
+                                },
                               ),
                             ),
                           ],
