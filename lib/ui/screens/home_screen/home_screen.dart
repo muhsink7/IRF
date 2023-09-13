@@ -26,7 +26,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 // Positioned content for the top section
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: Get.height*0.12,
+                  height: Get.height*0.13,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     boxShadow: [
