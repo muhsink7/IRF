@@ -35,6 +35,7 @@ class KYCController extends GetxController {
   TextEditingController ifscCodeController = TextEditingController();
   TextEditingController upiIdController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   DateTime? selectedDate;
 
   final bool isAadharFormatError = false;
@@ -55,6 +56,7 @@ class KYCController extends GetxController {
   String? userNameError;
   String? genderError;
   String? dobError;
+  String? addressError;
 
   String? selectedGender;
   final List<String> genderOption = ['Male', 'Female', 'Others'];
@@ -235,7 +237,8 @@ class KYCController extends GetxController {
           // Implement the refresh KYC logic here
           // This function will be called when the "OK" button is pressed
           isKYCSubmitted = true;
-          Get.offAndToNamed(RoutePaths.menuScreen);
+          Get.toNamed(RoutePaths.menuScreen);
+          Get.close(2);
         }, title: 'Your KYC Details is updated',
       ),
     );
@@ -311,6 +314,10 @@ class KYCController extends GetxController {
       dobError = 'Date of Birth is required';
     }
 
+    if (addressController.text.isEmpty) {
+      addressError = 'Address is required';
+    }
+
     // Check if any error message is set
 
     if (!isValidPanCard(pancardNumController.text)) {
@@ -359,7 +366,8 @@ class KYCController extends GetxController {
         aadharNumError != null ||
         userNameError != null ||
         genderError != null ||
-        dobError != null) {
+        dobError != null||
+        addressError != null) {
       Get.snackbar(
         'Error',
         'Please fill in all required fields or Enter correct format of PAN card and Aadhar card number',
@@ -385,6 +393,7 @@ class KYCController extends GetxController {
       gender: genderController.text,
       dateOfBirth: dateOfBirthController.text,
       userId: userId,
+      address: addressController.text,
       // upiId: upiIdController.text,
     );
 
@@ -419,7 +428,7 @@ class KYCController extends GetxController {
       pancardNumController.text = userDetailsData.kycPancardNumber ?? "";
       aadharNumController.text = userDetailsData.kycAadharCardNumber ?? "";
       dateOfBirthController.text = userDetailsData.dateOfBirth ?? "";
-      // accountNumberController.text = userDetailsData.accountNumber ?? "";
+      addressController.text = userDetailsData.address ?? "";
       // ifscCodeController.text = userDetailsData.ifscCode ?? "";
       // upiIdController.text = userDetailsData.upiId ?? "";
 
@@ -445,7 +454,7 @@ class KYCController extends GetxController {
       pancardNumController.text = userDetailsData.kycPancardNumber ?? "";
       aadharNumController.text = userDetailsData.kycAadharCardNumber ?? "";
       dateOfBirthController.text = userDetailsData.dateOfBirth ?? "";
-      // accountNumberController.text = userDetailsData.accountNumber ?? "";
+      addressController.text = userDetailsData.address ?? "";
       // ifscCodeController.text = userDetailsData.ifscCode ?? "";
       // upiIdController.text = userDetailsData.upiId ?? "";
       // bankNameController.text = userDetailsData.bankName ?? "";

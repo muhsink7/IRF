@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indian_race_fantasy/constants/profile_tile/profile_tile.dart';
 import 'package:indian_race_fantasy/ui/screens/menu_contents/profile_screen/profile_controller.dart';
+
+import '../../../../constants/color_constants.dart';
 
 class ProfileScreen extends GetWidget<ProfileController> {
   final ProfileController controller = Get.put(ProfileController());
@@ -8,77 +11,77 @@ class ProfileScreen extends GetWidget<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-            child: SingleChildScrollView(
-            child: Padding(
-            padding: const EdgeInsets.all(20),
-        child: GetBuilder<ProfileController>(builder: (controller) {
-      return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
+      backgroundColor: Colors.white,
+      body: SafeArea(child: SingleChildScrollView(
+          child: GetBuilder<ProfileController>(builder: (controller) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CircleAvatar(
-                  radius: 50,
-                  backgroundImage: AssetImage('assets/images/logo_gold.png'), // Use your default avatar image
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: Get.height * 0.1,
+                  decoration: BoxDecoration(
+                    color: primaryColor,
+                    boxShadow: [
+                      BoxShadow(
+                        color: kBlackColor.withOpacity(0.3),
+                        spreadRadius: 2,
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+                    child: Row(
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Image.asset(
+                                'assets/images/logo_blue.png'),
+                          ), // Use your default avatar image
+                        ),
+                        SizedBox(
+                          width: Get.width * 0.025,
+                        ),
+                        Text('${controller.userDetails.userName ?? "User Name"}',
+                          style: TextStyle(
+                            fontSize: 18.0,
+                            color: secondaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                      ],
+                    ),
+                  ),
                 ),
-                SizedBox(
-                  width: Get.width*0.1,
+                SizedBox(height: 20),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+                  child: Text("Profile Details",style: TextStyle(
+                    fontSize: 18.0,
+                    color: secondaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),),
                 ),
-                Text('${controller.userDetails.userName?? "Nil"}'),
+
+                ProfileTile(
+                    title: 'Full Name',
+                    titleValue:
+                    "${controller.userDetails.firstName ?? "Full "} ${controller.userDetails.lastName ?? "Name"}"),
+
+                ProfileTile(title: 'Email', titleValue: "${controller.userDetails.email ?? "Email"}"),
+                ProfileTile(title: 'Aadhar Number', titleValue: "${controller.userDetails.kycAadharCardNumber ?? "Aadhar Number"}"),
+                ProfileTile(title: 'Pancard Number', titleValue: "${controller.userDetails.kycPancardNumber ?? "Pancard Number"}"),
+                ProfileTile(title: 'Address', titleValue: "${controller.userDetails.address ?? "Address"}"),
+
               ],
-            ),
-            SizedBox(height: 20),
-
-            Table(
-              children: [
-                TableRow(
-                  children: [
-                    Text('Full Name '),
-                    Text(" ${controller.userDetails.firstName??"Nil"} ${controller.userDetails.lastName??"Nil"}")
-                  ],
-                ),
-
-                TableRow(
-                  children: [
-                    Text('Email'),
-                    Text(" ${controller.userDetails.email?? "Nil"}")
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Text('Aadhar Number'),
-                    Text(" ${controller.userDetails.kycAadharCardNumber?? "Nil"}")
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Text('Pancard Number'),
-                    Text(" ${controller.userDetails.kycPancardNumber?? "Nil"}")
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    Text('Address'),
-                    Text(" ${controller.userDetails.kycPancardNumber?? "Nil"}")
-                  ],
-                ),
-
-              ],
-            ),
-
-
-
-            // Text('Address: ${controller.userDetails.address}'),
-          ],
-        );
-        }
-        )
-            )
-            )
-      ),
+            );
+          }))),
     );
   }
 }

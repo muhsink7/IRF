@@ -21,17 +21,17 @@ class BottomNavigationWidget extends StatelessWidget {
         elevation: 0,
         type: BottomNavigationBarType.fixed,
         backgroundColor: secondaryColor,
-        selectedItemColor: kWhiteColor,
+        selectedItemColor: primaryColor,
         unselectedItemColor: kGreyColor,
-        selectedIconTheme: const IconThemeData(color: Colors.white),
-        unselectedIconTheme: const IconThemeData(color: Colors.grey),
+        selectedIconTheme:  IconThemeData(color: Color(0xffEABE41)),
+        unselectedIconTheme: const IconThemeData(color: kGreyColor),
         items: [
           BottomNavigationBarItem(
             icon: Container(
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/race.svg',
-                color: indexChangeNotifier.value == 0 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 0 ? primaryColor : kGreyColor,
               ),
             ),
             label: 'Race',
@@ -41,7 +41,7 @@ class BottomNavigationWidget extends StatelessWidget {
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/result.svg',
-                color: indexChangeNotifier.value == 1 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 1 ? primaryColor : kGreyColor,
               ),
             ),
             label: 'Results',
@@ -51,7 +51,7 @@ class BottomNavigationWidget extends StatelessWidget {
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/home.svg',
-                color: indexChangeNotifier.value == 2 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 2 ? primaryColor : kGreyColor,
               ),
             ),
             label: 'Home',
@@ -61,7 +61,7 @@ class BottomNavigationWidget extends StatelessWidget {
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/rupee.svg',
-                color: indexChangeNotifier.value == 3 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 3 ? primaryColor : kGreyColor,
               ),
             ),
             label: 'Cashier',
@@ -71,7 +71,7 @@ class BottomNavigationWidget extends StatelessWidget {
               height: 28,
               child: SvgPicture.asset(
                 'assets/icons/Menu.svg',
-                color: indexChangeNotifier.value == 4 ? kWhiteColor : kGreyColor,
+                color: indexChangeNotifier.value == 4 ? primaryColor : kGreyColor,
               ),
             ),
             label: 'Menu',

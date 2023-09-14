@@ -501,6 +501,35 @@ class KYCDetailsScreen extends GetWidget<KYCController> {
                         ),
 
                         const SizedBox(height: 20),
+                        Container(
+                          decoration: BoxDecoration(
+                              color: secondaryColor,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: TextField(
+                              controller: controller.addressController,
+                              enabled: !controller.isKYCSubmitted,
+                              keyboardType: TextInputType.multiline,
+                              maxLines: 5,
+                              cursorColor: Colors.white,
+                              style: const TextStyle(color: Colors.white),
+                              decoration: InputDecoration(
+                                  labelText: 'Address',
+                                  labelStyle: TextStyle(color: Colors.white,
+                                  ),
+                                  hintText: 'Address',
+                                  border: InputBorder.none,
+                                  hintStyle: TextStyle(color: Colors.white),
+                                contentPadding: EdgeInsets.only(left: 12.0, top: 12.0), // Adjust left and top values for desired positioning
+                                floatingLabelBehavior: FloatingLabelBehavior.always,
+                              ),
+
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
                         Text("Documents isn't verified.",
                         style: TextStyle(
                           color: Colors.redAccent,

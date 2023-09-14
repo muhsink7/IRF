@@ -51,6 +51,7 @@ class BankDetailController extends GetxController{
           // This function will be called when the "OK" button is pressed
           isKYCSubmitted = true;
           Get.offAndToNamed(RoutePaths.menuScreen);
+          Get.close(1);
         }, title: 'Your Bank Details Updated.',
       ),
     );
