@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,11 +20,11 @@ class ProfileTile extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: secondaryColor,
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(20),
               boxShadow: [
                 BoxShadow(
                   color: kBlackColor.withOpacity(0.3),
-                  spreadRadius: 2,
+                  spreadRadius: 3,
                   blurRadius: 4,
                   offset: const Offset(0, 2),
                 ),

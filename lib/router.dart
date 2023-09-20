@@ -1,5 +1,7 @@
 
 import 'package:get/get.dart';
+import 'package:indian_race_fantasy/ui/screens/betting_screen/betting_bindings.dart';
+import 'package:indian_race_fantasy/ui/screens/betting_screen/betting_screen.dart';
 import 'package:indian_race_fantasy/ui/screens/cashier_screen/cashier_binding.dart';
 import 'package:indian_race_fantasy/ui/screens/cashier_screen/cashier_screen.dart';
 import 'package:indian_race_fantasy/ui/screens/login_screen/login_screen.dart';
@@ -40,9 +42,7 @@ class RoutePaths {
   static const String kycDetailsScreen = '/kyc';
   static const String bankDetailScreen = '/bank';
   static const String profileScreen = '/profile';
-
-
-
+  static const String bettingScreen = '/betting';
 
 
 }
@@ -119,6 +119,12 @@ class AppPages {
       name: RoutePaths.profileScreen,
       binding: ProfileBinding(),
       page: () =>  ProfileScreen(),
+    ),
+
+    GetPage(
+      name: RoutePaths.bettingScreen,
+      binding: BettingBinding(),
+      page: () =>  BettingScreen(),
     ),
 
   ];

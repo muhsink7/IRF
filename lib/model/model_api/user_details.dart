@@ -19,6 +19,7 @@ class UserDetails {
   String? kycAadharFront;
   String? kycPancardFront;
   String? upiId;
+  String? address;
 
   UserDetails(
       {this.userId,
@@ -40,7 +41,9 @@ class UserDetails {
         this.kycAadharBack,
         this.kycAadharFront,
         this.kycPancardFront,
-        this.upiId});
+        this.upiId,
+        this.address
+      });
 
   UserDetails.fromJson(Map<String, dynamic> json) {
     userId = json['userId'];
@@ -63,6 +66,7 @@ class UserDetails {
     kycAadharFront = json['kycAadharFront'];
     kycPancardFront = json['kycPancardFront'];
     upiId = json['upiId'];
+    address = json['address'];
   }
 
   Map<String, dynamic> toJson() {
@@ -87,6 +91,7 @@ class UserDetails {
     data['kycAadharFront'] = this.kycAadharFront;
     data['kycPancardFront'] = this.kycPancardFront;
     data['upiId'] = this.upiId;
+    data['address'] = this.address;
     return data;
   }
 }
