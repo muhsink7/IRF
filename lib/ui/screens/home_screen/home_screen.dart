@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indian_race_fantasy/router.dart';
 import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
 import '../../../Model/banner/image_banner.dart';
-import '../../../Model/reusable_card/reusable_card.dart';
+import '../../../model/reusable_card/reusable_card.dart';
 import '../../../constants/color_constants.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
-   HomeScreen({Key? key});
+  HomeScreen({Key? key});
   final HomeController homeController = Get.put(HomeController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 // Positioned content for the top section
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: Get.height*0.12,
+                  height: Get.height * 0.12,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     boxShadow: [
@@ -48,7 +48,8 @@ class HomeScreen extends GetWidget<HomeController> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                 Text( '${controller.userDetails.userName?? "Username"}',
+                                Text(
+                                  '${controller.userDetails.userName ?? "Username"}',
                                   style: TextStyle(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
@@ -73,10 +74,12 @@ class HomeScreen extends GetWidget<HomeController> {
                               decoration: BoxDecoration(
                                 boxShadow: [
                                   BoxShadow(
-                                    color: secondaryColor.withOpacity(0.1), // Shadow color and opacity
+                                    color: secondaryColor.withOpacity(
+                                        0.1), // Shadow color and opacity
                                     spreadRadius: 0.3, // Spread radius
                                     blurRadius: 4, // Blur radius
-                                    offset: Offset(0,0), // Offset in the vertical direction
+                                    offset: Offset(0,
+                                        0), // Offset in the vertical direction
                                   ),
                                 ],
                               ),
@@ -89,11 +92,12 @@ class HomeScreen extends GetWidget<HomeController> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Container(
-                                  child:  Row(
+                                  child: Row(
                                     children: [
                                       Icon(Icons.currency_rupee,
                                           size: 18.0, color: secondaryColor),
-                                      Text( '${controller.userDetails.balanceAmount ??"0"}',
+                                      Text(
+                                        '${controller.userDetails.balanceAmount ?? "0"}',
                                         style: TextStyle(
                                           fontSize: 16.0,
                                           fontWeight: FontWeight.bold,
@@ -164,8 +168,7 @@ class HomeScreen extends GetWidget<HomeController> {
                 ),
                 Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: ImageBanner(imageLists: controller.imageList)
-                ),
+                    child: ImageBanner(imageLists: controller.imageList)),
                 // Your ListView.builder goes here
                 Expanded(
                   child: ListView.builder(
@@ -173,7 +176,14 @@ class HomeScreen extends GetWidget<HomeController> {
                     itemBuilder: (ctx, index) {
                       return GestureDetector(
                         onTap: () {},
-                        child: const ReusableCard(),
+                        child: ReusableCard(
+                            registerPressed: () {
+                              Get.toNamed(RoutePaths.bettingScreen);
+                            },
+                            detailsPressed: () {},
+                            tournamentName: "BENGALARU TROPHY",
+                            price: "50000",
+                            entryFee: "500"),
                       );
                     },
                   ),
