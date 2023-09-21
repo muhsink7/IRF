@@ -16,82 +16,22 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
 
   // Data for the 7 main tabs and 5 sub-tabs
   List<String> mainTabs = [
-    "Main Tab 1",
-    "Main Tab 2",
-    "Main Tab 3",
-    "Main Tab 4",
-    "Main Tab 5",
-    "Main Tab 6",
-    "Main Tab 7"
+    "R 1",
+    "R 2",
+    "R 3",
+    "R 4",
+    "R 5",
+    "R 6",
+    "R 7"
   ];
   List<List<String>> subTabs = [
-    ["Sub Tab 1.1", "Sub Tab 1.2", "Sub Tab 1.3", "Sub Tab 1.4", "Sub Tab 1.5"],
-    ["Sub Tab 2.1", "Sub Tab 2.2", "Sub Tab 2.3", "Sub Tab 2.4", "Sub Tab 2.5"],
-    ["Sub Tab 3.1", "Sub Tab 3.2", "Sub Tab 3.3", "Sub Tab 3.4", "Sub Tab 3.5"],
-    ["Sub Tab 4.1", "Sub Tab 4.2", "Sub Tab 4.3", "Sub Tab 4.4", "Sub Tab 4.5"],
-    ["Sub Tab 5.1", "Sub Tab 5.2", "Sub Tab 5.3", "Sub Tab 5.4", "Sub Tab 5.5"],
-    ["Sub Tab 6.1", "Sub Tab 6.2", "Sub Tab 6.3", "Sub Tab 6.4", "Sub Tab 6.5"],
-    ["Sub Tab 7.1", "Sub Tab 7.2", "Sub Tab 7.3", "Sub Tab 7.4", "Sub Tab 7.5"],
-  ];
-
-  // Sample data for displaying details based on selected tabs
-  List<List<String>> details = [
-    // Details for Main Tab 1
-    [
-      "Main Tab 1, Sub Tab 1.1 Details",
-      "Main Tab 1, Sub Tab 1.2 Details",
-      "Main Tab 1, Sub Tab 1.3 Details",
-      "Main Tab 1, Sub Tab 1.4 Details",
-      "Main Tab 1, Sub Tab 1.5 Details"
-    ],
-    // Details for Main Tab 2
-    [
-      "Main Tab 2, Sub Tab 2.1 Details",
-      "Main Tab 2, Sub Tab 2.2 Details",
-      "Main Tab 2, Sub Tab 2.3 Details",
-      "Main Tab 2, Sub Tab 2.4 Details",
-      "Main Tab 2, Sub Tab 2.5 Details"
-    ],
-    // Details for Main Tab 3
-    [
-      "Main Tab 3, Sub Tab 3.1 Details",
-      "Main Tab 3, Sub Tab 3.2 Details",
-      "Main Tab 3, Sub Tab 3.3 Details",
-      "Main Tab 3, Sub Tab 3.4 Details",
-      "Main Tab 3, Sub Tab 3.5 Details"
-    ],
-    // Details for Main Tab 4
-    [
-      "Main Tab 4, Sub Tab 4.1 Details",
-      "Main Tab 4, Sub Tab 4.2 Details",
-      "Main Tab 4, Sub Tab 4.3 Details",
-      "Main Tab 4, Sub Tab 4.4 Details",
-      "Main Tab 4, Sub Tab 4.5 Details"
-    ],
-    // Details for Main Tab 5
-    [
-      "Main Tab 5, Sub Tab 5.1 Details",
-      "Main Tab 5, Sub Tab 5.2 Details",
-      "Main Tab 5, Sub Tab 5.3 Details",
-      "Main Tab 5, Sub Tab 5.4 Details",
-      "Main Tab 5, Sub Tab 5.5 Details"
-    ],
-    // Details for Main Tab 6
-    [
-      "Main Tab 6, Sub Tab 6.1 Details",
-      "Main Tab 6, Sub Tab 6.2 Details",
-      "Main Tab 6, Sub Tab 6.3 Details",
-      "Main Tab 6, Sub Tab 6.4 Details",
-      "Main Tab 6, Sub Tab 6.5 Details"
-    ],
-    // Details for Main Tab 7
-    [
-      "Main Tab 7, Sub Tab 7.1 Details",
-      "Main Tab 7, Sub Tab 7.2 Details",
-      "Main Tab 7, Sub Tab 7.3 Details",
-      "Main Tab 7, Sub Tab 7.4 Details",
-      "Main Tab 7, Sub Tab 7.5 Details"
-    ],
+    ["WIN 1.1", "SHP 1.2", "PLACE 1.3", "FORECAST 1.4", "QUINELLA 1.5"],
+    ["WIN 2.1", "SHP 2.2", "PLACE 2.3", "FORECAST 2.4", "QUINELLA 2.5"],
+    ["WIN 3.1", "SHP 3.2", "PLACE 3.3", "FORECAST 3.4", "QUINELLA 3.5"],
+    ["WIN 4.1", "SHP 4.2", "PLACE 4.3", "FORECAST 4.4", "QUINELLA 4.5"],
+    ["WIN 5.1", "SHP 5.2", "PLACE 5.3", "FORECAST 5.4", "QUINELLA 5.5"],
+    ["WIN 6.1", "SHP 6.2", "PLACE 6.3", "FORECAST 6.4", "QUINELLA 6.5"],
+    ["WIN 7.1", "SHP 7.2", "PLACE 7.3", "FORECAST 7.4", "QUINELLA 7.5"],
   ];
 
   late TabController tabController = TabController(length: 7, vsync: this);
@@ -107,6 +47,8 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
     // TODO: implement onInit
     tabController.addListener(() {
       selectedMainTabIndex = tabController.index;
+      selectedSubTabIndex = 0; // Reset sub-tab index when main tab changes
+      update();
     });
     // fetchUserDetails();
     update();

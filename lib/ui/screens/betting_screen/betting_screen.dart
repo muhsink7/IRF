@@ -26,7 +26,7 @@ class BettingScreen extends GetWidget<BettingController> {
                 // Positioned content for the top section
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: Get.height*0.12,
+                  height: Get.height * 0.12,
                   decoration: BoxDecoration(
                     color: primaryColor,
                     boxShadow: [
@@ -39,14 +39,15 @@ class BettingScreen extends GetWidget<BettingController> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 5.0),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
-                          height: Get.height*0.22,
-                          width: Get.width*0.22,
+                          height: Get.height * 0.22,
+                          width: Get.width * 0.22,
                           decoration: BoxDecoration(
                             color: secondaryColor,
                             border: Border.all(
@@ -69,8 +70,8 @@ class BettingScreen extends GetWidget<BettingController> {
                             child: DecoratedBox(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/images/logo_gold.png"),
+                                  image:
+                                      AssetImage("assets/images/logo_gold.png"),
                                   fit: BoxFit.contain,
                                 ),
                               ),
@@ -78,8 +79,8 @@ class BettingScreen extends GetWidget<BettingController> {
                           ),
                         ),
                         Container(
-                          height: Get.height*0.05,
-                          width: Get.width*0.4,
+                          height: Get.height * 0.05,
+                          width: Get.width * 0.4,
                           decoration: BoxDecoration(
                             color: secondaryColor,
                             border: Border.all(
@@ -96,7 +97,7 @@ class BettingScreen extends GetWidget<BettingController> {
                               ),
                             ],
                           ),
-                          child:  Center(
+                          child: Center(
                             child: Padding(
                               padding: EdgeInsets.all(
                                   1.0), // Adjust the padding as needed
@@ -110,7 +111,8 @@ class BettingScreen extends GetWidget<BettingController> {
                                     size: screenWidth *
                                         0.07, // Adjust icon size based on screen width
                                   ),
-                                  Text( '${controller.userDetails.balanceAmount?? "500"}',
+                                  Text(
+                                    '${controller.userDetails.balanceAmount ?? "500"}',
                                     style: TextStyle(
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold,
@@ -122,42 +124,166 @@ class BettingScreen extends GetWidget<BettingController> {
                             ),
                           ),
                         ),
-
                       ],
-                    ),
-                ),
-            ),
-
-                TabBar(
-                  controller: controller.tabController,
-                  tabs: List.generate(
-                    controller.mainTabs.length,
-                        (index) => Tab(
-                      text: controller.mainTabs[index],
                     ),
                   ),
                 ),
-                //
-                // // Sub Tab Bar
-                // TabBar(
-                //   controller: controller.tabController,
-                //   tabs: List.generate(
-                //     controller.subTabs[controller.selectedMainTabIndex].length,
-                //         (index) => Tab(
-                //       text: controller.subTabs[controller.selectedMainTabIndex][index],
-                //     ),
-                //   ),
-                // ),
-                //
-                // // Details
-                // Expanded(
-                //   child: Center(
-                //     child: Text(
-                //       controller.details[controller.selectedMainTabIndex][controller.selectedSubTabIndex],
-                //       style: TextStyle(fontSize: 24),
-                //     ),
-                //   ),
-                // ),
+                SizedBox(height: Get.height*0.02,),
+               /* Column(
+                  children: [
+                    // Main Tabs
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        children: List.generate(
+                          controller.mainTabs.length,
+                              (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                controller.selectedMainTabIndex = index;
+                                controller.selectedSubTabIndex = 0; // Reset sub-tab index
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(
+                                  controller.selectedMainTabIndex == index
+                                      ? primaryColor
+                                      : secondaryColor,
+                                ),
+                              ),
+                              child: Text(
+                                controller.mainTabs[index],
+                                style: TextStyle(
+                                  color: kWhiteColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Sub Tabs
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Wrap(
+                        children: List.generate(
+                          controller.subTabs[controller.selectedMainTabIndex].length,
+                              (index) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                controller.selectedSubTabIndex = index;
+                              },
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all<Color>(
+                                  controller.selectedSubTabIndex == index
+                                      ? primaryColor
+                                      : secondaryColor,
+                                ),
+                              ),
+                              child: Text(
+                                controller.subTabs[controller.selectedMainTabIndex][index],
+                                style: TextStyle(
+                                  color: kWhiteColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    // Content for Selected Tab
+                    Center(
+                      child: Text(
+                        'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                    ),
+                  ],
+                ),*/
+                DefaultTabController(
+                  length: controller.mainTabs.length, // Specify the number of tabs
+                  initialIndex: controller.selectedMainTabIndex, // Set the initial selected tab index
+                  child: Column(
+                    children: [
+                      // Main Tabs
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: TabBar(
+                          isScrollable: true, // Allow horizontal scrolling of tabs
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Get.width * 20),
+                            color: primaryColor,
+                          ),
+                          labelColor: kWhiteColor, // Text color for selected tab
+                          unselectedLabelColor: secondaryColor, // Text color for unselected tabs
+                          tabs: List.generate(
+                            controller.mainTabs.length,
+                                (index) => Container(
+                                  width: Get.width*0.15,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(Get.width*20),
+                                    color: primaryColor,
+
+                                  ),
+                                  child: Tab(
+                              text: controller.mainTabs[index],
+                            ),
+                                ),
+                          ),
+                          onTap: (index) {
+                            controller.selectedMainTabIndex = index;
+                            controller.selectedSubTabIndex = 0; // Reset sub-tab index
+                          },
+                        ),
+                      ),
+
+                      // Sub Tabs
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: TabBar(
+                          isScrollable: true, // Allow horizontal scrolling of tabs
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Get.width * 20),
+                            color: primaryColor,
+                          ),
+                          labelColor: kWhiteColor, // Text color for selected tab
+                          unselectedLabelColor: secondaryColor, // Text color for unselected tabs
+                          tabs: List.generate(
+                            controller.subTabs[controller.selectedMainTabIndex].length,
+                                (index) => Container(
+                                  width: Get.width*0.25,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(Get.width*20),
+                                    color: primaryColor,
+
+                                  ),
+                                  child: Tab(
+                              text: controller.subTabs[controller.selectedMainTabIndex][index],
+                            ),
+                                ),
+                          ),
+                          onTap: (index) {
+                            controller.selectedSubTabIndex = index;
+                          },
+                        ),
+                      ),
+
+                      // Content for Selected Tab
+                      Center(
+                        child: Text(
+                          'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+
+
+
               ],
             );
           },
