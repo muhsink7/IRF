@@ -94,7 +94,7 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
     ],
   ];
 
-  late TabController tabController;
+  late TabController tabController = TabController(length: 7, vsync: this);
 
 
   @override
@@ -105,7 +105,6 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
     getUserDetails(GetStorage().read('userId'));
     print("+++++++++++Betting++++++++++++");
     // TODO: implement onInit
-    tabController = TabController(length: 7, vsync: this);
     tabController.addListener(() {
       selectedMainTabIndex = tabController.index;
     });
