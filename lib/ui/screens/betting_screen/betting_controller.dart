@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:indian_race_fantasy/model/model_api/raceCardDetails.dart';
 
 import '../../../api/api.dart';
 import '../../../model/model_api/user_details.dart';
@@ -9,6 +10,7 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
   final box = GetStorage();
   Api api = Get.find();
   var userDetails = UserDetails();
+  late List<RaceCardDetails> raceDetailss;
   bool isLoading = false;
 
   int selectedMainTabIndex = 0;
@@ -52,6 +54,35 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
     });
     // fetchUserDetails();
     update();
+  }
+  void fetchRaceCardDetails() async {
+    try {
+      final date = '19/09/23'; // Replace with the actual date you want to fetch
+
+      final raceCardDetails = await api.getRaceCardDetails(date);
+      print(raceCardDetails);
+
+      // Now you can use the raceCardDetails object
+      print('Race Card ID: ${raceCardDetails.id}');
+      print('Date: ${raceCardDetails.date}');
+      print('Version: ${raceCardDetails.v}');
+
+      for (final raceDetails in raceCardDetails.data) {
+        print('Table Name: ${raceDetails.tableName}');
+        print('Horse Number: ${raceDetails.horseNumber}');
+        print('Draw Box: ${raceDetails.drawBox}');
+        print('Horse Name: ${raceDetails.horseName}');
+        print('ACS: ${raceDetails.aCS}');
+        print('Trainer: ${raceDetails.trainer}');
+        print('Jockey: ${raceDetails.jockey}');
+        print('Weight: ${raceDetails.weight}');
+        print('Allowance: ${raceDetails.allowance}');
+        print('Rating: ${raceDetails.rating}');
+        print('-----------------------------');
+      }
+    } catch (e) {
+      print('Error fetching race card details: $e');
+    }
   }
 
   Future<void> getUserDetails(String? userId) async {

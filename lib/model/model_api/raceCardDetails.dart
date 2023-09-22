@@ -11,6 +11,17 @@ class RaceCardDetails {
     required this.v,
   });
 
+  factory RaceCardDetails.fromJson(Map<String, dynamic> json) {
+    // Parse the JSON and create a RaceCardDetails object
+    return RaceCardDetails(
+      id: json['id'],
+      date: json['date'],
+      data: (json['data'] as List<dynamic>).map((item) => RaceDetails.fromJson(item)).toList(),
+      v: json['v'],
+    );
+  }
+
+
 }
 
 class RaceDetails {
@@ -37,6 +48,37 @@ class RaceDetails {
     required this.allowance,
     required this.rating,
   });
+
+  factory RaceDetails.fromJson(Map<String, dynamic> json) {
+    return RaceDetails(
+      tableName: _parseTableName(json['tableName']),
+      horseNumber: json['horseNumber'],
+      drawBox: json['drawBox'],
+      horseName: json['horseName'],
+      aCS: json['aCS'],
+      trainer: json['trainer'],
+      jockey: json['jockey'],
+      weight: json['weight'].toDouble(),
+      allowance: json['allowance'],
+      rating: json['rating'],
+    );
+  }
+  static TableName _parseTableName(String tableName) {
+    switch (tableName) {
+      case 'RACE_1':
+        return TableName.RACE_1;
+      case 'RACE_2':
+        return TableName.RACE_2;
+      case 'RACE_3':
+        return TableName.RACE_3;
+      case 'RACE_4':
+        return TableName.RACE_4;
+      case 'RACE_5':
+        return TableName.RACE_5;
+      default:
+        throw ArgumentError('Invalid TableName: $tableName');
+    }
+  }
 
 }
 

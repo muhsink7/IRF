@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:indian_race_fantasy/model/raceCard/raceCardModel.dart';
 import 'package:indian_race_fantasy/ui/screens/betting_screen/betting_controller.dart';
 
 import '../../../constants/color_constants.dart';
@@ -128,8 +129,10 @@ class BettingScreen extends GetWidget<BettingController> {
                     ),
                   ),
                 ),
-                SizedBox(height: Get.height*0.02,),
-               /* Column(
+                SizedBox(
+                  height: Get.height * 0.02,
+                ),
+                /* Column(
                   children: [
                     // Main Tabs
                     SingleChildScrollView(
@@ -203,86 +206,114 @@ class BettingScreen extends GetWidget<BettingController> {
                     ),
                   ],
                 ),*/
-                DefaultTabController(
-                  length: controller.mainTabs.length, // Specify the number of tabs
-                  initialIndex: controller.selectedMainTabIndex, // Set the initial selected tab index
-                  child: Column(
-                    children: [
-                      // Main Tabs
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: TabBar(
-                          isScrollable: true, // Allow horizontal scrolling of tabs
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Get.width * 20),
-                            color: primaryColor,
+                // DefaultTabController(
+                //   length:
+                //       controller.mainTabs.length, // Specify the number of tabs
+                //   initialIndex: controller
+                //       .selectedMainTabIndex, // Set the initial selected tab index
+                //   child: Column(
+                //     children: [
+                //       // Main Tabs
+                //       SingleChildScrollView(
+                //         scrollDirection: Axis.horizontal,
+                //         child: TabBar(
+                //           isScrollable:
+                //               true, // Allow horizontal scrolling of tabs
+                //           indicator: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(Get.width * 20),
+                //             color: primaryColor,
+                //           ),
+                //           labelColor:
+                //               kWhiteColor, // Text color for selected tab
+                //           unselectedLabelColor:
+                //               secondaryColor, // Text color for unselected tabs
+                //           tabs: List.generate(
+                //             controller.mainTabs.length,
+                //             (index) => Container(
+                //               width: Get.width * 0.15,
+                //               decoration: BoxDecoration(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Get.width * 20),
+                //                 color: primaryColor,
+                //               ),
+                //               child: Tab(
+                //                 text: controller.mainTabs[index],
+                //               ),
+                //             ),
+                //           ),
+                //           onTap: (index) {
+                //             controller.selectedMainTabIndex = index;
+                //             controller.selectedSubTabIndex =
+                //                 0; // Reset sub-tab index
+                //           },
+                //         ),
+                //       ),
+                //
+                //       // Sub Tabs
+                //       SingleChildScrollView(
+                //         scrollDirection: Axis.horizontal,
+                //         child: TabBar(
+                //           isScrollable:
+                //               true, // Allow horizontal scrolling of tabs
+                //           indicator: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(Get.width * 20),
+                //             color: primaryColor,
+                //           ),
+                //           labelColor:
+                //               kWhiteColor, // Text color for selected tab
+                //           unselectedLabelColor:
+                //               secondaryColor, // Text color for unselected tabs
+                //           tabs: List.generate(
+                //             controller.subTabs[controller.selectedMainTabIndex]
+                //                 .length,
+                //             (index) => Container(
+                //               width: Get.width * 0.25,
+                //               decoration: BoxDecoration(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Get.width * 20),
+                //                 color: primaryColor,
+                //               ),
+                //               child: Tab(
+                //                 text: controller.subTabs[
+                //                     controller.selectedMainTabIndex][index],
+                //               ),
+                //             ),
+                //           ),
+                //           onTap: (index) {
+                //             controller.selectedSubTabIndex = index;
+                //           },
+                //         ),
+                //       ),
+                //
+                //       // Content for Selected Tab
+                //       Center(
+                //         child: Text(
+                //           'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
+                //           style: TextStyle(fontSize: 24),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
+                 RaceCardModel(
+                            horseNumber: "1",
+                            drawBox: "5",
+                            horseName: "VIJAYA FALCON",
+                            acs: "2y b f",
+                            trainer: "A.Fabre",
+                            jockey: "R.Thomas",
+                            weightCarry: "57.0",
+                            allowance: "AW.0 ",
+                            rating: "32",
+                            jockeyDress: null,
                           ),
-                          labelColor: kWhiteColor, // Text color for selected tab
-                          unselectedLabelColor: secondaryColor, // Text color for unselected tabs
-                          tabs: List.generate(
-                            controller.mainTabs.length,
-                                (index) => Container(
-                                  width: Get.width*0.15,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(Get.width*20),
-                                    color: primaryColor,
 
-                                  ),
-                                  child: Tab(
-                              text: controller.mainTabs[index],
-                            ),
-                                ),
-                          ),
-                          onTap: (index) {
-                            controller.selectedMainTabIndex = index;
-                            controller.selectedSubTabIndex = 0; // Reset sub-tab index
-                          },
-                        ),
-                      ),
+                SizedBox(height: 50.0,),
 
-                      // Sub Tabs
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: TabBar(
-                          isScrollable: true, // Allow horizontal scrolling of tabs
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Get.width * 20),
-                            color: primaryColor,
-                          ),
-                          labelColor: kWhiteColor, // Text color for selected tab
-                          unselectedLabelColor: secondaryColor, // Text color for unselected tabs
-                          tabs: List.generate(
-                            controller.subTabs[controller.selectedMainTabIndex].length,
-                                (index) => Container(
-                                  width: Get.width*0.25,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(Get.width*20),
-                                    color: primaryColor,
-
-                                  ),
-                                  child: Tab(
-                              text: controller.subTabs[controller.selectedMainTabIndex][index],
-                            ),
-                                ),
-                          ),
-                          onTap: (index) {
-                            controller.selectedSubTabIndex = index;
-                          },
-                        ),
-                      ),
-
-                      // Content for Selected Tab
-                      Center(
-                        child: Text(
-                          'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
-
-
+                ElevatedButton(onPressed: (){
+                  controller.fetchRaceCardDetails();
+                }, child: Text("ok"))
 
               ],
             );

@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:indian_race_fantasy/model/model_api/raceCardDetails.dart';
 import '../model/model_api/kyc_update.dart';
 import '../model/model_api/user_details.dart';
 import '../router.dart';
@@ -110,4 +111,28 @@ class Api {
       throw Exception(response.reasonPhrase);
     }
   }
+
+  Future<RaceCardDetails> getRaceCardDetails(String date) async {
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+
+    var request = http.Request(
+        'GET', Uri.parse('http://15.206.68.154:5000/users/getDetails/raceCard?date=$date'));
+
+    request.body = '''''';
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      final responseBody = await response.stream.bytesToString();
+      final raceCardDetails = RaceCardDetails.fromJson(json.decode(responseBody));
+      return raceCardDetails;
+    } else {
+      // Handle the error here by throwing an exception or returning a default value
+      throw Exception('Failed to load race card details');
+    }
+  }
+
 }
