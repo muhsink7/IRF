@@ -113,25 +113,41 @@ class Api {
   }
 
   Future<RaceCardDetails> getRaceCardDetails(String date) async {
-    var headers = {
-      'Content-Type': 'application/json'
-    };
+    try {
+      print("-------------$date-------------");
+      var headers = {
+        'Content-Type': 'application/json'
+      };
 
-    var request = http.Request(
-        'GET', Uri.parse('http://15.206.68.154:5000/users/getDetails/raceCard?date=$date'));
+      var request = http.Request(
+          'GET', Uri.parse(
+          'http://15.206.68.154:5000/users/getDetails/raceCard?date=$date'));
 
-    request.body = '''''';
-    request.headers.addAll(headers);
+      request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
+      http.StreamedResponse response = await request.send();
+      var responseString = await response.stream.bytesToString();
 
-    if (response.statusCode == 200) {
-      final responseBody = await response.stream.bytesToString();
-      final raceCardDetails = RaceCardDetails.fromJson(json.decode(responseBody));
-      return raceCardDetails;
-    } else {
-      // Handle the error here by throwing an exception or returning a default value
-      throw Exception('Failed to load race card details');
+      if (response.statusCode == 200) {
+        // final responseBody = json.decode(responseString);
+        print("**********************************");
+        final Map<String, dynamic> responseBody = json.decode(responseString);
+        final raceCardDetails = RaceCardDetails.fromJson(responseBody);
+        // final raceCardDetails = RaceCardDetails.fromJson(responseBody);
+        // print(responseBody);
+        return raceCardDetails;
+      } else {
+        // Handle specific error cases based on response status code
+        if (response.statusCode == 404) {
+          throw Exception('Race card not found');
+        } else {
+          throw Exception(
+              'Failed to load race card details: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      // Handle exceptions here
+      throw Exception('Failed to load race card details: $e');
     }
   }
 

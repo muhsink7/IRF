@@ -1,68 +1,71 @@
 class RaceCardDetails {
-  final String id;
-  final String date;
-  final List<RaceDetails> data;
-  final int v;
+  final String? id;
+  final String? date;
+  final List<RaceDetails>? data;
+  final int? v;
 
   RaceCardDetails({
-    required this.id,
-    required this.date,
-    required this.data,
-    required this.v,
+    this.id,
+    this.date,
+    this.data,
+    this.v,
   });
 
   factory RaceCardDetails.fromJson(Map<String, dynamic> json) {
     // Parse the JSON and create a RaceCardDetails object
     return RaceCardDetails(
-      id: json['id'],
+      id: json['_id'], // Update the key to '_id'
       date: json['date'],
-      data: (json['data'] as List<dynamic>).map((item) => RaceDetails.fromJson(item)).toList(),
-      v: json['v'],
+      data: (json['data'] as List<dynamic>)
+          .map((item) => RaceDetails.fromJson(item))
+          .toList(),
+      v: json['__v'], // Update the key to '__v'
     );
   }
-
-
 }
 
 class RaceDetails {
-  final TableName tableName;
-  final int horseNumber;
-  final int drawBox;
-  final String horseName;
-  final String aCS;
-  final String trainer;
-  final String jockey;
-  final double weight;
-  final int allowance;
-  final int rating;
+  final String? tableName; // Change to String?
+  final int? horseNumber;
+  final int? drawBox;
+  final String? horseName;
+  final String? aCS;
+  final String? trainer;
+  final String? jockey;
+  final double? weight;
+  final int? allowance;
+  final int? rating;
 
   RaceDetails({
-    required this.tableName,
-    required this.horseNumber,
-    required this.drawBox,
-    required this.horseName,
-    required this.aCS,
-    required this.trainer,
-    required this.jockey,
-    required this.weight,
-    required this.allowance,
-    required this.rating,
+    this.tableName,
+    this.horseNumber,
+    this.drawBox,
+    this.horseName,
+    this.aCS,
+    this.trainer,
+    this.jockey,
+    this.weight,
+    this.allowance,
+    this.rating,
   });
 
   factory RaceDetails.fromJson(Map<String, dynamic> json) {
     return RaceDetails(
-      tableName: _parseTableName(json['tableName']),
-      horseNumber: json['horseNumber'],
-      drawBox: json['drawBox'],
-      horseName: json['horseName'],
-      aCS: json['aCS'],
-      trainer: json['trainer'],
-      jockey: json['jockey'],
-      weight: json['weight'].toDouble(),
-      allowance: json['allowance'],
-      rating: json['rating'],
+      tableName: json['tableName'], // Update the key to 'tableName'
+      horseNumber: json['Horse Number'], // Update the key to 'Horse Number'
+      drawBox: json['Draw Box'], // Update the key to 'Draw Box'
+      horseName: json['Horse Name'], // Update the key to 'Horse Name'
+      aCS: json['A/C/S'], // Update the key to 'A/C/S'
+      trainer: json['Trainer'],
+      jockey: json['Jockey'],
+      weight: json['Weight']?.toDouble(), // Update the key to 'Weight'
+      allowance: json['Allowance'],
+      rating: json['Rating'],
     );
   }
+
+// Rest of your code remains the same...
+
   static TableName _parseTableName(String tableName) {
     switch (tableName) {
       case 'RACE_1':
@@ -79,13 +82,6 @@ class RaceDetails {
         throw ArgumentError('Invalid TableName: $tableName');
     }
   }
-
 }
 
-enum TableName {
-  RACE_1,
-  RACE_2,
-  RACE_3,
-  RACE_4,
-  RACE_5
-}
+enum TableName { RACE_1, RACE_2, RACE_3, RACE_4, RACE_5 }

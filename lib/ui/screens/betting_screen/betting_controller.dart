@@ -6,11 +6,12 @@ import 'package:indian_race_fantasy/model/model_api/raceCardDetails.dart';
 import '../../../api/api.dart';
 import '../../../model/model_api/user_details.dart';
 
-class BettingController extends GetxController with  GetSingleTickerProviderStateMixin {
+class BettingController extends GetxController with  GetTickerProviderStateMixin {
   final box = GetStorage();
   Api api = Get.find();
   var userDetails = UserDetails();
-  late List<RaceCardDetails> raceDetailss;
+  // var raceCardDetails = RaceCardDetails(id: id, date: date, data: data, v: v)
+  var  raceDetails = RaceCardDetails();
   bool isLoading = false;
 
   int selectedMainTabIndex = 0;
@@ -37,6 +38,8 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
   ];
 
   late TabController tabController = TabController(length: 7, vsync: this);
+  late TabController tabController2 = TabController(length: 5, vsync: this);
+
 
 
   @override
@@ -49,37 +52,83 @@ class BettingController extends GetxController with  GetSingleTickerProviderStat
     // TODO: implement onInit
     tabController.addListener(() {
       selectedMainTabIndex = tabController.index;
-      selectedSubTabIndex = 0; // Reset sub-tab index when main tab changes
+      selectedSubTabIndex = tabController2.index; // Reset sub-tab index when main tab changes
       update();
     });
     // fetchUserDetails();
     update();
   }
-  void fetchRaceCardDetails() async {
+  void fetchRaceCardDetails(String? date) async {
     try {
-      final date = '19/09/23'; // Replace with the actual date you want to fetch
+      print("++++++++++++++$date++++++++++++");
+      if (date == null) {
+        // Handle the case where date is null, provide a default value, or return an error.
+        print('Date is null. Handle this case.');
+        return;
+      }
+      // final currentDate = date;
+      // final date = '19/09/23'; // Replace with the actual date you want to fetch
 
       final raceCardDetails = await api.getRaceCardDetails(date);
+      raceDetails = raceCardDetails;
       print(raceCardDetails);
 
       // Now you can use the raceCardDetails object
+      print('Race Card Table Name: ${raceDetails.data?[0].tableName}');
+
+      // for (final raceDetails in raceCardDetails.data ?? []) {
+      //   print('Table Name: ${raceDetails.tableName}');
+      //   for (final raceDetails in raceCardDetails.data ?? []) {
+      //     print('Table Name: ${raceDetails.horseName}');
+      //   }
+      // }
+      final Map<String, List<RaceDetails>> raceDetailsByTable = {};
+
+      for (final raceDetails in raceCardDetails.data ?? []) {
+        final tableName = raceDetails.tableName.toString(); // Convert enum to string
+
+        if (!raceDetailsByTable.containsKey(tableName)) {
+          raceDetailsByTable[tableName] = [];
+        }
+
+        raceDetailsByTable[tableName]?.add(raceDetails);
+      }
+
+// Now, print all the data grouped by table name
+      raceDetailsByTable.forEach((tableName, raceDetailsList) {
+        print('Table Name: $tableName');
+        for (final raceDetail in raceDetailsList) {
+          print('Horse Number: ${raceDetail.horseNumber}');
+          // print('Draw Box: ${raceDetail.drawBox}');
+          print('Horse Name: ${raceDetail.horseName}');
+          // print('ACS: ${raceDetail.aCS}');
+          // print('Trainer: ${raceDetail.trainer}');
+          // print('Jockey: ${raceDetail.jockey}');
+          // print('Weight: ${raceDetail.weight}');
+          // print('Allowance: ${raceDetail.allowance}');
+          // print('Rating: ${raceDetail.rating}');
+          print('-----------------------------');
+        }
+      });
+
+
       print('Race Card ID: ${raceCardDetails.id}');
       print('Date: ${raceCardDetails.date}');
       print('Version: ${raceCardDetails.v}');
 
-      for (final raceDetails in raceCardDetails.data) {
-        print('Table Name: ${raceDetails.tableName}');
-        print('Horse Number: ${raceDetails.horseNumber}');
-        print('Draw Box: ${raceDetails.drawBox}');
-        print('Horse Name: ${raceDetails.horseName}');
-        print('ACS: ${raceDetails.aCS}');
-        print('Trainer: ${raceDetails.trainer}');
-        print('Jockey: ${raceDetails.jockey}');
-        print('Weight: ${raceDetails.weight}');
-        print('Allowance: ${raceDetails.allowance}');
-        print('Rating: ${raceDetails.rating}');
-        print('-----------------------------');
-      }
+      // for (final raceDetails in raceCardDetails.data) {
+      //   print('Table Name: ${raceDetails.tableName}');
+      //   print('Horse Number: ${raceDetails.horseNumber}');
+      //   print('Draw Box: ${raceDetails.drawBox}');
+      //   print('Horse Name: ${raceDetails.horseName}');
+      //   print('ACS: ${raceDetails.aCS}');
+      //   print('Trainer: ${raceDetails.trainer}');
+      //   print('Jockey: ${raceDetails.jockey}');
+      //   print('Weight: ${raceDetails.weight}');
+      //   print('Allowance: ${raceDetails.allowance}');
+      //   print('Rating: ${raceDetails.rating}');
+      //   print('-----------------------------');
+      // }
     } catch (e) {
       print('Error fetching race card details: $e');
     }

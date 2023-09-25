@@ -206,95 +206,98 @@ class BettingScreen extends GetWidget<BettingController> {
                     ),
                   ],
                 ),*/
-                // DefaultTabController(
-                //   length:
-                //       controller.mainTabs.length, // Specify the number of tabs
-                //   initialIndex: controller
-                //       .selectedMainTabIndex, // Set the initial selected tab index
-                //   child: Column(
-                //     children: [
-                //       // Main Tabs
-                //       SingleChildScrollView(
-                //         scrollDirection: Axis.horizontal,
-                //         child: TabBar(
-                //           isScrollable:
-                //               true, // Allow horizontal scrolling of tabs
-                //           indicator: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(Get.width * 20),
-                //             color: primaryColor,
-                //           ),
-                //           labelColor:
-                //               kWhiteColor, // Text color for selected tab
-                //           unselectedLabelColor:
-                //               secondaryColor, // Text color for unselected tabs
-                //           tabs: List.generate(
-                //             controller.mainTabs.length,
-                //             (index) => Container(
-                //               width: Get.width * 0.15,
-                //               decoration: BoxDecoration(
-                //                 borderRadius:
-                //                     BorderRadius.circular(Get.width * 20),
-                //                 color: primaryColor,
-                //               ),
-                //               child: Tab(
-                //                 text: controller.mainTabs[index],
-                //               ),
-                //             ),
-                //           ),
-                //           onTap: (index) {
-                //             controller.selectedMainTabIndex = index;
-                //             controller.selectedSubTabIndex =
-                //                 0; // Reset sub-tab index
-                //           },
-                //         ),
-                //       ),
-                //
-                //       // Sub Tabs
-                //       SingleChildScrollView(
-                //         scrollDirection: Axis.horizontal,
-                //         child: TabBar(
-                //           isScrollable:
-                //               true, // Allow horizontal scrolling of tabs
-                //           indicator: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(Get.width * 20),
-                //             color: primaryColor,
-                //           ),
-                //           labelColor:
-                //               kWhiteColor, // Text color for selected tab
-                //           unselectedLabelColor:
-                //               secondaryColor, // Text color for unselected tabs
-                //           tabs: List.generate(
-                //             controller.subTabs[controller.selectedMainTabIndex]
-                //                 .length,
-                //             (index) => Container(
-                //               width: Get.width * 0.25,
-                //               decoration: BoxDecoration(
-                //                 borderRadius:
-                //                     BorderRadius.circular(Get.width * 20),
-                //                 color: primaryColor,
-                //               ),
-                //               child: Tab(
-                //                 text: controller.subTabs[
-                //                     controller.selectedMainTabIndex][index],
-                //               ),
-                //             ),
-                //           ),
-                //           onTap: (index) {
-                //             controller.selectedSubTabIndex = index;
-                //           },
-                //         ),
-                //       ),
-                //
-                //       // Content for Selected Tab
-                //       Center(
-                //         child: Text(
-                //           'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
-                //           style: TextStyle(fontSize: 24),
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
+                DefaultTabController(
+                  length:
+                      controller.mainTabs.length, // Specify the number of tabs
+                  initialIndex: controller
+                      .selectedMainTabIndex, // Set the initial selected tab index
+                  child: Column(
+                    children: [
+                      // Main Tabs
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: TabBar(
+                          controller: controller.tabController,
+                          isScrollable:
+                              true, // Allow horizontal scrolling of tabs
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Get.width * 20),
+                            color: primaryColor,
+                          ),
+                          labelColor:
+                              kWhiteColor, // Text color for selected tab
+                          unselectedLabelColor:
+                              secondaryColor, // Text color for unselected tabs
+                          tabs: List.generate(
+                            controller.mainTabs.length,
+                            (index) => Container(
+                              width: Get.width * 0.10,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(Get.width * 0.01),
+                                color: primaryColor,
+                              ),
+                              child: Tab(
+                                text: controller.mainTabs[index],
+                              ),
+                            ),
+                          ),
+                          onTap: (index) {
+                            controller.selectedMainTabIndex = index;
+                            controller.selectedSubTabIndex =
+                                0; // Reset sub-tab index
+                          },
+                        ),
+                      ),
+
+                      // Sub Tabs
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: TabBar.secondary(
+                          controller: controller.tabController2,
+                          indicatorColor: Colors.transparent,
+                          isScrollable:
+                              true, // Allow horizontal scrolling of tabs
+                          indicator: BoxDecoration(
+                            borderRadius: BorderRadius.circular(Get.width * 20),
+                            color: primaryColor,
+                          ),
+                          labelColor:
+                              kWhiteColor, // Text color for selected tab
+                          unselectedLabelColor:
+                              secondaryColor, // Text color for unselected tabs
+                          tabs: List.generate(
+                            controller.subTabs[controller.selectedMainTabIndex]
+                                .length,
+                            (index) => Container(
+                              width: Get.width * 0.25,
+                              decoration: BoxDecoration(
+                                borderRadius:
+                                    BorderRadius.circular(Get.width * 20),
+                                color: primaryColor,
+                              ),
+                              child: Tab(
+                                text: controller.subTabs[
+                                    controller.selectedMainTabIndex][index],
+                              ),
+                            ),
+                          ),
+                          onTap: (index) {
+                            controller.selectedSubTabIndex = index;
+                          },
+                        ),
+                      ),
+
+                      // Content for Selected Tab
+                      Center(
+                        child: Text(
+                          'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
                  RaceCardModel(
                             horseNumber: "1",
@@ -312,7 +315,8 @@ class BettingScreen extends GetWidget<BettingController> {
                 SizedBox(height: 50.0,),
 
                 ElevatedButton(onPressed: (){
-                  controller.fetchRaceCardDetails();
+                  var currentDate = "19/09/23";
+                  controller.fetchRaceCardDetails(currentDate);
                 }, child: Text("ok"))
 
               ],
