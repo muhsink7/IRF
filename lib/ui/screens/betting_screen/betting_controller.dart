@@ -55,6 +55,10 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
       selectedSubTabIndex = tabController2.index; // Reset sub-tab index when main tab changes
       update();
     });
+    tabController2.addListener(() {
+      selectedSubTabIndex = tabController2.index; // Reset sub-tab index when main tab changes
+      update();
+    });
     // fetchUserDetails();
     update();
   }

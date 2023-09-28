@@ -132,7 +132,7 @@ class BettingScreen extends GetWidget<BettingController> {
                 SizedBox(
                   height: Get.height * 0.02,
                 ),
-                 Column(
+                Column(
                   children: [
                     // Main Tabs
                     SingleChildScrollView(
@@ -141,29 +141,35 @@ class BettingScreen extends GetWidget<BettingController> {
                         isScrollable: true,
                         tabs: List.generate(
                           controller.mainTabs.length,
-                              (index) => Tab(
+                          (index) => Tab(
                             child: ElevatedButton(
                               onPressed: () {
                                 // Change the tab when the button is pressed
                                 controller.tabController.animateTo(index);
+                                controller.tabController2.animateTo(0);
                               },
                               style: ButtonStyle(
-                                shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-                                      (states) {
-                                    if (states.contains(MaterialState.pressed)) {
+                                shape: MaterialStateProperty.resolveWith<
+                                    OutlinedBorder?>(
+                                  (states) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
                                       // Use a different shape when the button is pressed
                                       return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                        borderRadius: BorderRadius.circular(
+                                            5.0), // Adjust the border radius as needed
                                       );
                                     } else {
                                       // Use the default shape when the button is not pressed
                                       return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                        borderRadius: BorderRadius.circular(
+                                            5.0), // Adjust the border radius as needed
                                       );
                                     }
                                   },
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
                                   controller.selectedMainTabIndex == index
                                       ? primaryColor
                                       : kGreyColor,
@@ -181,15 +187,15 @@ class BettingScreen extends GetWidget<BettingController> {
                       ),
                     ),
 
-
-
                     // Sub Tabs
                     SingleChildScrollView(
-                      child: Wrap(
-                        children:
-                        List.generate(
-                          controller.subTabs[controller.selectedMainTabIndex].length,
-                              (index) => Padding(
+                      child: TabBar(
+                        controller: controller.tabController2,
+                        isScrollable: true,
+                        tabs: List.generate(
+                          controller
+                              .subTabs[controller.selectedMainTabIndex].length,
+                          (index) => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               onPressed: () {
@@ -197,29 +203,35 @@ class BettingScreen extends GetWidget<BettingController> {
                                 controller.tabController2.animateTo(index);
                               },
                               style: ButtonStyle(
-                                shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
-                                      (states) {
-                                    if (states.contains(MaterialState.pressed)) {
+                                shape: MaterialStateProperty.resolveWith<
+                                    OutlinedBorder?>(
+                                  (states) {
+                                    if (states
+                                        .contains(MaterialState.pressed)) {
                                       // Use a different shape when the button is pressed
                                       return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                        borderRadius: BorderRadius.circular(
+                                            5.0), // Adjust the border radius as needed
                                       );
                                     } else {
                                       // Use the default shape when the button is not pressed
                                       return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                        borderRadius: BorderRadius.circular(
+                                            5.0), // Adjust the border radius as needed
                                       );
                                     }
                                   },
                                 ),
-                                backgroundColor: MaterialStateProperty.all<Color>(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
                                   controller.selectedSubTabIndex == index
                                       ? secondaryColor
                                       : kGreyColor,
                                 ),
                               ),
                               child: Text(
-                                controller.subTabs[controller.selectedMainTabIndex][index],
+                                controller.subTabs[
+                                    controller.selectedMainTabIndex][index],
                                 style: TextStyle(
                                   color: kWhiteColor,
                                 ),
@@ -332,26 +344,29 @@ class BettingScreen extends GetWidget<BettingController> {
                   ),
                 ),
 
-                 RaceCardModel(
-                            horseNumber: "1",
-                            drawBox: "5",
-                            horseName: "VIJAYA FALCON",
-                            acs: "2y b f",
-                            trainer: "A.Fabre",
-                            jockey: "R.Thomas",
-                            weightCarry: "57.0",
-                            allowance: "AW.0 ",
-                            rating: "32",
-                            jockeyDress: null,
-                          ),
+                RaceCardModel(
+                  horseNumber: "1",
+                  drawBox: "5",
+                  horseName: "VIJAYA FALCON",
+                  acs: "2y b f",
+                  trainer: "A.Fabre",
+                  jockey: "R.Thomas",
+                  weightCarry: "57.0",
+                  allowance: "AW.0 ",
+                  rating: "32",
+                  jockeyDress: null,
+                ),
 
-                SizedBox(height: 50.0,),
+                SizedBox(
+                  height: 50.0,
+                ),
 
-                ElevatedButton(onPressed: (){
-                  var currentDate = "19/09/23";
-                  controller.fetchRaceCardDetails(currentDate);
-                }, child: Text("ok"))
-
+                ElevatedButton(
+                    onPressed: () {
+                      var currentDate = "19/09/23";
+                      controller.fetchRaceCardDetails(currentDate);
+                    },
+                    child: Text("ok"))
               ],
             );
           },
