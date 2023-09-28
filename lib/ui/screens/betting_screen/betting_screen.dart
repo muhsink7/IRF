@@ -132,26 +132,41 @@ class BettingScreen extends GetWidget<BettingController> {
                 SizedBox(
                   height: Get.height * 0.02,
                 ),
-                /* Column(
+                 Column(
                   children: [
                     // Main Tabs
                     SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        children: List.generate(
+                      child: TabBar(
+                        controller: controller.tabController,
+                        isScrollable: true,
+                        tabs: List.generate(
                           controller.mainTabs.length,
-                              (index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
+                              (index) => Tab(
                             child: ElevatedButton(
                               onPressed: () {
-                                controller.selectedMainTabIndex = index;
-                                controller.selectedSubTabIndex = 0; // Reset sub-tab index
+                                // Change the tab when the button is pressed
+                                controller.tabController.animateTo(index);
                               },
                               style: ButtonStyle(
+                                shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+                                      (states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      // Use a different shape when the button is pressed
+                                      return RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                      );
+                                    } else {
+                                      // Use the default shape when the button is not pressed
+                                      return RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                      );
+                                    }
+                                  },
+                                ),
                                 backgroundColor: MaterialStateProperty.all<Color>(
                                   controller.selectedMainTabIndex == index
                                       ? primaryColor
-                                      : secondaryColor,
+                                      : kGreyColor,
                                 ),
                               ),
                               child: Text(
@@ -166,23 +181,41 @@ class BettingScreen extends GetWidget<BettingController> {
                       ),
                     ),
 
+
+
                     // Sub Tabs
                     SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
                       child: Wrap(
-                        children: List.generate(
+                        children:
+                        List.generate(
                           controller.subTabs[controller.selectedMainTabIndex].length,
                               (index) => Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
                               onPressed: () {
-                                controller.selectedSubTabIndex = index;
+                                // Change the tab when the button is pressed
+                                controller.tabController2.animateTo(index);
                               },
                               style: ButtonStyle(
+                                shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+                                      (states) {
+                                    if (states.contains(MaterialState.pressed)) {
+                                      // Use a different shape when the button is pressed
+                                      return RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                      );
+                                    } else {
+                                      // Use the default shape when the button is not pressed
+                                      return RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(5.0), // Adjust the border radius as needed
+                                      );
+                                    }
+                                  },
+                                ),
                                 backgroundColor: MaterialStateProperty.all<Color>(
                                   controller.selectedSubTabIndex == index
-                                      ? primaryColor
-                                      : secondaryColor,
+                                      ? secondaryColor
+                                      : kGreyColor,
                                 ),
                               ),
                               child: Text(
@@ -205,7 +238,7 @@ class BettingScreen extends GetWidget<BettingController> {
                       ),
                     ),
                   ],
-                ),*/
+                ),
                 DefaultTabController(
                   length:
                       controller.mainTabs.length, // Specify the number of tabs
