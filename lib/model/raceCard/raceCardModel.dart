@@ -110,7 +110,7 @@ class RaceCardModel extends StatelessWidget {
                 child: Obx(() {
                   return iconController.isPressed.value
                       ? Container(
-                    color: Colors.blue, // Change to your desired color
+                    color: secondaryColor, // Change to your desired color
                     child: Center(
                       child: Icon(
                         Icons.done,

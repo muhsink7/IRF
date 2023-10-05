@@ -103,14 +103,14 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
         print('Table Name: $tableName');
         for (final raceDetail in raceDetailsList) {
           print('Horse Number: ${raceDetail.horseNumber}');
-          // print('Draw Box: ${raceDetail.drawBox}');
+          print('Draw Box: ${raceDetail.drawBox}');
           print('Horse Name: ${raceDetail.horseName}');
-          // print('ACS: ${raceDetail.aCS}');
-          // print('Trainer: ${raceDetail.trainer}');
-          // print('Jockey: ${raceDetail.jockey}');
-          // print('Weight: ${raceDetail.weight}');
-          // print('Allowance: ${raceDetail.allowance}');
-          // print('Rating: ${raceDetail.rating}');
+          print('ACS: ${raceDetail.aCS}');
+          print('Trainer: ${raceDetail.trainer}');
+          print('Jockey: ${raceDetail.jockey}');
+          print('Weight: ${raceDetail.weight}');
+          print('Allowance: ${raceDetail.allowance}');
+          print('Rating: ${raceDetail.rating}');
           print('-----------------------------');
         }
       });

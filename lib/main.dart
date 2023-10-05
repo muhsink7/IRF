@@ -4,6 +4,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:indian_race_fantasy/api/api.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
 import 'package:indian_race_fantasy/router.dart';
+import 'package:sizer/sizer.dart';
 import 'ui/screens/splash_screen/splash_binding.dart';
 
 void main() async {

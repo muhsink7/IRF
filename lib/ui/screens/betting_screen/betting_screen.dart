@@ -135,214 +135,199 @@ class BettingScreen extends GetWidget<BettingController> {
                 Column(
                   children: [
                     // Main Tabs
-                    SingleChildScrollView(
-                      child: TabBar(
-                        controller: controller.tabController,
-                        isScrollable: true,
-                        tabs: List.generate(
-                          controller.mainTabs.length,
-                          (index) => Tab(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Change the tab when the button is pressed
-                                controller.tabController.animateTo(index);
-                                controller.tabController2.animateTo(0);
-                              },
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.resolveWith<
-                                    OutlinedBorder?>(
-                                  (states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      // Use a different shape when the button is pressed
-                                      return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            5.0), // Adjust the border radius as needed
-                                      );
-                                    } else {
-                                      // Use the default shape when the button is not pressed
-                                      return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            5.0), // Adjust the border radius as needed
-                                      );
-                                    }
-                                  },
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  controller.selectedMainTabIndex == index
-                                      ? primaryColor
-                                      : kGreyColor,
-                                ),
+                    Wrap(
+                      spacing: 8.0, // Adjust the spacing between tabs as needed
+                      runSpacing: 8.0, // Adjust the run spacing as needed
+                      alignment: WrapAlignment.center,
+                      children: List.generate(
+                        controller.mainTabs.length,
+                            (index) => Container(
+                              child: ElevatedButton(
+                          onPressed: () {
+                              // Change the tab when the button is pressed
+                              controller.tabController.animateTo(index);
+                              controller.tabController2.animateTo(0);
+                          },
+                          style: ButtonStyle(
+                              shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
+                                    (states) {
+                                  if (states.contains(MaterialState.pressed)) {
+                                    // Use a different shape when the button is pressed
+                                    return RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    );
+                                  } else {
+                                    // Use the default shape when the button is not pressed
+                                    return RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    );
+                                  }
+                                },
                               ),
-                              child: Text(
-                                controller.mainTabs[index],
-                                style: TextStyle(
-                                  color: kWhiteColor,
-                                ),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                controller.selectedMainTabIndex == index
+                                    ? primaryColor
+                                    : kGreyColor,
                               ),
-                            ),
+                          ),
+                          child: Text(
+                              controller.mainTabs[index],
+                              style: TextStyle(
+                                color: kWhiteColor,
+                              ),
                           ),
                         ),
+                            ),
                       ),
                     ),
+
 
                     // Sub Tabs
-                    SingleChildScrollView(
-                      child: TabBar(
-                        controller: controller.tabController2,
-                        isScrollable: true,
-                        tabs: List.generate(
-                          controller
-                              .subTabs[controller.selectedMainTabIndex].length,
-                          (index) => Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Change the tab when the button is pressed
-                                controller.tabController2.animateTo(index);
-                              },
-                              style: ButtonStyle(
-                                shape: MaterialStateProperty.resolveWith<
-                                    OutlinedBorder?>(
+                    Wrap(
+                      spacing: 5.0, // Adjust the spacing between tabs as needed
+                      runSpacing: 0.0, // Adjust the run spacing as needed
+                      alignment: WrapAlignment.center,
+                      children: List.generate(
+                        controller.subTabs[controller.selectedMainTabIndex].length,
+                            (index) => ElevatedButton(
+                          onPressed: () {
+                            // Change the tab when the button is pressed
+                            controller.tabController2.animateTo(index);
+                          },
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
                                   (states) {
-                                    if (states
-                                        .contains(MaterialState.pressed)) {
-                                      // Use a different shape when the button is pressed
-                                      return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            5.0), // Adjust the border radius as needed
-                                      );
-                                    } else {
-                                      // Use the default shape when the button is not pressed
-                                      return RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(
-                                            5.0), // Adjust the border radius as needed
-                                      );
-                                    }
-                                  },
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                  controller.selectedSubTabIndex == index
-                                      ? secondaryColor
-                                      : kGreyColor,
-                                ),
-                              ),
-                              child: Text(
-                                controller.subTabs[
-                                    controller.selectedMainTabIndex][index],
-                                style: TextStyle(
-                                  color: kWhiteColor,
-                                ),
-                              ),
+                                if (states.contains(MaterialState.pressed)) {
+                                  // Use a different shape when the button is pressed
+                                  return RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  );
+                                } else {
+                                  // Use the default shape when the button is not pressed
+                                  return RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                  );
+                                }
+                              },
+                            ),
+                            backgroundColor: MaterialStateProperty.all<Color>(
+                              controller.selectedSubTabIndex == index
+                                  ? secondaryColor
+                                  : kGreyColor,
+                            ),
+                          ),
+                          child: Text(
+                            controller.subTabs[controller.selectedMainTabIndex][index],
+                            style: TextStyle(
+                              color: kWhiteColor,
                             ),
                           ),
                         ),
                       ),
                     ),
+
 
                     // Content for Selected Tab
-                    Center(
-                      child: Text(
-                        'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
-                        style: TextStyle(fontSize: 24),
-                      ),
-                    ),
+                    // Center(
+                    //   child: Text(
+                    //     'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
+                    //     style: TextStyle(fontSize: 24),
+                    //   ),
+                    // ),
                   ],
                 ),
-                DefaultTabController(
-                  length:
-                      controller.mainTabs.length, // Specify the number of tabs
-                  initialIndex: controller
-                      .selectedMainTabIndex, // Set the initial selected tab index
-                  child: Column(
-                    children: [
-                      // Main Tabs
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: TabBar(
-                          controller: controller.tabController,
-                          isScrollable:
-                              true, // Allow horizontal scrolling of tabs
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Get.width * 20),
-                            color: primaryColor,
-                          ),
-                          labelColor:
-                              kWhiteColor, // Text color for selected tab
-                          unselectedLabelColor:
-                              secondaryColor, // Text color for unselected tabs
-                          tabs: List.generate(
-                            controller.mainTabs.length,
-                            (index) => Container(
-                              width: Get.width * 0.10,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(Get.width * 0.01),
-                                color: primaryColor,
-                              ),
-                              child: Tab(
-                                text: controller.mainTabs[index],
-                              ),
-                            ),
-                          ),
-                          onTap: (index) {
-                            controller.selectedMainTabIndex = index;
-                            controller.selectedSubTabIndex =
-                                0; // Reset sub-tab index
-                          },
-                        ),
-                      ),
-
-                      // Sub Tabs
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: TabBar.secondary(
-                          controller: controller.tabController2,
-                          indicatorColor: Colors.transparent,
-                          isScrollable:
-                              true, // Allow horizontal scrolling of tabs
-                          indicator: BoxDecoration(
-                            borderRadius: BorderRadius.circular(Get.width * 20),
-                            color: primaryColor,
-                          ),
-                          labelColor:
-                              kWhiteColor, // Text color for selected tab
-                          unselectedLabelColor:
-                              secondaryColor, // Text color for unselected tabs
-                          tabs: List.generate(
-                            controller.subTabs[controller.selectedMainTabIndex]
-                                .length,
-                            (index) => Container(
-                              width: Get.width * 0.25,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.circular(Get.width * 20),
-                                color: primaryColor,
-                              ),
-                              child: Tab(
-                                text: controller.subTabs[
-                                    controller.selectedMainTabIndex][index],
-                              ),
-                            ),
-                          ),
-                          onTap: (index) {
-                            controller.selectedSubTabIndex = index;
-                          },
-                        ),
-                      ),
-
-                      // Content for Selected Tab
-                      Center(
-                        child: Text(
-                          'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // DefaultTabController(
+                //   length:
+                //       controller.mainTabs.length, // Specify the number of tabs
+                //   initialIndex: controller
+                //       .selectedMainTabIndex, // Set the initial selected tab index
+                //   child: Column(
+                //     children: [
+                //       // Main Tabs
+                //       SingleChildScrollView(
+                //         scrollDirection: Axis.horizontal,
+                //         child: TabBar(
+                //           controller: controller.tabController,
+                //           isScrollable:
+                //               true, // Allow horizontal scrolling of tabs
+                //           indicator: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(Get.width * 20),
+                //             color: primaryColor,
+                //           ),
+                //           labelColor:
+                //               kWhiteColor, // Text color for selected tab
+                //           unselectedLabelColor:
+                //               secondaryColor, // Text color for unselected tabs
+                //           tabs: List.generate(
+                //             controller.mainTabs.length,
+                //             (index) => Container(
+                //               width: Get.width * 0.10,
+                //               decoration: BoxDecoration(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Get.width * 0.01),
+                //                 color: primaryColor,
+                //               ),
+                //               child: Tab(
+                //                 text: controller.mainTabs[index],
+                //               ),
+                //             ),
+                //           ),
+                //           onTap: (index) {
+                //             controller.selectedMainTabIndex = index;
+                //             controller.selectedSubTabIndex =
+                //                 0; // Reset sub-tab index
+                //           },
+                //         ),
+                //       ),
+                //
+                //       // Sub Tabs
+                //       SingleChildScrollView(
+                //         scrollDirection: Axis.horizontal,
+                //         child: TabBar.secondary(
+                //           controller: controller.tabController2,
+                //           indicatorColor: Colors.transparent,
+                //           isScrollable:
+                //               true, // Allow horizontal scrolling of tabs
+                //           indicator: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(Get.width * 20),
+                //             color: primaryColor,
+                //           ),
+                //           labelColor:
+                //               kWhiteColor, // Text color for selected tab
+                //           unselectedLabelColor:
+                //               secondaryColor, // Text color for unselected tabs
+                //           tabs: List.generate(
+                //             controller.subTabs[controller.selectedMainTabIndex]
+                //                 .length,
+                //             (index) => Container(
+                //               width: Get.width * 0.25,
+                //               decoration: BoxDecoration(
+                //                 borderRadius:
+                //                     BorderRadius.circular(Get.width * 20),
+                //                 color: primaryColor,
+                //               ),
+                //               child: Tab(
+                //                 text: controller.subTabs[
+                //                     controller.selectedMainTabIndex][index],
+                //               ),
+                //             ),
+                //           ),
+                //           onTap: (index) {
+                //             controller.selectedSubTabIndex = index;
+                //           },
+                //         ),
+                //       ),
+                //
+                //       // Content for Selected Tab
+                //       Center(
+                //         child: Text(
+                //           'Selected: ${controller.mainTabs[controller.selectedMainTabIndex]} > ${controller.subTabs[controller.selectedMainTabIndex][controller.selectedSubTabIndex]}',
+                //           style: TextStyle(fontSize: 24),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
 
                 RaceCardModel(
                   horseNumber: "1",

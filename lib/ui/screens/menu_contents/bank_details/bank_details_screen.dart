@@ -7,6 +7,16 @@ import '../../../../Model/Button/custom_button.dart';
 import '../../../../constants/color_constants.dart';
 
 class BankDetailScreen extends GetWidget<BankDetailController> {
+  String? accountNumberError;
+
+  String? bankNameError;
+
+  String? ifscCodeError;
+
+  String? pancardNumError;
+
+  String? upiIdError;
+
   BankDetailScreen({super.key});
 
   @override
@@ -193,6 +203,14 @@ class BankDetailScreen extends GetWidget<BankDetailController> {
                     controller.kycUpdate(GetStorage().read("userId"),
                         GetStorage().read("phoneNumber"));
                     controller.getUserDetails(GetStorage().read("userId"));
+                    controller.accountNumberError = accountNumberError;
+                    controller.bankNameError = bankNameError;
+                    controller.ifscCodeError = ifscCodeError;
+                    controller.pancardNumError = pancardNumError;
+                    controller.upiIdError = upiIdError;
+
+                    // Refresh the UI
+                    controller.update();
                     // if (otpController.isVerified) {
                     //   String userId = otpController.userId;
                     //   String phoneNumber = Get.arguments;

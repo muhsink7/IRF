@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:indian_race_fantasy/model/model_api/raceCardDetails.dart';
+import 'package:indian_race_fantasy/model/model_api/tournament_model.dart';
 import '../model/model_api/kyc_update.dart';
 import '../model/model_api/user_details.dart';
 import '../router.dart';
@@ -111,6 +112,48 @@ class Api {
       throw Exception(response.reasonPhrase);
     }
   }
+
+  Future<TournamentDetails> createTournament() async {
+    var headers = {
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('http://localhost:5000/tournament/create/tournament'));
+    request.body = json.encode({
+      "tournamentName": "MY Tournament2",
+      "entryFee": 100,
+      "prizeMoney": 500,
+      "startingPoint": 0,
+      "pricePool": "Prize pool details",
+      "payoutStructure": "Payout structure details",
+      "minPlayers": 10,
+      "maxPlayers": 50,
+      "announceDate": "15/10/23",
+      "announceTime": "10:15:00",
+      "startDate": "30/11/23",
+      "startTime": "08:00:00",
+      "registrationDate": "29/10/23",
+      "registrationTime": "09:00:00",
+      "races": [
+        "Race 1",
+        "Race 2"
+      ]
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      // Parse the response and return it
+      final jsonResponse = json.decode(await response.stream.bytesToString());
+      return TournamentDetails.fromJson(jsonResponse);
+    } else {
+      // Handle the error and return a default value or throw an exception
+      print(response.reasonPhrase);
+      // Return a default value or throw an exception here
+      throw Exception('Failed to create tournament');
+    }
+  }
+
 
   Future<RaceCardDetails> getRaceCardDetails(String date) async {
     try {

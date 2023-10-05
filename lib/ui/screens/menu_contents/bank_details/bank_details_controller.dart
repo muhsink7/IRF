@@ -40,6 +40,18 @@ class BankDetailController extends GetxController{
     print(GetStorage().read('userId'));
     update();
     super.onInit();
+    bankNameController.text = userDetails.value.bankName ?? "";
+    pancardNumController.text = userDetails.value.kycPancardNumber ?? "";
+    accountNumberController.text = userDetails.value.accountNumber ?? "";
+    ifscCodeController.text = userDetails.value.ifscCode ?? "";
+    upiIdController.text = userDetails.value.upiId ?? "";
+
+    // Reset error messages
+    accountNumberError = null;
+    bankNameError = null;
+    ifscCodeError = null;
+    pancardNumError = null;
+    upiIdError = null;
     // getUserDetails(OtpController.instance.userId);
   }
 
