@@ -13,8 +13,8 @@ class ReusableCard extends StatelessWidget {
   final void Function() registerPressed;
   final void Function() detailsPressed;
   final String tournamentName;
-  final String price;
-  final String entryFee;
+  final int price;
+  final int entryFee;
 
   @override
   Widget build(BuildContext context) {

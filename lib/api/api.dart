@@ -3,6 +3,7 @@ import 'package:get_storage/get_storage.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:indian_race_fantasy/model/model_api/raceCardDetails.dart';
+import 'package:indian_race_fantasy/model/model_api/today_tournament.dart';
 import 'package:indian_race_fantasy/model/model_api/tournament_model.dart';
 import '../model/model_api/kyc_update.dart';
 import '../model/model_api/user_details.dart';
@@ -194,4 +195,43 @@ class Api {
     }
   }
 
+  Future<TodayTournamentDetails> getTodayTournamentDetails(String date) async {
+    try {
+      print("-------------$date-------------");
+      var headers = {
+        'Content-Type': 'application/json'
+      };
+
+      var request = http.Request(
+          'GET', Uri.parse(
+          'http://15.206.68.154:5000/tournament/getDetails/today/tournament?date=$date'));
+
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+      var responseString = await response.stream.bytesToString();
+
+      if (response.statusCode == 200) {
+        // final responseBody = json.decode(responseString);
+        print("**********************************");
+        final Map<String, dynamic> responseBody = json.decode(responseString);
+        final todayTournament = TodayTournamentDetails.fromJson(responseBody);
+        // final raceCardDetails = RaceCardDetails.fromJson(responseBody);
+        // print(responseBody);
+        print(todayTournament);
+        return todayTournament;
+      } else {
+        // Handle specific error cases based on response status code
+        if (response.statusCode == 404) {
+          throw Exception('Race card not found');
+        } else {
+          throw Exception(
+              'Failed to load race card details: ${response.statusCode}');
+        }
+      }
+    } catch (e) {
+      // Handle exceptions here
+      throw Exception('Failed to load race card details: $e');
+    }
+  }
 }
