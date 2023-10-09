@@ -172,23 +172,25 @@ class HomeScreen extends GetWidget<HomeController> {
                 // Your ListView.builder goes here
                 Expanded(
                   child: ListView.builder(
-                    itemCount: 5,
+                    itemCount: controller.todayTournaments.length,
                     itemBuilder: (ctx, int index) {
-                      // final tournament = controller.todayTournaments[index];
+                      final tournament = controller.todayTournaments[index];
                       return GestureDetector(
                         onTap: () {},
                         child: ReusableCard(
-                            registerPressed: () {
-                              Get.toNamed(RoutePaths.bettingScreen);
-                            },
-                            detailsPressed: () {},
-                            tournamentName: controller.todayTournaments.tournamentName ?? "BENGALARU TROPHY",
-                            price: controller.todayTournaments.prizeMoney?? 50000,
-                            entryFee: controller.todayTournaments.entryFee?? 500,
-                        ),);
+                          registerPressed: () {
+                            Get.toNamed(RoutePaths.bettingScreen);
+                          },
+                          detailsPressed: () {},
+                          tournamentName: tournament.tournamentName ?? "BENGALURU TROPHY",
+                          price: tournament.prizeMoney ?? 50000,
+                          entryFee: tournament.entryFee ?? 500,
+                        ),
+                      );
                     },
                   ),
                 ),
+
               ],
             );
           },

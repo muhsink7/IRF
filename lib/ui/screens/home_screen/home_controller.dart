@@ -14,7 +14,7 @@ class HomeController extends GetxController {
   final box = GetStorage();
   Api api = Get.find();
   var userDetails = UserDetails();
-  var todayTournaments = TodayTournamentDetails();
+  List<TodayTournamentDetails> todayTournaments = [];
   late String formattedDate;
 
 
@@ -87,14 +87,21 @@ class HomeController extends GetxController {
       date = formattedDate;
       print("+++/+++/++/+++/+++$date+++/+++/+++/+++");
 
-      final todayTournamentDetails = await api.getTodayTournamentDetails(date);
+      final List<TodayTournamentDetails> todayTournamentDetails = await api.getTodayTournamentDetails(date);
       todayTournaments = todayTournamentDetails;
-      print(todayTournaments);
-      print(todayTournamentDetails.tournamentName);
+
+      // Handle the list of tournament details appropriately, e.g., display them in a list view
+
+      // Example: Print all tournament names
+      for (var tournamentDetails in todayTournamentDetails) {
+        print(tournamentDetails.tournamentName);
+      }
     } catch (e) {
       print('Error fetching Today Tournament details: $e');
     }
   }
+
+
 
 
 

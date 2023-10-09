@@ -1,3 +1,5 @@
+
+
 class TodayTournamentDetails {
   final String? id;
   final String? tournamentName;
@@ -19,29 +21,29 @@ class TodayTournamentDetails {
   final int? v;
 
   TodayTournamentDetails({
-    this.id,
-    this.tournamentName,
-    this.date,
-    this.entryFee,
-    this.prizeMoney,
-    this.startingPoint,
-    this.pricePool,
-    this.payoutStructure,
-    this.minPlayers,
-    this.maxPlayers,
-    this.announceDate,
-    this.announceTime,
-    this.startDate,
-    this.startTime,
-    this.registrationDate,
-    this.registrationTime,
-    this.races,
-    this.v,
+     this.tournamentName,
+     this.date,
+     this.entryFee,
+     this.prizeMoney,
+     this.startingPoint,
+     this.pricePool,
+     this.payoutStructure,
+     this.minPlayers,
+     this.maxPlayers,
+     this.announceDate,
+     this.announceTime,
+     this.startDate,
+     this.startTime,
+     this.registrationDate,
+     this.registrationTime,
+     this.races,
+     this.id,
+     this.v,
   });
 
   factory TodayTournamentDetails.fromJson(Map<String, dynamic> json) {
     return TodayTournamentDetails(
-      id: json['id'],
+      id: json['_id'],
       tournamentName: json['tournamentName'],
       date: json['date'],
       entryFee: json['entryFee'],
@@ -57,8 +59,39 @@ class TodayTournamentDetails {
       startTime: json['startTime'],
       registrationDate: json['registrationDate'],
       registrationTime: json['registrationTime'],
-      races: List<List<String>>.from(json['races'].map((x) => List<String>.from(x))),
-      v: json['v'],
+      races: List<List<String>>.from((json['races'] as List<dynamic>).map((x) => List<String>.from(x.map((x) => x.toString())))),
+      v: json['__v'],
     );
   }
+}
+
+class Race {
+  final TableName? tableName;
+  final int? horseNumber;
+  final int? drawBox;
+  final String? horseName;
+  final String? aCS;
+  final String? trainer;
+  final String? jockey;
+  final double? weight;
+  final int? allowance;
+  final int? rating;
+
+  Race({
+     this.tableName,
+     this.horseNumber,
+     this.drawBox,
+     this.horseName,
+     this.aCS,
+     this.trainer,
+     this.jockey,
+     this.weight,
+     this.allowance,
+     this.rating,
+  });
+}
+
+enum TableName {
+  RACE_1,
+  RACE_2
 }

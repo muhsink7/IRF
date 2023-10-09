@@ -195,7 +195,7 @@ class Api {
     }
   }
 
-  Future<TodayTournamentDetails> getTodayTournamentDetails(String date) async {
+  Future<List<TodayTournamentDetails>> getTodayTournamentDetails(String date) async {
     try {
       print("-------------$date-------------");
       var headers = {
@@ -203,35 +203,40 @@ class Api {
       };
 
       var request = http.Request(
-          'GET', Uri.parse(
-          'http://15.206.68.154:5000/tournament/getDetails/today/tournament?date=$date'));
+          'GET',
+          Uri.parse(
+              'http://15.206.68.154:5000/tournament/getDetails/today/tournament?date=06/10/23'));
 
       request.headers.addAll(headers);
 
       http.StreamedResponse response = await request.send();
       var responseString = await response.stream.bytesToString();
+      print('Received JSON Response: $responseString'); // Add this line for debugging
+
 
       if (response.statusCode == 200) {
-        // final responseBody = json.decode(responseString);
-        print("**********************************");
-        final Map<String, dynamic> responseBody = json.decode(responseString);
-        final todayTournament = TodayTournamentDetails.fromJson(responseBody);
-        // final raceCardDetails = RaceCardDetails.fromJson(responseBody);
-        // print(responseBody);
-        print(todayTournament);
-        return todayTournament;
+        print('Received a 200 response.');
+        final List<dynamic> responseBody = json.decode(responseString);
+
+        // Convert the list of dynamic to a list of TodayTournamentDetails
+        final List<TodayTournamentDetails> todayTournaments = responseBody
+            .map((item) => TodayTournamentDetails.fromJson(item))
+            .toList();
+
+        print('Parsed Tournament Details: $todayTournaments');
+        return todayTournaments;
       } else {
-        // Handle specific error cases based on response status code
-        if (response.statusCode == 404) {
-          throw Exception('Race card not found');
-        } else {
-          throw Exception(
-              'Failed to load race card details: ${response.statusCode}');
-        }
+        print('Received a non-200 response. Status Code: ${response.statusCode}');
+        print('Response Body: $responseString');
+        // Handle the error response here and return an empty list or appropriate default values.
+        return []; // Return an empty list or appropriate default values.
       }
     } catch (e) {
-      // Handle exceptions here
-      throw Exception('Failed to load race card details: $e');
+      // Handle exceptions here and return an empty list or appropriate default values.
+      print('Error: $e');
+      return []; // Return an empty list or appropriate default values.
     }
   }
+
+
 }
