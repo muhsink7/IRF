@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:indian_race_fantasy/model/model_api/raceCardDetails.dart';
+import 'package:intl/intl.dart';
 
 import '../../../api/api.dart';
+import '../../../model/model_api/today_tournament.dart';
 import '../../../model/model_api/user_details.dart';
 
 class BettingController extends GetxController with  GetTickerProviderStateMixin {
@@ -13,19 +15,25 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
   // var raceCardDetails = RaceCardDetails(id: id, date: date, data: data, v: v)
   var  raceDetails = RaceCardDetails();
   bool isLoading = false;
+  List<TodayTournamentDetails> todayTournaments = [];
+  late String formattedDate;
+  var tableNames;
+  // var race;
+
 
   int selectedMainTabIndex = 0;
   int selectedSubTabIndex = 0;
+  int raceIndex = 0;
 
   // Data for the 7 main tabs and 5 sub-tabs
   List<String> mainTabs = [
-    "R 1",
-    "R 2",
-    "R 3",
-    "R 4",
-    "R 5",
-    "R 6",
-    "R 7"
+    // "R 1",
+    // "R 2",
+    // "R 3",
+    // "R 4",
+    // "R 5",
+    // "R 6",
+    // "R 7"
   ];
   List<List<String>> subTabs = [
     ["WIN 1.1", "SHP 1.2", "PLACE 1.3", "FORECAST 1.4", "QUINELLA 1.5"],
@@ -37,8 +45,22 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
     ["WIN 7.1", "SHP 7.2", "PLACE 7.3", "FORECAST 7.4", "QUINELLA 7.5"],
   ];
 
-  late TabController tabController = TabController(length: 7, vsync: this);
+  late TabController tabController = TabController(length: mainTabs.length, vsync: this);
   late TabController tabController2 = TabController(length: 5, vsync: this);
+
+  void currentDate() {
+    // Get the current date and time
+    DateTime now = DateTime.now();
+
+    // Create a DateFormat instance for the desired format
+    DateFormat dateFormat = DateFormat('dd/MM/yy');
+
+    // Format the date as a string
+    formattedDate = dateFormat.format(now);
+
+    // Print the formatted date
+    print(formattedDate);  // This will print something like "06/10/23" for October 6, 2023
+  }
 
 
 
@@ -46,10 +68,12 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
   void onInit() {
 
     super.onInit();
-
+    currentDate();
     getUserDetails(GetStorage().read('userId'));
     print("+++++++++++Betting++++++++++++");
     // TODO: implement onInit
+    fetchTodayTournamentDetails(formattedDate);
+    print("+++++++++++$tableNames++++++++++++");
     tabController.addListener(() {
       selectedMainTabIndex = tabController.index;
       selectedSubTabIndex = tabController2.index; // Reset sub-tab index when main tab changes
@@ -59,9 +83,17 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
       selectedSubTabIndex = tabController2.index; // Reset sub-tab index when main tab changes
       update();
     });
+    // displaySelectedRaceDetails(tabController.index, raceIndex);
     // fetchUserDetails();
     update();
   }
+  void updateMainTabs(List<String> tableNames) {
+    mainTabs = tableNames;
+    print(mainTabs);
+    tabController = TabController(length: tableNames.length, vsync: this);
+    update(); // Trigger the UI update
+  }
+
   void fetchRaceCardDetails(String? date) async {
     try {
       print("++++++++++++++$date++++++++++++");
@@ -151,6 +183,100 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
       print('Error fetching user details: $e');
     }
   }
+
+  bool areTableNamesUnique(List<String> tableNames) {
+    Set<String> uniqueTableNames = Set.from(tableNames);
+    return uniqueTableNames.length == tableNames.length;
+  }
+
+  void fetchTodayTournamentDetails(String? date) async {
+    try {
+      date = formattedDate;
+      print("+++/+++/++/+++/+++$date+++/+++/+++/+++");
+
+      final List<TodayTournamentDetails> todayTournamentDetails = await api.getTodayTournamentDetails(date);
+      todayTournaments = todayTournamentDetails;
+
+      for (var tournamentDetails in todayTournamentDetails) {
+        final tableNames = tournamentDetails.races?.map((race) => race[0]).toList() ?? [];
+        print(tableNames);
+
+        if (tableNames.isNotEmpty) {
+          if (areTableNamesUnique(tableNames)) {
+            updateMainTabs(tableNames);
+          } else {
+            print('Table names are not unique.');
+          }
+
+          // You can now access race details for a specific table name
+          final selectedTableName = "Race 1"; // Replace with the table name you want to see details for
+          displayRaceDetailsForTable(todayTournamentDetails, selectedTableName);
+
+          break;
+        }
+      }
+    } catch (e) {
+      print('Error fetching Today Tournament details: $e');
+    }
+  }
+
+  void displayRaceDetailsForTable(List<TodayTournamentDetails> tournaments, String selectedTableName) {
+    for (var tournament in tournaments) {
+      print("tournament: $tournament");
+      if (tournament.races != null) {
+        for (var race in tournament.races!) {
+          if (race.isNotEmpty && race[0]['tableName'] == selectedTableName) {
+            print('Race Table Name: $selectedTableName');
+            for (var horseDetails in race) {
+              if (horseDetails['Horse Number'] != null) {
+                final horseNumber = int.parse(horseDetails['Horse Number']);
+                final horseName = horseDetails['Horse Name'];
+                final drawBox = int.parse(horseDetails['Draw Box']);
+                // Add more fields as needed
+                print('Horse Number: $horseNumber');
+                print('Horse Name: $horseName');
+                print('Draw Box: $drawBox');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+
+
+  void displaySelectedRaceDetails(int mainTabIndex, int selectedRaceIndex) {
+    print("Selected Race Index: $selectedRaceIndex, Main Tab Index: $mainTabIndex");
+
+    if (mainTabIndex >= 0 && mainTabIndex < todayTournaments.length) {
+      final tournament = todayTournaments[mainTabIndex];
+
+      if (selectedRaceIndex >= 0 && selectedRaceIndex < tournament.races!.length) {
+        final race = tournament.races![selectedRaceIndex];
+        print(race);
+
+        // final horseNumber = race.horseNumber;
+        // final horseName = race.horseName;
+        // final drawBox = race.drawBox;
+        // // Access other race details here...
+        //
+        // print('Horse Number: $horseNumber');
+        // print('Horse Name: $horseName');
+        // print('Draw Box: $drawBox');
+        // Print or use other race details as needed...
+      } else {
+        print("Invalid selectedRaceIndex");
+      }
+    } else {
+      print("Invalid mainTabIndex");
+    }
+  }
+
+
 
   // void fetchUserDetails(){
   //   getUserDetails(Api.instance.userId);

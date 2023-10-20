@@ -66,7 +66,7 @@ class TodayTournamentDetails {
 }
 
 class Race {
-  final TableName? tableName;
+  final String? tableName;
   final int? horseNumber;
   final int? drawBox;
   final String? horseName;
@@ -91,7 +91,3 @@ class Race {
   });
 }
 
-enum TableName {
-  RACE_1,
-  RACE_2
-}

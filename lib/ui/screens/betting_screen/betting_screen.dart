@@ -147,6 +147,7 @@ class BettingScreen extends GetWidget<BettingController> {
                               // Change the tab when the button is pressed
                               controller.tabController.animateTo(index);
                               controller.tabController2.animateTo(0);
+                              controller.update();
                           },
                           style: ButtonStyle(
                               shape: MaterialStateProperty.resolveWith<OutlinedBorder?>(
@@ -171,7 +172,7 @@ class BettingScreen extends GetWidget<BettingController> {
                               ),
                           ),
                           child: Text(
-                              controller.mainTabs[index],
+                              "R ${index + 1}",
                               style: TextStyle(
                                 color: kWhiteColor,
                               ),
@@ -325,22 +326,24 @@ class BettingScreen extends GetWidget<BettingController> {
                 //           style: TextStyle(fontSize: 24),
                 //         ),
                 //       ),
-                //     ],
+                //     ]
                 //   ),
                 // ),
 
-                RaceCardModel(
-                  horseNumber: "1",
-                  drawBox: "5",
-                  horseName: "VIJAYA FALCON",
-                  acs: "2y b f",
-                  trainer: "A.Fabre",
-                  jockey: "R.Thomas",
-                  weightCarry: "57.0",
-                  allowance: "AW.0 ",
-                  rating: "32",
-                  jockeyDress: null,
-                ),
+                // RaceCardModel(
+                //   horseNumber: controller.race.,
+                //   drawBox: "5",
+                //   horseName: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.horseName ?? "N/A",
+                //   acs: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.aCS ?? "N/A",
+                //   trainer: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.trainer ?? "N/A",
+                //   jockey: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.jockey ?? "N/A",
+                //   weightCarry: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.weight?.toString() ?? "N/A",
+                //   allowance: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.allowance?.toString() ?? "N/A",
+                //   rating: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.rating?.toString() ?? "N/A",
+                //   jockeyDress: null,
+                // ),
+
+
 
                 SizedBox(
                   height: 50.0,
