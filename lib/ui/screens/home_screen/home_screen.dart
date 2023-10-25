@@ -179,7 +179,13 @@ class HomeScreen extends GetWidget<HomeController> {
                         onTap: () {},
                         child: ReusableCard(
                           registerPressed: () {
-                            Get.toNamed(RoutePaths.bettingScreen);
+                            Get.toNamed(RoutePaths.bettingScreen, arguments: {
+                              'index': index,
+                              'tournament': tournament,
+                            },);
+                            print("ooooooooooooo${tournament}oooooooooooo");
+                            print("Tournament: ${tournament.tournamentName}");
+
                           },
                           detailsPressed: () {},
                           tournamentName: tournament.tournamentName ?? "BENGALURU TROPHY",

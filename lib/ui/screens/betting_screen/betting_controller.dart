@@ -45,7 +45,7 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
     ["WIN 7.1", "SHP 7.2", "PLACE 7.3", "FORECAST 7.4", "QUINELLA 7.5"],
   ];
 
-  late TabController tabController = TabController(length: mainTabs.length, vsync: this);
+  late TabController tabController ;
   late TabController tabController2 = TabController(length: 5, vsync: this);
 
   void currentDate() {
@@ -71,9 +71,18 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
     currentDate();
     getUserDetails(GetStorage().read('userId'));
     print("+++++++++++Betting++++++++++++");
+    final arguments = Get.arguments as Map<String, dynamic>;
+    final tournament = arguments['tournament'];
+    print("&&&&&&&+++++++++++$tournament++++++++++++&&&&&&&");
     // TODO: implement onInit
     fetchTodayTournamentDetails(formattedDate);
     print("+++++++++++$tableNames++++++++++++");
+    if (tournament != null && tournament.tableNames != null) {
+      mainTabs = tournament.tableNames;
+      tabController = TabController(length: mainTabs.length, vsync: this);
+    } else {
+      // Handle the case when 'tournament' or 'tableNames' is not available
+    }
     tabController.addListener(() {
       selectedMainTabIndex = tabController.index;
       selectedSubTabIndex = tabController2.index; // Reset sub-tab index when main tab changes
@@ -204,13 +213,35 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
         if (tableNames.isNotEmpty) {
           if (areTableNamesUnique(tableNames)) {
             updateMainTabs(tableNames);
+            final selectedTableName = "Race 1"; // Replace with the table name you want to see details for
+
+            for (var race in tournamentDetails.races ?? []) {
+              if (race.isNotEmpty && race[0] == selectedTableName) {
+                // This is the selected table
+                print("Table Name: $selectedTableName");
+                for (var horseDetails in race) {
+                  if (horseDetails is Map<String, dynamic>) {
+                    final horseNumber = horseDetails["Horse Number"];
+                    final horseName = horseDetails["Horse Name"];
+                    final drawBox = horseDetails["Draw Box"];
+                    // Add more fields as needed
+                    print('Horse Number: $horseNumber');
+                    print('Horse Name: $horseName');
+                    print('Draw Box: $drawBox');
+                    // Display other fields as well
+                  }
+                }
+              }
+            }
           } else {
             print('Table names are not unique.');
           }
 
           // You can now access race details for a specific table name
           final selectedTableName = "Race 1"; // Replace with the table name you want to see details for
-          displayRaceDetailsForTable(todayTournamentDetails, selectedTableName);
+          // displayRaceDetailsForTable(todayTournamentDetails, selectedTableName);
+
+
 
           break;
         }
@@ -220,61 +251,74 @@ class BettingController extends GetxController with  GetTickerProviderStateMixin
     }
   }
 
-  void displayRaceDetailsForTable(List<TodayTournamentDetails> tournaments, String selectedTableName) {
-    for (var tournament in tournaments) {
-      print("tournament: $tournament");
-      if (tournament.races != null) {
-        for (var race in tournament.races!) {
-          if (race.isNotEmpty && race[0]['tableName'] == selectedTableName) {
-            print('Race Table Name: $selectedTableName');
-            for (var horseDetails in race) {
-              if (horseDetails['Horse Number'] != null) {
-                final horseNumber = int.parse(horseDetails['Horse Number']);
-                final horseName = horseDetails['Horse Name'];
-                final drawBox = int.parse(horseDetails['Draw Box']);
-                // Add more fields as needed
-                print('Horse Number: $horseNumber');
-                print('Horse Name: $horseName');
-                print('Draw Box: $drawBox');
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+  // void displayRaceDetailsForTable(List<TodayTournamentDetails> tournaments, String selectedTableName) {
+  //   for (var tournament in tournaments) {
+  //     print("tournament: $tournament");
+  //     if (tournament.races != null) {
+  //       for (var race in tournament.races!) {
+  //         race.map((races) => Race(
+  //           tableName: race[0],
+  //           // horseNumber: race![0],
+  //           // drawBox: race['Draw Box'],
+  //           // horseName: race['Horse Name'],
+  //           // aCS: race['A/C/S'],
+  //           // trainer: race['Trainer'],
+  //           // jockey: race['Jockey'],
+  //           // weight: race['Weight'],
+  //           // allowance: race['Allowance'],
+  //           // rating: race['Rating'],
+  //         ),);
+  //       }
+  //       //   if (race.isNotEmpty && race[0]['tableName'] == selectedTableName) {
+  //       //     print('Race Table Name: $selectedTableName');
+  //       //     for (var horseDetails in race) {
+  //       //       if (horseDetails['Horse Number'] != null) {
+  //       //         final horseNumber = int.parse(horseDetails['Horse Number']);
+  //       //         final horseName = horseDetails['Horse Name'];
+  //       //         final drawBox = int.parse(horseDetails['Draw Box']);
+  //       //         // Add more fields as needed
+  //       //         print('Horse Number: $horseNumber');
+  //       //         print('Horse Name: $horseName');
+  //       //         print('Draw Box: $drawBox');
+  //       //       }
+  //       //     }
+  //       //   }
+  //       // }
+  //     }
+  //   }
+  // }
 
 
 
 
 
 
-  void displaySelectedRaceDetails(int mainTabIndex, int selectedRaceIndex) {
-    print("Selected Race Index: $selectedRaceIndex, Main Tab Index: $mainTabIndex");
-
-    if (mainTabIndex >= 0 && mainTabIndex < todayTournaments.length) {
-      final tournament = todayTournaments[mainTabIndex];
-
-      if (selectedRaceIndex >= 0 && selectedRaceIndex < tournament.races!.length) {
-        final race = tournament.races![selectedRaceIndex];
-        print(race);
-
-        // final horseNumber = race.horseNumber;
-        // final horseName = race.horseName;
-        // final drawBox = race.drawBox;
-        // // Access other race details here...
-        //
-        // print('Horse Number: $horseNumber');
-        // print('Horse Name: $horseName');
-        // print('Draw Box: $drawBox');
-        // Print or use other race details as needed...
-      } else {
-        print("Invalid selectedRaceIndex");
-      }
-    } else {
-      print("Invalid mainTabIndex");
-    }
-  }
+  // void displaySelectedRaceDetails(int mainTabIndex, int selectedRaceIndex) {
+  //   print("Selected Race Index: $selectedRaceIndex, Main Tab Index: $mainTabIndex");
+  //
+  //   if (mainTabIndex >= 0 && mainTabIndex < todayTournaments.length) {
+  //     final tournament = todayTournaments[mainTabIndex];
+  //
+  //     if (selectedRaceIndex >= 0 && selectedRaceIndex < tournament.races!.length) {
+  //       final race = tournament.races![selectedRaceIndex];
+  //       print(race);
+  //
+  //       // final horseNumber = race.horseNumber;
+  //       // final horseName = race.horseName;
+  //       // final drawBox = race.drawBox;
+  //       // // Access other race details here...
+  //       //
+  //       // print('Horse Number: $horseNumber');
+  //       // print('Horse Name: $horseName');
+  //       // print('Draw Box: $drawBox');
+  //       // Print or use other race details as needed...
+  //     } else {
+  //       print("Invalid selectedRaceIndex");
+  //     }
+  //   } else {
+  //     print("Invalid mainTabIndex");
+  //   }
+  // }
 
 
 

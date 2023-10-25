@@ -89,10 +89,8 @@ class HomeController extends GetxController {
 
       final List<TodayTournamentDetails> todayTournamentDetails = await api.getTodayTournamentDetails(date);
       todayTournaments = todayTournamentDetails;
+      print(todayTournamentDetails);
 
-      // Handle the list of tournament details appropriately, e.g., display them in a list view
-
-      // Example: Print all tournament names
       for (var tournamentDetails in todayTournamentDetails) {
         print(tournamentDetails.tournamentName);
       }
