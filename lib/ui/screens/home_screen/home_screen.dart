@@ -5,10 +5,12 @@ import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart'
 import '../../../Model/banner/image_banner.dart';
 import '../../../model/reusable_card/reusable_card.dart';
 import '../../../constants/color_constants.dart';
+import '../betting_screen/betting_controller.dart';
 
 class HomeScreen extends GetWidget<HomeController> {
   HomeScreen({Key? key});
   final HomeController homeController = Get.put(HomeController());
+
 
   @override
   Widget build(BuildContext context) {
@@ -179,6 +181,8 @@ class HomeScreen extends GetWidget<HomeController> {
                         onTap: () {},
                         child: ReusableCard(
                           registerPressed: () {
+                            // var currentId = tournament.id;
+                            print(index);
                             Get.toNamed(RoutePaths.bettingScreen, arguments: {
                               'index': index,
                               'tournament': tournament,

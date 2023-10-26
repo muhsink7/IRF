@@ -331,17 +331,18 @@ class BettingScreen extends GetWidget<BettingController> {
                 // ),
 
                 // RaceCardModel(
-                //   horseNumber: controller.race.,
-                //   drawBox: "5",
-                //   horseName: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.horseName ?? "N/A",
-                //   acs: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.aCS ?? "N/A",
-                //   trainer: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.trainer ?? "N/A",
-                //   jockey: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.jockey ?? "N/A",
-                //   weightCarry: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.weight?.toString() ?? "N/A",
-                //   allowance: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.allowance?.toString() ?? "N/A",
-                //   rating: controller.todayTournaments[0].races[controller.selectedMainTabIndex]?.rating?.toString() ?? "N/A",
+                //   horseNumber: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].horseNumber ?? "N/A",
+                //   drawBox: "5", // Set your draw box data here
+                //   horseName: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].horseName ?? "N/A",
+                //   acs: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].aCS ?? "N/A",
+                //   trainer: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].trainer ?? "N/A",
+                //   jockey: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].jockey ?? "N/A",
+                //   weightCarry: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].weight?.toString() ?? "N/A",
+                //   allowance: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].allowance?.toString() ?? "N/A",
+                //   rating: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].rating?.toString() ?? "N/A",
                 //   jockeyDress: null,
                 // ),
+
 
 
 
@@ -352,7 +353,7 @@ class BettingScreen extends GetWidget<BettingController> {
                 ElevatedButton(
                     onPressed: () {
                       var currentDate = "19/09/23";
-                      controller.fetchRaceCardDetails(currentDate);
+                      // controller.fetchRaceCardDetails(currentDate);
                     },
                     child: Text("ok"))
               ],

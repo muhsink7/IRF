@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../api/api.dart';
 import '../../../model/model_api/user_details.dart';
+import '../betting_screen/betting_controller.dart';
 
 
 
@@ -52,6 +53,12 @@ class HomeController extends GetxController {
     // fetchUserDetails();
     update();
   }
+  // final BettingController bettingController = Get.put(BettingController());
+  //
+  // // Function to handle selecting a race
+  // void handleSelectRace(int raceIndex) {
+  //   bettingController.selectRace(raceIndex);
+  // }
 
   Future<void> getUserDetails(String? userId) async {
     try {
