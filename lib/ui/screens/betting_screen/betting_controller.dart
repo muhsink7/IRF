@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -34,7 +36,8 @@ class BettingController extends GetxController
     ["WIN 7.1", "SHP 7.2", "PLACE 7.3", "FORECAST 7.4", "QUINELLA 7.5"],
   ];
 
-  late TabController tabController ;
+  late TabController tabController;
+
   late TabController tabController2 = TabController(length: 5, vsync: this);
 
   void currentDate() {
@@ -52,6 +55,7 @@ class BettingController extends GetxController
     // getUserDetails(GetStorage().read('userId'));
     final arguments = Get.arguments as Map<String, dynamic>;
     final tournament = arguments['tournament'];
+    todayTournaments = tournament;
     raceIndex = arguments['index'];
     // final arguments = Get.arguments;
     // final tournament = arguments ;
@@ -79,24 +83,49 @@ class BettingController extends GetxController
       selectedSubTabIndex = tabController2.index;
       update();
     });
-    selectRace(raceIndex);
-    update();
+showRaceDetails(0, raceIndex);
+update();
   }
+
   // RaceDetails? selectedRaceDetails;
 
   // Function to update the selected race details
-  void selectRace(int raceIndex) {
-    print("race index : $raceIndex");
-    if (raceIndex < 0 || raceIndex >= todayTournaments.length) {
-      print("return from select race");
-      return; // Race index out of bounds
-    }
-    print("exited from select race");
+  void showRaceDetails(int tournamentIndex, int raceIndex) {
+    if (tournamentIndex >= 0 && tournamentIndex < todayTournaments.length) {
+      final selectedTournament = todayTournaments[tournamentIndex];
 
-    selectedRaceDetails = todayTournaments[raceIndex].races as RaceCardDetails;
-    print("Selected Race Details: $selectedRaceDetails");    // Now you have access to the race details, and you can display them in your UI.
-    update();
+      if (selectedTournament.races != null && raceIndex >= 0 && raceIndex < selectedTournament.races!.length) {
+        final selectedRace = selectedTournament.races![raceIndex];
+
+        // Now, 'selectedRace' contains the details of the selected race.
+        print("Selected Race Details:");
+        for (final race in selectedRace) {
+          print("Table Name: ${race[0]}");
+          print("Horse Number: ${race[1]}");
+          print("Draw Box: ${race[2]}");
+          print("Horse Name: ${race[3]}");
+          print("A/C/S: ${race[4]}");
+          print("Trainer: ${race[5]}");
+          print("Jockey: ${race[6]}");
+          print("Weight: ${race[7]}");
+          print("Allowance: ${race[8]}");
+          print("Rating: ${race[9]}");
+          print("--------");
+        }
+
+        // You can now use the 'selectedRace' data to update your UI or perform any other operations.
+      } else {
+        print("Invalid race index or no races in the selected tournament.");
+      }
+    } else {
+      print("Invalid tournament index.");
+    }
   }
+
+
+
+
+
 }
 
 // import 'package:flutter/material.dart';
