@@ -183,10 +183,7 @@ class HomeScreen extends GetWidget<HomeController> {
                           registerPressed: () {
                             // var currentId = tournament.id;
                             print(index);
-                            Get.toNamed(RoutePaths.bettingScreen, arguments: {
-                              'index': index,
-                              'tournament': tournament,
-                            },);
+                            Get.toNamed(RoutePaths.bettingScreen, arguments: tournament,);
                             print("ooooooooooooo${tournament}oooooooooooo");
                             print("Tournament: ${tournament.tournamentName}");
 

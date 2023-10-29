@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:indian_race_fantasy/model/model_api/today_tournament.dart';
+import 'package:indian_race_fantasy/model/model_api/tournament_model.dart';
 import 'package:intl/intl.dart';
 
 import '../../../api/api.dart';
@@ -17,13 +18,13 @@ class BettingController extends GetxController
   var userDetails = UserDetails();
   var selectedRaceDetails = RaceCardDetails();
   bool isLoading = false;
-  List<TodayTournamentDetails> todayTournaments = [];
   late String formattedDate;
   List<String> tableNames = [];
 
   int selectedMainTabIndex = 0;
   int selectedSubTabIndex = 0;
   int raceIndex = 0;
+  late TodayTournamentDetails tournament;
 
   List<String> mainTabs = [];
   List<List<String>> subTabs = [
@@ -53,12 +54,12 @@ class BettingController extends GetxController
     super.onInit();
     currentDate();
     // getUserDetails(GetStorage().read('userId'));
-    final arguments = Get.arguments as Map<String, dynamic>;
-    final tournament = arguments['tournament'];
-    todayTournaments = tournament;
-    raceIndex = arguments['index'];
-    // final arguments = Get.arguments;
-    // final tournament = arguments ;
+    // final arguments = Get.arguments as Map<String, dynamic>;
+    // TodayTournamentDetails tournament = arguments['tournament'];
+    // todayTournaments = tournament;
+    // raceIndex = arguments['index'];
+    final arguments = Get.arguments;
+    tournament = arguments ;
 
     if (tournament != null && tournament.races != null) {
       tableNames = tournament.races!
@@ -83,43 +84,47 @@ class BettingController extends GetxController
       selectedSubTabIndex = tabController2.index;
       update();
     });
-showRaceDetails(0, raceIndex);
+showRaceDetails(selectedMainTabIndex);
 update();
   }
 
   // RaceDetails? selectedRaceDetails;
+  // bool areTableNamesUnique(List<String> tableNames) {
+  //   Set<String> uniqueTableNames = Set.from(tableNames);
+  //   return uniqueTableNames.length == tableNames.length;
+  // }
 
   // Function to update the selected race details
-  void showRaceDetails(int tournamentIndex, int raceIndex) {
-    if (tournamentIndex >= 0 && tournamentIndex < todayTournaments.length) {
-      final selectedTournament = todayTournaments[tournamentIndex];
+  void showRaceDetails(int tableNameIndex) {
+    // if (tournament != 0 && tournamentIndex < todayTournaments.length) {
+      final selectedTournament = tournament;
 
-      if (selectedTournament.races != null && raceIndex >= 0 && raceIndex < selectedTournament.races!.length) {
-        final selectedRace = selectedTournament.races![raceIndex];
+      // if (selectedTournament.races != null && raceIndex >= 0 && raceIndex < selectedTournament.races!.length) {
+        final selectedRace = selectedTournament.races?[16][];
 
         // Now, 'selectedRace' contains the details of the selected race.
-        print("Selected Race Details:");
-        for (final race in selectedRace) {
-          print("Table Name: ${race[0]}");
-          print("Horse Number: ${race[1]}");
-          print("Draw Box: ${race[2]}");
-          print("Horse Name: ${race[3]}");
-          print("A/C/S: ${race[4]}");
-          print("Trainer: ${race[5]}");
-          print("Jockey: ${race[6]}");
-          print("Weight: ${race[7]}");
-          print("Allowance: ${race[8]}");
-          print("Rating: ${race[9]}");
-          print("--------");
+        // print("Selected Race Details:");
+        // for (final race in selectedRace) {
+        //   print("Table Name: ${race[0]}");
+        //   print("Horse Number: ${race[1]}");
+        //   print("Draw Box: ${race[2]}");
+        //   print("Horse Name: ${race[3]}");
+        //   print("A/C/S: ${race[4]}");
+        //   print("Trainer: ${race[5]}");
+        //   print("Jockey: ${race[6]}");
+        //   print("Weight: ${race[7]}");
+        //   print("Allowance: ${race[8]}");
+        //   print("Rating: ${race[9]}");
+        //   print("--------");
         }
 
         // You can now use the 'selectedRace' data to update your UI or perform any other operations.
-      } else {
-        print("Invalid race index or no races in the selected tournament.");
-      }
-    } else {
-      print("Invalid tournament index.");
-    }
+      // } else {
+      //   print("Invalid race index or no races in the selected tournament.");
+      // }
+    // } else {
+    //   print("Invalid tournament index.");
+    // }
   }
 
 
