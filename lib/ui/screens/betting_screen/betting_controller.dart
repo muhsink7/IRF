@@ -59,7 +59,7 @@ class BettingController extends GetxController
     // todayTournaments = tournament;
     // raceIndex = arguments['index'];
     final arguments = Get.arguments;
-    tournament = arguments ;
+    tournament = arguments as TodayTournamentDetails;
 
     if (tournament != null && tournament.races != null) {
       tableNames = tournament.races!
@@ -84,8 +84,12 @@ class BettingController extends GetxController
       selectedSubTabIndex = tabController2.index;
       update();
     });
-showRaceDetails(selectedMainTabIndex);
-update();
+
+    if (tournament != null) {
+      showRaceDetails(selectedMainTabIndex, 0);
+    }
+
+    update();
   }
 
   // RaceDetails? selectedRaceDetails;
@@ -95,43 +99,46 @@ update();
   // }
 
   // Function to update the selected race details
-  void showRaceDetails(int tableNameIndex) {
-    // if (tournament != 0 && tournamentIndex < todayTournaments.length) {
+  void showRaceDetails(int tableNameIndex, int horseNumber) {
+    if (tournament != null) {
       final selectedTournament = tournament;
 
-      // if (selectedTournament.races != null && raceIndex >= 0 && raceIndex < selectedTournament.races!.length) {
-        final selectedRace = selectedTournament.races?[16][];
+      if (selectedTournament.races != null && tableNameIndex >= 0 &&
+          tableNameIndex < selectedTournament.races!.length) {
+        final selectedRace = selectedTournament
+            .races![tableNameIndex][horseNumber];
 
-        // Now, 'selectedRace' contains the details of the selected race.
-        // print("Selected Race Details:");
-        // for (final race in selectedRace) {
-        //   print("Table Name: ${race[0]}");
-        //   print("Horse Number: ${race[1]}");
-        //   print("Draw Box: ${race[2]}");
-        //   print("Horse Name: ${race[3]}");
-        //   print("A/C/S: ${race[4]}");
-        //   print("Trainer: ${race[5]}");
-        //   print("Jockey: ${race[6]}");
-        //   print("Weight: ${race[7]}");
-        //   print("Allowance: ${race[8]}");
-        //   print("Rating: ${race[9]}");
-        //   print("--------");
+        if (selectedRace.isNotEmpty) {
+          final specificHorse = selectedRace;
+
+          if (specificHorse.isNotEmpty) {
+            print("Selected Race Details:");
+            // print("Table Name: ${specificHorse['tableName']}");
+            print(
+                "Horse Number: $horseNumber"); // Use the provided 'horseNumber' parameter
+            // print("Horse Name: ${specificHorse['Horse Name']}");
+            // print("Draw Box: ${specificHorse['Draw Box']}");
+            // print("A/C/S: ${specificHorse['A/C/S']}");
+            // print("Trainer: ${specificHorse['Trainer']}");
+            // print("Jockey: ${specificHorse['Jockey']}");
+            // print("Weight: ${specificHorse['Weight/']}");
+            // print("Allowance: ${specificHorse['Allowance']}");
+            // print("Rating: ${specificHorse['Rating']}");
+          }
+        } else {
+          print("No races in the selected tournament.");
         }
-
-        // You can now use the 'selectedRace' data to update your UI or perform any other operations.
-      // } else {
-      //   print("Invalid race index or no races in the selected tournament.");
-      // }
-    // } else {
-    //   print("Invalid tournament index.");
-    // }
+      } else {
+        print("Invalid tournament index or no races.");
+      }
+    } else {
+      print("Tournament details are missing.");
+    }
   }
 
-
-
-
-
 }
+
+
 
 // import 'package:flutter/material.dart';
 // import 'package:get/get.dart';
