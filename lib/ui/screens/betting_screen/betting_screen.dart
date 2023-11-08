@@ -330,20 +330,25 @@ class BettingScreen extends GetWidget<BettingController> {
                 //   ),
                 // ),
 
-                // RaceCardModel(
-                //   horseNumber: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].horseNumber ?? "N/A",
-                //   drawBox: "5", // Set your draw box data here
-                //   horseName: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].horseName ?? "N/A",
-                //   acs: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].aCS ?? "N/A",
-                //   trainer: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].trainer ?? "N/A",
-                //   jockey: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].jockey ?? "N/A",
-                //   weightCarry: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].weight?.toString() ?? "N/A",
-                //   allowance: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].allowance?.toString() ?? "N/A",
-                //   rating: controller.todayTournaments[0].races![controller.selectedMainTabIndex][controller.selectedSubTabIndex].rating?.toString() ?? "N/A",
-                //   jockeyDress: null,
-                // ),
-
-
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details.length,
+                    itemBuilder: (context, index) {
+                      return RaceCardModel(
+                        horseNumber: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].horseNumber.toString() ?? "N/A",
+                        drawBox: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].drawBox.toString() ?? "N/A",
+                        horseName: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].horseName.toString() ?? "N/A",
+                        acs: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].aCS ?? "N/A",
+                        trainer: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].trainer ?? "N/A",
+                        jockey: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].jockey ?? "N/A",
+                        weightCarry: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].weight.toString() ?? "N/A",
+                        allowance: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].allowance.toString() ?? "N/A",
+                        rating: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].rating.toString() ?? "N/A",
+                        jockeyDress: null,
+                      );
+                    },
+                  ),
+                ),
 
 
                 SizedBox(

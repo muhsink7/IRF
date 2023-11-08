@@ -189,7 +189,7 @@ class HomeScreen extends GetWidget<HomeController> {
 
                           },
                           detailsPressed: () {},
-                          tournamentName: tournament.tournamentName ?? "BENGALURU TROPHY",
+                          tournamentName: tournament.tournamentName ?? "Default Tournament Name",
                           price: tournament.prizeMoney ?? 50000,
                           entryFee: tournament.entryFee ?? 500,
                         ),

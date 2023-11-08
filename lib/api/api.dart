@@ -217,14 +217,23 @@ class Api {
       if (response.statusCode == 200) {
         print('Received a 200 response.');
         final List<dynamic> responseBody = json.decode(responseString);
-
+        print('Received a 200 response with response body : $responseBody');
         // Convert the list of dynamic to a list of TodayTournamentDetails
-        final List<TodayTournamentDetails> todayTournaments = responseBody
-            .map((item) => TodayTournamentDetails.fromJson(item))
-            .toList();
+        if (responseBody is List && responseBody.isNotEmpty) {
+          print('Received a 200 response. in the if condition');
+          final List<TodayTournamentDetails> todayTournaments = responseBody
+              .map((item) => TodayTournamentDetails.fromJson(item))
+              .toList();
 
-        print('Parsed Tournament Details: $todayTournaments');
-        return todayTournaments;
+          print('Parsed Tournament Details: $todayTournaments');
+          return todayTournaments;
+        } else {
+          print('Received a 200 response. out the if condition');
+          print('Invalid JSON response format');
+          // Handle the error here and return an empty list or appropriate default values.
+          return [];
+        }
+
       } else {
         print('Received a non-200 response. Status Code: ${response.statusCode}');
         print('Response Body: $responseString');

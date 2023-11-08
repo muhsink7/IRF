@@ -25,6 +25,7 @@ class BettingController extends GetxController
   int selectedSubTabIndex = 0;
   int raceIndex = 0;
   late TodayTournamentDetails tournament;
+  var detail;
 
   List<String> mainTabs = [];
   List<List<String>> subTabs = [
@@ -59,12 +60,12 @@ class BettingController extends GetxController
     // todayTournaments = tournament;
     // raceIndex = arguments['index'];
     final arguments = Get.arguments;
-    tournament = arguments as TodayTournamentDetails;
+    tournament = arguments ;
 
     if (tournament != null && tournament.races != null) {
       tableNames = tournament.races!
           .where((race) => race.isNotEmpty && race[0] != null)
-          .map((race) => race[0] ?? "")
+          .map((race) => race[0]?.tableName ?? "")
           .whereType<String>()
           .toList();
 
@@ -77,6 +78,7 @@ class BettingController extends GetxController
     tabController.addListener(() {
       selectedMainTabIndex = tabController.index;
       selectedSubTabIndex = tabController2.index;
+      showTableDetails(selectedMainTabIndex);
       update();
     });
 
@@ -86,11 +88,54 @@ class BettingController extends GetxController
     });
 
     if (tournament != null) {
-      showRaceDetails(selectedMainTabIndex, 0);
+      showRaceDetails(selectedMainTabIndex, raceIndex);
     }
-
     update();
   }
+
+  Object? getSelectedHorseDetails(int tableNameIndex, int horseNumber) {
+    if (tournament != null) {
+      final selectedRace = tournament.races[tableNameIndex][horseNumber];
+      return selectedRace;
+    }
+    return Detail(); // Return an empty Detail if not found
+  }
+
+
+  void onTabBarChange(int tabIndex) {
+    tabController.index = tabIndex;
+  }
+
+// Call this function to show race details when a tab is selected
+  void showRaceDetails(int tableNameIndex, int horseNumber) {
+    onTabBarChange(tableNameIndex);
+    selectedSubTabIndex = 0; // Reset the sub-tab index if needed
+    update();
+  }
+  void showTableDetails(int tableNameIndex) {
+    if (tableNameIndex >= 0 && tableNameIndex < tournament.races.length) {
+      // Assuming todayTournaments[0] contains the tournament data
+      List<Detail>? details = tournament.races[tableNameIndex][raceIndex]!.details;
+
+      // You can now use the 'details' list to display the specific table details.
+      // For example, you can update your RaceCardModel with these details.
+      // Here, I'm just printing them for demonstration:
+
+      for ( detail in details) {
+        print('Horse Number: ${detail.horseNumber}');
+        print('Draw Box: ${detail.drawBox}');
+        print('Horse Name: ${detail.horseName}');
+        print('A/C/S: ${detail.aCS}');
+        print('Trainer: ${detail.trainer}');
+        print('Jockey: ${detail.jockey}');
+        print('Weight: ${detail.weight}');
+        print('Allowance: ${detail.allowance ?? "N/A"}');
+        print('Rating: ${detail.rating}');
+      }
+    }
+  }
+
+
 
   // RaceDetails? selectedRaceDetails;
   // bool areTableNamesUnique(List<String> tableNames) {
@@ -99,42 +144,42 @@ class BettingController extends GetxController
   // }
 
   // Function to update the selected race details
-  void showRaceDetails(int tableNameIndex, int horseNumber) {
-    if (tournament != null) {
-      final selectedTournament = tournament;
-
-      if (selectedTournament.races != null && tableNameIndex >= 0 &&
-          tableNameIndex < selectedTournament.races!.length) {
-        final selectedRace = selectedTournament
-            .races![tableNameIndex][horseNumber];
-
-        if (selectedRace.isNotEmpty) {
-          final specificHorse = selectedRace;
-
-          if (specificHorse.isNotEmpty) {
-            print("Selected Race Details:");
-            // print("Table Name: ${specificHorse['tableName']}");
-            print(
-                "Horse Number: $horseNumber"); // Use the provided 'horseNumber' parameter
-            // print("Horse Name: ${specificHorse['Horse Name']}");
-            // print("Draw Box: ${specificHorse['Draw Box']}");
-            // print("A/C/S: ${specificHorse['A/C/S']}");
-            // print("Trainer: ${specificHorse['Trainer']}");
-            // print("Jockey: ${specificHorse['Jockey']}");
-            // print("Weight: ${specificHorse['Weight/']}");
-            // print("Allowance: ${specificHorse['Allowance']}");
-            // print("Rating: ${specificHorse['Rating']}");
-          }
-        } else {
-          print("No races in the selected tournament.");
-        }
-      } else {
-        print("Invalid tournament index or no races.");
-      }
-    } else {
-      print("Tournament details are missing.");
-    }
-  }
+  // void showRaceDetails(int tableNameIndex, int horseNumber) {
+  //   if (tournament != null) {
+  //     final selectedTournament = tournament;
+  //
+  //     if (selectedTournament.tournament.races != null && tableNameIndex >= 0 &&
+  //         tableNameIndex < selectedTournament.tournament.races!.length) {
+  //       final selectedRace = selectedTournament
+  //           .tournament.races![tableNameIndex][horseNumber];
+  //
+  //       if (selectedRace.isNotEmpty) {
+  //         final specificHorse = selectedRace;
+  //
+  //         if (specificHorse.isNotEmpty) {
+  //           print("Selected Race Details:");
+  //           // print("Table Name: ${specificHorse['tableName']}");
+  //           print(
+  //               "Horse Number: $horseNumber"); // Use the provided 'horseNumber' parameter
+  //           // print("Horse Name: ${specificHorse['Horse Name']}");
+  //           // print("Draw Box: ${specificHorse['Draw Box']}");
+  //           // print("A/C/S: ${specificHorse['A/C/S']}");
+  //           // print("Trainer: ${specificHorse['Trainer']}");
+  //           // print("Jockey: ${specificHorse['Jockey']}");
+  //           // print("Weight: ${specificHorse['Weight/']}");
+  //           // print("Allowance: ${specificHorse['Allowance']}");
+  //           // print("Rating: ${specificHorse['Rating']}");
+  //         }
+  //       } else {
+  //         print("No races in the selected tournament.");
+  //       }
+  //     } else {
+  //       print("Invalid tournament index or no races.");
+  //     }
+  //   } else {
+  //     print("Tournament details are missing.");
+  //   }
+  // }
 
 }
 

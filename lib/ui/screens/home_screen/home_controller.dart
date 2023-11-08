@@ -90,21 +90,40 @@ class HomeController extends GetxController {
 
 
   void fetchTodayTournamentDetails(String? date) async {
-    try {
-      date = formattedDate;
-      print("+++/+++/++/+++/+++$date+++/+++/+++/+++");
 
-      final List<TodayTournamentDetails> todayTournamentDetails = await api.getTodayTournamentDetails(date);
-      todayTournaments = todayTournamentDetails;
-      print(todayTournamentDetails);
+      if (formattedDate != null) {
+        date = formattedDate!;
+        print("+++/+++/++/+++/+++$date+++/+++/+++/+++");
 
-      for (var tournamentDetails in todayTournamentDetails) {
-        print(tournamentDetails.tournamentName);
+        final List<TodayTournamentDetails> todayTournamentDetails =
+        await api.getTodayTournamentDetails(date);
+        todayTournaments = todayTournamentDetails;
+        print("today tournament: $todayTournamentDetails");
+
+        // Ensure you have the correct model structure for the response.
+        // The response may be a list of tournaments or a single tournament.
+        // If it's a list, you can iterate through them as follows:
+        for (var tournamentDetails in todayTournamentDetails) {
+          print("Tournament Name: ${tournamentDetails.tournamentName}");
+
+          // Access race details for this tournament if needed
+          if (tournamentDetails.races != null) {
+            for (var race in tournamentDetails.races) {
+              // Access the tableName and details for each race
+              print("Race Table Name: ${race[0].tableName}");
+              for (var detail in race[0].details) {
+                print("Horse Name: ${detail.horseName}");
+                // Access other details as needed
+              }
+            }
+          }
+        }
+      } else {
+        print('formattedDate is null');
+        // Add proper error handling or fallback logic if needed
       }
-    } catch (e) {
-      print('Error fetching Today Tournament details: $e');
     }
-  }
+
 
 
 
