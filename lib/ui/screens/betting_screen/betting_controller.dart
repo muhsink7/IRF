@@ -49,6 +49,41 @@ class BettingController extends GetxController
     print(
         formattedDate); // This will print something like "06/10/23" for October 6, 2023
   }
+  RxList<int> selectedIndices = <int>[].obs;
+
+  void toggleButton(int index) {
+    if (selectedIndices.contains(index)) {
+      selectedIndices.remove(index);
+    } else {
+      selectedIndices.add(index);
+    }
+
+    if (selectedIndices.isNotEmpty) {
+      // Show the bottom sheet with the selected horse numbers
+      // Get.bottomSheet(
+      //   Container(
+      //     color: Colors.white, // Set your desired background color
+      //     height: Get.height * 0.25, // Set your desired height
+      //     child: Column(
+      //       children: [
+      //         Text('Selected Horse Numbers:'),
+      //         for (int selectedIndex in selectedIndices)
+      //           Text('${selectedIndex + 1}'),
+      //         // Add your other content here
+      //       ],
+      //     ),
+      //   ),
+      // );
+    } else {
+      // Close the bottom sheet if it's open
+      Get.back();
+    }
+  }
+
+
+  void reset() {
+    selectedIndices.clear();
+  }
 
   @override
   void onInit() {

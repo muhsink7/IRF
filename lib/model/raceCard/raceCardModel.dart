@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:indian_race_fantasy/constants/color_constants.dart';
+import 'package:indian_race_fantasy/ui/screens/betting_screen/betting_controller.dart';
+import 'package:indian_race_fantasy/ui/screens/home_screen/home_controller.dart';
 
 import '../../controllers/icon_controller/icon_controller.dart';
 
 class RaceCardModel extends StatelessWidget {
-  final IconController iconController = Get.put(IconController());
+  final BettingController iconController = Get.put(BettingController());
 
   RaceCardModel(
       {super.key,
@@ -18,7 +20,9 @@ class RaceCardModel extends StatelessWidget {
       required this.weightCarry,
       required this.allowance,
       required this.rating,
-      required this.jockeyDress});
+      required this.jockeyDress,
+      required this.onTap, required this.currentIndex
+      });
 
   final String horseNumber;
   final String drawBox;
@@ -30,6 +34,9 @@ class RaceCardModel extends StatelessWidget {
   final String allowance;
   final String rating;
   final Image? jockeyDress;
+  final void Function() onTap;
+  final int currentIndex;
+
 
   @override
   Widget build(BuildContext context) {
@@ -95,41 +102,34 @@ class RaceCardModel extends StatelessWidget {
               ),
               Spacer(),
               InkWell(
-                onTap: () {
-                  iconController.toggleButton();
-                },
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  border:Border.all(
-                    color: primaryColor, // Border color
-                    width: 2.0, // Border width
+                onTap: onTap,
+                child: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: primaryColor,
+                      width: 2.0,
+                    ),
                   ),
-                ),
-                child: Obx(() {
-                  return iconController.isPressed.value
-                      ? Container(
-                    color: secondaryColor, // Change to your desired color
-                    child: Center(
-                      child: Icon(
-                        Icons.done,
-                        color: Colors
-                            .white, // Change to your desired color
+                  child: iconController.selectedIndices == currentIndex
+                        ? Container(
+                      color: secondaryColor,
+                      child: Center(
+                        child: Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  )
-                      : Container(
-                    child: Center(
-                      child: IconButton(
-                        onPressed: () {
-                          iconController.toggleButton();
-                        },
-                        icon: Icon(Icons.add),
+                    )
+                        : Container(
+                      child: Center(
+                        child: IconButton(
+                          onPressed: onTap,
+                          icon: Icon(Icons.add),
+                        ),
                       ),
-                    ),
-                  );
-                }),
+                  ),
                 ),
               )
             ],

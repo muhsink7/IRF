@@ -344,16 +344,53 @@ class BettingScreen extends GetWidget<BettingController> {
                         weightCarry: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].weight.toString() ?? "N/A",
                         allowance: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].allowance.toString() ?? "N/A",
                         rating: controller.tournament.races[controller.selectedMainTabIndex][controller.selectedSubTabIndex].details[index].rating.toString() ?? "N/A",
-                        jockeyDress: null,
+                        jockeyDress: null, onTap: () {
+                          controller.toggleButton(index);
+                      }, currentIndex: index,
                       );
                     },
                   ),
                 ),
 
+                // if (controller.isPressed.value)
+                //   Container(
+                //     child: Column(
+                //       children: [
+                //         Text('Selected Horse Number: ${controller.selectedIndex + 1}'),
+                //         // Add your text field here to enter the amount
+                //       ],
+                //     ),
+                //   ),
 
-                SizedBox(
-                  height: 50.0,
-                ),
+                Obx(() {
+                  return controller.selectedIndices.isEmpty
+                      ? SizedBox.shrink()
+                      : Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      color: Colors.white, // Set your desired background color
+                      height: Get.height * 0.15, // Set your desired height
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text('Selected Horse Numbers:'),
+                          for (int selectedIndex in controller.selectedIndices)
+                            Row(
+                              children: [
+                                Text('${selectedIndex + 1}'),
+                                Text(', '),
+                                // SizedBox(width: 10), // Add space between numbers
+                              ],
+                            ),
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+
+
 
                 ElevatedButton(
                     onPressed: () {

@@ -40,6 +40,7 @@ class HomeController extends GetxController {
   ];
   bool isLoading = false;
 
+
   @override
   void onInit() {
     // TODO: implement onInit
